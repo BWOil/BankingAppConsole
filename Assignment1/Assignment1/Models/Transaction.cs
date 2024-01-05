@@ -12,4 +12,3 @@ namespace Assignment1.Models
 		public DateTime TransactionTimeUtc { get; set; }
 	}
 }
-

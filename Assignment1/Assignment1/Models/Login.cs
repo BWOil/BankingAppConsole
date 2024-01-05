@@ -8,4 +8,3 @@ namespace Assignment1.Models
 		public string PasswordHash { get; set; }
 	}
 }
-
