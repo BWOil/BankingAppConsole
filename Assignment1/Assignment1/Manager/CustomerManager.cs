@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Data;
+using Assignment1.Models;
+using Assignment1.Utilities;
 using Microsoft.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assignment1.Manager
 {
+
 	public class CustomerManager
 	{
         private readonly string _connectionString;
+
+        public CustomerManager()
+        {
+        }
 
         public CustomerManager(string connectionString)
         {
