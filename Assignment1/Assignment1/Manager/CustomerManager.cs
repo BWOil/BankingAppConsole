@@ -12,10 +12,6 @@ namespace Assignment1.Manager
 	{
         private readonly string _connectionString;
 
-        public CustomerManager()
-        {
-        }
-
         public CustomerManager(string connectionString)
         {
             _connectionString = connectionString;
@@ -41,6 +37,7 @@ namespace Assignment1.Manager
         public List<Customer> GetCustomersAndAddress()
         {
             using var connection = new SqlConnection(_connectionString);
+
 
 
             using var command = connection.CreateCommand();

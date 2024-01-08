@@ -1,39 +1,25 @@
 ﻿<Properties StartupConfiguration="{A1F7AED8-CFA3-4C14-B5B9-CE0D49AAB7DC}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assignment1/Services/CustomerWebService.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assignment1 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assignment1/Program.cs">
     <Files>
-      <File FileName="Assignment1/Program.cs" />
-      <File FileName="Assignment1/Manager/DatabaseManager.cs" />
-      <File FileName="Assignment1/Models/Customer.cs" />
-      <File FileName="Assignment1/Models/Account.cs" />
-      <File FileName="Assignment1/Models/Transaction.cs" />
-      <File FileName="Assignment1/Models/Login.cs" />
-      <File FileName="Assignment1/Services/CustomerWebService.cs" Line="21" Column="1" />
-      <File FileName="Assignment1/Manager/CustomerManager.cs" />
-      <File FileName="Assignment1/Manager/AccountManager.cs" />
-      <File FileName="Assignment1/Manager/TransactionManager.cs" />
-      <File FileName="Assignment1/Utilities/MiscellaneousUtilities.cs" />
-      <File FileName="Assignment1/appsettings.json" />
-      <File FileName="Assignment1/CustomerManager.cs" />
+      <File FileName="Assignment1/Program.cs" Line="23" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Assignment1">
-            <Node name="Assignment1" expanded="True">
-              <Node name="Services" expanded="True">
-                <Node name="CustomerWebService.cs" selected="True" />
-              </Node>
+          <Node name="Assignment1" selected="True">
+            <Node name="Assignment1">
+              <Node name="Dependencies" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Assignment1 PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
 </Properties>
