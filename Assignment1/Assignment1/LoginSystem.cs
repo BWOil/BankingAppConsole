@@ -39,10 +39,7 @@ namespace Assignment1
                             ApplyTextColour.GreenText("\n\nLogin successfully!\n");
                             return customer;
                         }
-                        else
-                        {
-                            ApplyTextColour.RedText("\n\nInvalid password. Please try again!\n");
-                        }
+    
 
                         break;
                     }
@@ -74,9 +71,20 @@ namespace Assignment1
         private bool VerifyPassword(Customer customer)
         {
             var passwordHash = customer.Login.PasswordHash;
-            Console.Write("Enter Password: ");
-            var password = ReadPassword();
-            return new SimpleHash().Verify(password, passwordHash);
+            var inputPassword = true;
+            while (inputPassword)
+            {
+                Console.Write("Enter Password: ");
+                var password = ReadPassword();
+                if (new SimpleHash().Verify(password, passwordHash))
+                {
+                    return true;
+                }
+                ApplyTextColour.RedText("\nInvalid password. Please try again!\n\n");
+
+            }
+            
+            return false;
         }
 
         private string ReadPassword()
