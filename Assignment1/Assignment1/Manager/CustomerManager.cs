@@ -29,7 +29,7 @@ namespace Assignment1.Manager
             var count = (int)command.ExecuteScalar();
 
             // Print the count to the console for verification
-            Console.WriteLine($"Number of customers in the database: {count}");
+            //Console.WriteLine($"Number of customers in the database: {count}");
 
             return count > 0;
         }
