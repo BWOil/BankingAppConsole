@@ -10,8 +10,6 @@ using Microsoft.Extensions.Configuration;
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
 var connectionString = configuration.GetConnectionString(nameof(Assignment1));
-// OR
-//var connectionString = configuration.GetConnectionString("WebServiceAndDatabaseExample");
 
 //DatabaseManager.CreateTables(connectionString);
 
@@ -22,6 +20,6 @@ var loginManager = new LoginManager(connectionString);
 
 CustomerWebService.GetAndSaveCustomer(accountManager, customerManager, loginManager, transactionManager);
 
+var loginCustomer = new LoginSystem(customerManager).Run();
 
-LoginSystem.LoginMenu();
 //CustomerWebService.GetAndSavePeople(personManager, petManager, addressManager);

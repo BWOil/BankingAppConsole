@@ -28,7 +28,7 @@ namespace Assignment1.Manager
                 TransactionID = x.Field<int>("TransactionID"),
                 TransactionType = x.Field<string>("TransactionType"),
                 AccountNumber = accountNumber,
-                DestinationAccountNumber = x.Field<int>("DestinationAccountNumber"),
+                DestinationAccountNumber = x["DestinationAccountNumber"] == DBNull.Value ? null : (int)x["DestinationAccountNumber"],
                 Amount = x.Field<decimal>("Amount"),
                 Comment = x.Field<string>("Comment"),
                 TransactionTimeUtc = x.Field<DateTime>("TransactionTimeUtc")
