@@ -19,7 +19,7 @@ namespace Assignment1.Manager
         public List<Account> GetAccounts(int customerID)
         {
             using var connection = new SqlConnection(_connectionString);
-            
+
 
             using var command = connection.CreateCommand();
             command.CommandText = "select * from Account where CustomerID = @customerID";
@@ -72,4 +72,3 @@ namespace Assignment1.Manager
         }
     }
 }
-

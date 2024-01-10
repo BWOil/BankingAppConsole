@@ -37,7 +37,8 @@ namespace Assignment1.Manager
         public List<Customer> GetCustomersAndAddress()
         {
             using var connection = new SqlConnection(_connectionString);
-          
+
+
 
             using var command = connection.CreateCommand();
             command.CommandText = "select * from Customer";

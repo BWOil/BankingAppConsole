@@ -1,43 +1,85 @@
 ﻿using System;
 using SimpleHashing.Net;
+using Assignment1.Manager;
+using Assignment1.Models;
+using Assignment1.Utilities;
+
 namespace Assignment1
 {
-	public static class LoginSystem
+	public class LoginSystem
 	{
-        private static string passwordHash =
-"Rfc2898DeriveBytes$50000$" +
-"MrW2CQoJvjPMlynGLkGFrg==$x8iV0TiDbEXndl0Fg8V3Rw91j5f5nztWK1zu7eQa0EE=";
 
+        private readonly CustomerManager _customerManager;
 
-		public static void LoginMenu()
+        public LoginSystem(CustomerManager customerManager)
+        {
+            _customerManager = customerManager;
+        }
+
+		public Customer Run()
 		{
             var continueLogin = true;
+            var customerList = _customerManager.GetCustomersAndAddress();
+
             while (continueLogin)
             {
                 Console.Write("Enter Login ID: ");
                 var loginID = Console.ReadLine();
 
-                Console.Write("Enter Password: ");
-                var password = ReadPassword();
-                Console.WriteLine();
-                if (VerifyPassword(password))
+
+                // search for target customer
+                bool foundCustomer = false;
+                foreach (var customer in customerList)
                 {
-                    new Menu().Run();
-                    continueLogin = false;
+                    if (customer.Login.LoginID == loginID)
+                    {
+                        foundCustomer = true;
+                        if (VerifyPassword(customer))
+                        {
+                            ApplyTextColour.GreenText("\n\nLogin successfully!\n");
+                            return customer;
+                        }
+                        else
+                        {
+                            ApplyTextColour.RedText("\n\nInvalid password. Please try again!\n");
+                        }
+
+                        break;
+                    }
+                    
+                        
+
                 }
-                else
-                {
-                    Console.WriteLine("The password is incorrect. Please try again!");
-                }
+                if (!foundCustomer)
+                    ApplyTextColour.RedText("\nInvalid Login ID. Please try again!\n");
+
+
+
+
+                //Console.WriteLine();
+                //if (VerifyPassword(customer ))
+                //{
+                //    new Menu().Run();
+                //    continueLogin = false;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("The password is incorrect. Please try again!");
+                //}
             }
+
+            return null;
         }
 
-        private static bool VerifyPassword(string password)
+        private bool VerifyPassword(Customer customer)
         {
+            var passwordHash = customer.Login.PasswordHash;
+            Console.Write("Enter Password: ");
+            var password = ReadPassword();
             return new SimpleHash().Verify(password, passwordHash);
         }
 
-        private static string ReadPassword()
+        private string ReadPassword()
         {
             string password = "";
             ConsoleKeyInfo key;
@@ -59,4 +101,3 @@ namespace Assignment1
 
     }
 }
-

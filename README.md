@@ -7,7 +7,7 @@
 - DTO - models
 - Facade - Managers
 - Menu option - Factory
-  
+
 ### Class Library Justification
 ### Await and Async
 ### Trello Board Screenshots

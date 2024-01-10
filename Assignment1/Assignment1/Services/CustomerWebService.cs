@@ -31,7 +31,7 @@ namespace Assignment1.Services
             // Insert into database.
             foreach (var customer in customers)
             {
-                
+
                     // Insert customer
                     customerManager.InsertCustomer(customer);
 
@@ -51,8 +51,8 @@ namespace Assignment1.Services
                             transactionManager.InsertTransaction(transaction);
                         }
                     }
-                
-                
+
+
             }
         }
 
@@ -64,4 +64,3 @@ namespace Assignment1.Services
 
 
 }
-
