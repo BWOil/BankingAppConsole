@@ -38,14 +38,14 @@ namespace Assignment1
                         foundCustomer = true;
                         if (VerifyPassword(customer))
                         {
-                            ApplyTextColour.GreenText("\n\nLogin successfully!\n");
+                            ApplyTextColour.GreenText("\nLogin successfully!\n");
                             return customer;
                         }
                         break;
                     }                              
                 }
                 if (!foundCustomer)
-                    ApplyTextColour.RedText("\nInvalid Login ID. Please try again!\n");
+                    ApplyTextColour.RedText("Invalid Login ID. Please try again!\n");
 
             }
 

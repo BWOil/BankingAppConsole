@@ -18,6 +18,8 @@ namespace Assignment1.Utilities
         }
 
         public static object GetObjectOrDbNull(this object value) => value ?? DBNull.Value;
+
+        public static bool IsInRange(this int value, int min, int max) => value >= min && value <= max;
     }
 }
 
