@@ -45,6 +45,7 @@ namespace Assignment1
                         break;
                     case 2:
                         Console.WriteLine("Withdraw Money\n");
+                        Withdraw();
                         break;
                     case 3:
                         Console.WriteLine("Transfer Money\n");
@@ -106,7 +107,7 @@ namespace Assignment1
             // Display selected account details
             Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
                 $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}\n" +
-                $"Available Balance: ${selectedAccount.Balance}\n");
+                $" Available Balance: ${selectedAccount.Balance}\n");
 
             Console.Write("Enter deposit amount: ");
             if (!decimal.TryParse(Console.ReadLine(), out var amount) || amount <= 0)
@@ -128,6 +129,56 @@ namespace Assignment1
 
             DisplayAccountsWithIndex(accounts);
         }
+
+        private void Withdraw()
+        {
+            var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+            if (accounts.Count == 0)
+            {
+                Console.WriteLine("No accounts available.");
+                return;
+            }
+
+            DisplayAccountsWithIndex(accounts);
+            Console.Write("Select an account to withdraw from by number: ");
+            if (!int.TryParse(Console.ReadLine(), out var accountIndex) || accountIndex < 1 || accountIndex > accounts.Count)
+            {
+                Console.WriteLine("Invalid selection.");
+                return;
+            }
+
+            var selectedAccount = accounts[accountIndex - 1];
+            // Display selected account details
+            Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
+                $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}");
+
+            Console.Write("Enter withdrawal amount: ");
+            if (!decimal.TryParse(Console.ReadLine(), out var amount) || amount <= 0)
+            {
+                Console.WriteLine("Invalid amount.");
+                return;
+            }
+
+            if (amount > selectedAccount.Balance)
+            {
+                Console.WriteLine("Insufficient funds.");
+                return;
+            }
+
+            Console.Write("Enter comment (max length 30): ");
+            var comment = Console.ReadLine();
+            if (comment.Length > 30)
+            {
+                Console.WriteLine("Comment too long.");
+                return;
+            }
+
+            _accountManager.Withdraw(selectedAccount, amount, comment);
+            Console.WriteLine($"Withdrawal of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+
+            DisplayAccountsWithIndex(accounts);
+        }
+
 
         private void DisplayAccountsWithIndex(List<Account> accounts)
         {

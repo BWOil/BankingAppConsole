@@ -37,7 +37,7 @@ namespace Assignment1.Manager
 
         public void InsertTransaction(Transaction transaction)
         {
-            var transactionType = "D";
+            
 
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -47,7 +47,7 @@ namespace Assignment1.Manager
                 "insert into [Transaction] (TransactionType, AccountNumber, Amount, Comment, TransactionTimeUtc) values (@TransactionType,@AccountNumber, @Amount, @Comment, @TransactionTimeUtc)";
 
 
-            command.Parameters.AddWithValue("TransactionType", transactionType);
+            command.Parameters.AddWithValue("TransactionType", transaction.TransactionType);
             command.Parameters.AddWithValue("AccountNumber", transaction.AccountNumber);
             command.Parameters.AddWithValue("Amount", transaction.Amount);
             command.Parameters.AddWithValue("Comment", transaction.Comment.GetObjectOrDbNull());

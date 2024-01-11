@@ -91,6 +91,31 @@ namespace Assignment1.Manager
             _transactionManager.InsertTransaction(transaction); // Correct call to insert transaction
         }
 
+        public void Withdraw(Account account, decimal amount, string comment)
+        {
+            // Check for sufficient balance
+            if (account.Balance < amount)
+            {
+                throw new InvalidOperationException("Insufficient funds for withdrawal.");
+            }
+
+            var transaction = new Models.Transaction
+            {
+                AccountNumber = account.AccountNumber,
+                Amount = amount, // Keep it positive as per the database constraint
+                Comment = comment,
+                TransactionType = "W", // "W" for Withdraw
+                TransactionTimeUtc = DateTime.UtcNow
+            };
+
+            account.Transactions.Add(transaction);
+            account.Balance -= amount; // Subtract from balance
+            UpdateAccount(account);
+            _transactionManager.InsertTransaction(transaction);
+        }
+
+
+
 
 
         public void UpdateAccount(Account account)
