@@ -89,6 +89,7 @@ namespace Assignment1
                 }
             } while (key.Key != ConsoleKey.Enter);
             password.MakeReadOnly();
+
             Console.WriteLine(); // Move to the next line after the password has been entered
             return password;
         }
