@@ -10,11 +10,13 @@ namespace Assignment1
 	{
         private readonly Customer _customer;
         private CustomerManager _customerManager;
+        private readonly AccountManager _accountManager;
 
-        public Menu(Customer customer, CustomerManager customerManager)
+        public Menu(Customer customer, CustomerManager customerManager, AccountManager accountManager)
 		{
             _customer = customer;
             _customerManager = customerManager;
+            _accountManager = accountManager;
         }
 
         public void Run()
@@ -38,6 +40,25 @@ namespace Assignment1
                 {
                     case 1:
                         Console.WriteLine("Deposit Money\n");
+                        DisplayAccount();
+                        Console.Write("Select an account: ");
+                        var depositInput = Console.ReadLine();
+                        Console.WriteLine();
+                        // show selected deposit account
+
+
+                        // add amount
+                        Console.Write("Enter amount: ");
+                        var depositamount = Console.ReadLine();
+
+                        // add comment
+                        Console.Write("Enter comment (n to quit, mac length 30): ");
+                        var comment = Console.ReadLine();
+
+                        //print
+                        Console.WriteLine(
+                            """Withdraw of $ {depositamount} successful, account balance is now {balance}"""
+                                );
                         break;
                     case 2:
                         Console.WriteLine("Withdraw Money\n");
@@ -78,6 +99,28 @@ namespace Assignment1
 
             """);
         }
+
+        private void DisplayAccount()
+        {
+            // Assuming Format is "No | Account Type | Account Number | Balance"
+            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
+
+            Console.WriteLine("--- Accounts ---");
+            Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
+            Console.WriteLine(new string('-', 60));
+
+            // Assuming _accountManager.GetAccounts() returns a list of accounts
+            var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
+
+            int accountNo = 1;
+            foreach (var account in accounts)
+            {
+                Console.WriteLine(Format, accountNo, account.AccountType, account.AccountNumber, account.Balance);
+                accountNo++;
+            }
+            Console.WriteLine();
+        }
+
     }
 }
 
