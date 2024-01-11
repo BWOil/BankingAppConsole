@@ -29,7 +29,7 @@ namespace Assignment1.Manager
             var count = (int)command.ExecuteScalar();
 
             // Print the count to the console for verification
-            Console.WriteLine($"Number of customers in the database: {count}");
+            //Console.WriteLine($"Number of customers in the database: {count}");
 
             return count > 0;
         }
@@ -42,10 +42,25 @@ namespace Assignment1.Manager
             using var command = connection.CreateCommand();
             command.CommandText = "select * from Customer";
 
+
+            return ReturnCustomerList(command);
+
+        }
+
+        public Customer GetCustromerByID(int customerID)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            using var command = connection.CreateCommand();
+            command.CommandText = "select * from Customer where CustomerID = @customerID";
+            command.Parameters.AddWithValue("customerID", customerID);
+            return ReturnCustomerList(command)[0];
+        }
+
+        private List<Customer> ReturnCustomerList(SqlCommand command)
+        {
+
             var accountManager = new AccountManager(_connectionString);
             var loginManager = new LoginManager(_connectionString);
-
-
             return command.GetDataTable().Select().Select(x => new Customer
             {
                 CustomerID = x.Field<int>("CustomerID"),
@@ -55,7 +70,6 @@ namespace Assignment1.Manager
                 PostCode = x.Field<string>("PostCode"),
                 Accounts = accountManager.GetAccounts(x.Field<int>("CustomerID")),
                 Login = loginManager.GetLogin(x.Field<int>("CustomerID"))[0]
-
 
             }).ToList();
         }

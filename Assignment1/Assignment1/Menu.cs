@@ -8,7 +8,7 @@ namespace Assignment1
 {
 	public class Menu
 	{
-        private readonly Customer _customer;
+        private readonly Customer _customer;  // to be edit for read only
         private CustomerManager _customerManager;
         private TransactionManager _transactionManager;
         private readonly AccountManager _accountManager;
@@ -98,14 +98,29 @@ namespace Assignment1
         private void DisplayMyStatement()
         {
             Console.WriteLine("My Statement\n");
+            // ----------- add the account menu
             var allAccounts = _customer.Accounts;
-            int option = handleSelection("Select an account: ", 2);
-            var currentAccount = allAccounts[option];
-            Console.WriteLine(currentAccount.AccountNumber);
-            var transactionList = _transactionManager.GetTransactionsByAccountNumber(currentAccount.AccountNumber);
-            Console.WriteLine(transactionList.Count);
+            int option = handleSelection("Select an account: ", allAccounts.Count);
+            var currentAccount = allAccounts[option - 1];
+            DisplayAccountAndTransationList(currentAccount);
+
+            //Console.WriteLine(currentAccountNumber);
+            //var transactionList = _transactionManager.GetTransactionsByAccountNumber(currentAccountNumber);
+            //Console.WriteLine(transactionList.Count);
 
         }
+
+        private void DisplayAccountAndTransationList(Account account)
+        {
+            string accountType = account.AccountType == "S" ? "Savings" : "Checking";
+            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}");
+            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3}";
+        }
+
+        //private void UpdateCurrentCustomer()
+        //{
+        //    _customer = _customerManager.GetCustromerByID(_customer.CustomerID);
+        //}
 
 
 

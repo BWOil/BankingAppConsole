@@ -24,8 +24,6 @@ namespace Assignment1.Manager
             using var command = connection.CreateCommand();
             command.CommandText = "select * from Account where CustomerID = @customerID";
             command.Parameters.AddWithValue("customerID", customerID);
-            // OR
-            // command.Parameters.AddWithValue(nameof(personID), personID);
 
             var transactionManager = new TransactionManager(_connectionString);
 
