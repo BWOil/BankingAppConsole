@@ -35,7 +35,7 @@ namespace Assignment1.Manager
                 AccountType = x.Field<string>("AccountType"),
                 CustomerID = customerID,
                 Balance = x.Field<decimal>("Balance"),
-                Transactions = transactionManager.GetTransactions(x.Field<int>("AccountNumber"))
+                Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
 
             }).ToList();
         }
