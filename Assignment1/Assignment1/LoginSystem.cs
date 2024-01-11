@@ -3,6 +3,8 @@ using SimpleHashing.Net;
 using Assignment1.Manager;
 using Assignment1.Models;
 using Assignment1.Utilities;
+using System.Security;
+using System.Runtime.InteropServices;
 
 namespace Assignment1
 {
@@ -39,30 +41,12 @@ namespace Assignment1
                             ApplyTextColour.GreenText("\n\nLogin successfully!\n");
                             return customer;
                         }
-    
-
                         break;
-                    }
-                    
-                        
-
+                    }                              
                 }
                 if (!foundCustomer)
                     ApplyTextColour.RedText("\nInvalid Login ID. Please try again!\n");
 
-
-
-
-                //Console.WriteLine();
-                //if (VerifyPassword(customer ))
-                //{
-                //    new Menu().Run();
-                //    continueLogin = false;
-                //}
-                //else
-                //{
-                //    Console.WriteLine("The password is incorrect. Please try again!");
-                //}
             }
 
             return null;
@@ -75,21 +59,23 @@ namespace Assignment1
             while (inputPassword)
             {
                 Console.Write("Enter Password: ");
-                var password = ReadPassword();
-                if (new SimpleHash().Verify(password, passwordHash))
+                using (var password = ReadPassword())
                 {
-                    return true;
+                    if (new SimpleHash().Verify(ConvertToString(password), passwordHash))
+                    {
+                        return true;
+                    }
+                    ApplyTextColour.RedText("Invalid password. Please try again!\n");
                 }
-                ApplyTextColour.RedText("\nInvalid password. Please try again!\n\n");
-
             }
             
             return false;
         }
 
-        private string ReadPassword()
+        private SecureString ReadPassword()
         {
-            string password = "";
+            // Instantiate the secure string.
+            SecureString password = new SecureString();
             ConsoleKeyInfo key;
 
             do
@@ -97,15 +83,29 @@ namespace Assignment1
                 key = Console.ReadKey(true); // intercept the key
                 if (key.Key != ConsoleKey.Enter)
                 {
-                    password += key.KeyChar;
+                    // Append the character to the password.
+                    password.AppendChar(key.KeyChar);
                     Console.Write("*");
                 }
             } while (key.Key != ConsoleKey.Enter);
-
-
+            password.MakeReadOnly();
 
             Console.WriteLine(); // Move to the next line after the password has been entered
             return password;
+        }
+
+        private static string ConvertToString(SecureString secureString)
+        {
+            IntPtr unmanagedString = IntPtr.Zero;
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+            }
         }
 
 
