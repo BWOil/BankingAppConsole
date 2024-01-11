@@ -80,7 +80,7 @@ namespace Assignment1
             int option = handleSelection("Select an account: ", 2);
             var currentAccount = allAccounts[option];
             Console.WriteLine(currentAccount.AccountNumber);
-            var transactionList = _transactionManager.GetTransactions(currentAccount.AccountNumber);
+            var transactionList = _transactionManager.GetTransactionsByAccountNumber(currentAccount.AccountNumber);
             Console.WriteLine(transactionList.Count);
 
         }
