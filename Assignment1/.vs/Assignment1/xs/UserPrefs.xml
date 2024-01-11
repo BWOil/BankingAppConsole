@@ -1,0 +1,47 @@
+﻿<Properties StartupConfiguration="{A1F7AED8-CFA3-4C14-B5B9-CE0D49AAB7DC}|Default">
+  <MonoDevelop.Ide.ItemProperties.Assignment1 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../../usr/local/share/dotnet/sdk/8.0.100/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.GenerateGlobalUsings.targets">
+    <Files>
+      <File FileName="Assignment1/Manager/AccountManager.cs" Line="138" Column="1" />
+      <File FileName="Assignment1/Manager/CustomerManager.cs" Line="106" Column="1" />
+      <File FileName="Assignment1/LoginSystem.cs" Line="40" Column="1" />
+      <File FileName="Assignment1/Models/Transaction.cs" Line="4" Column="2" />
+      <File FileName="Assignment1/Manager/TransactionManager.cs" Line="22" Column="1" />
+      <File FileName="Assignment1/Models/Login.cs" Line="4" Column="2" />
+      <File FileName="Assignment1/Models/Customer.cs" Line="16" Column="1" />
+      <File FileName="Assignment1/Models/Account.cs" Line="17" Column="1" />
+      <File FileName="Assignment1/Manager/DatabaseManager.cs" Line="1" Column="1" />
+      <File FileName="Assignment1/Manager/LoginManager.cs" Line="32" Column="25" />
+      <File FileName="Assignment1/Utilities/MiscellaneousUtilities.cs" />
+      <File FileName="Assignment1/Services/CustomerWebService.cs" Line="38" Column="35" />
+      <File FileName="Assignment1/Program.cs" Line="28" Column="1" />
+      <File FileName="Assignment1/appsettings.json" Line="1" Column="1" />
+      <File FileName="Assignment1/Assignment1.csproj" />
+      <File FileName="Assignment1/Sql/CreateTables.sql" Line="22" Column="21" />
+      <File FileName="Assignment1/Menu.cs" Line="116" Column="1" />
+      <File FileName="../../../../../../usr/local/share/dotnet/sdk/8.0.100/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.GenerateGlobalUsings.targets" Line="45" Column="5" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Assignment1">
+            <Node name="Assignment1">
+              <Node name="Manager" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
+              <Node name="Sql" expanded="True" />
+              <Node name="Utilities" expanded="True" />
+              <Node name="LoginSystem.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
