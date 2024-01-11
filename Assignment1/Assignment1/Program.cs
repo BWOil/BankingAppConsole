@@ -16,4 +16,5 @@ var loginManager = new LoginManager(connectionString);
 CustomerWebService.GetAndSaveCustomer(accountManager, customerManager, loginManager, transactionManager);
 
 var loginCustomer = new LoginSystem(customerManager).Run();
-new Menu(loginCustomer, customerManager, transactionManager).Run();
+new Menu(loginCustomer, customerManager, transactionManager, accountManager).Run();
+

@@ -21,7 +21,7 @@ namespace Assignment1
 		public Customer Run()
 		{
             var continueLogin = true;
-            var customerList = _customerManager.GetCustomersAndAddress();
+            var customerList = _customerManager.GetCustomers();
 
             while (continueLogin)
             {
