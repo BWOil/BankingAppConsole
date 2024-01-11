@@ -36,7 +36,7 @@ namespace Assignment1
                         foundCustomer = true;
                         if (VerifyPassword(customer))
                         {
-                            ApplyTextColour.GreenText("\n\nLogin successfully!\n");
+                            ApplyTextColour.GreenText("\nLogin successfully!\n");
                             return customer;
                         }
     
@@ -48,7 +48,7 @@ namespace Assignment1
 
                 }
                 if (!foundCustomer)
-                    ApplyTextColour.RedText("\nInvalid Login ID. Please try again!\n");
+                    ApplyTextColour.RedText("Invalid Login ID. Please try again!\n");
 
 
 
@@ -80,7 +80,7 @@ namespace Assignment1
                 {
                     return true;
                 }
-                ApplyTextColour.RedText("\nInvalid password. Please try again!\n\n");
+                ApplyTextColour.RedText("Invalid password. Please try again!\n");
 
             }
             
