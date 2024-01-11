@@ -3,7 +3,6 @@ using System.Data;
 using Assignment1.Models;
 using Assignment1.Utilities;
 using Microsoft.Data.SqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assignment1.Manager
 {
