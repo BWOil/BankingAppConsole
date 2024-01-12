@@ -24,28 +24,33 @@ namespace Assignment1
 
         }
 
+        public enum TransactionType
+        {
+            Deposit,
+            Withdraw,
+            Transfer,
+            ServiceCharge
+        }
+
+
         public void Run()
         {
             var menuOn = true;
-
-            while(menuOn)
+            while (menuOn)
             {
                 PrintMenu();
                 int option = HandleInput.HandleSelection("Enter an option: ", 6);
-
                 switch (option)
                 {
                     case 1:
-                        Console.WriteLine("Deposit Money\n");
-                        Deposit();
-
+                        ProcessTransaction(TransactionType.Deposit);
                         break;
                     case 2:
-                        Console.WriteLine("Withdraw Money\n");
-                        Withdraw();
+                        ProcessTransaction(TransactionType.Withdraw);
                         break;
                     case 3:
                         Console.WriteLine("Transfer Money\n");
+                        // Add transfer functionality here if needed
                         break;
                     case 4:
                         DisplayMyStatement();
@@ -56,14 +61,41 @@ namespace Assignment1
                     case 6:
                         Console.WriteLine("exit\n");
                         ApplyTextColour.BlueText("Good bye!\n");
-
                         break;
                     default:
                         throw new UnreachableException();
-
                 }
             }
-            
+        }
+
+        private void ProcessTransaction(TransactionType transactionType)
+        {
+            var operation = transactionType.ToString();
+            Console.WriteLine($"{operation} Money\n");
+
+            var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+            if (accounts.Count == 0)
+            {
+                Console.WriteLine("No accounts available.");
+                return;
+            }
+
+            DisplayAccountsWithIndex(accounts);
+            int accountIndex = HandleInput.HandleSelection("Select an account: ", accounts.Count);
+            var selectedAccount = accounts[accountIndex - 1];
+
+            AccountUtilities.PrintAccountDetails(selectedAccount);
+            decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
+                                                           "Invalid amount. Please enter a number greater than $0.01.");
+            if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > selectedAccount.Balance))
+            {
+                Console.WriteLine(transactionType == TransactionType.Withdraw ? "Insufficient funds." : "Invalid amount.");
+                return;
+            }
+
+            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
+            AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
+            Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance}.");
         }
 
         private void PrintMenu()
@@ -171,65 +203,77 @@ namespace Assignment1
             Console.WriteLine();
         }
 
-
-        private void Deposit()
+        public static string GetTransactionCode(TransactionType transactionType)
         {
-            var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-            if (accounts.Count == 0)
+            return transactionType switch
             {
-                Console.WriteLine("No accounts available.");
-                return;
-            }
-            DisplayAccountsWithIndex(accounts);
-
-            int accountIndex = HandleInput.HandleSelection("Select an account to deposit by number: ", accounts.Count);
-            var selectedAccount = accounts[accountIndex - 1];
-
-            PrintSelectedAccountDetails(selectedAccount);
-
-            decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
-            if (amount < 0.01m)
-            {
-                return;
-            }
-
-            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
-
-            _accountManager.Deposit(selectedAccount, amount, comment);
-            Console.WriteLine($"Deposit of ${amount} successful. New balance is ${selectedAccount.Balance}.");
-
-            DisplayAccountsWithIndex(accounts);
+                TransactionType.Deposit => "D",
+                TransactionType.Withdraw => "W",
+                TransactionType.Transfer => "T",
+                TransactionType.ServiceCharge => "S",
+                _ => throw new ArgumentOutOfRangeException(nameof(transactionType), transactionType, null)
+            };
         }
 
-        private void Withdraw()
-        {
-            var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-            if (accounts.Count == 0)
-            {
-                Console.WriteLine("No accounts available.");
-                return;
-            }
 
-            DisplayAccountsWithIndex(accounts);
-            int accountIndex = HandleInput.HandleSelection("Select an account to withdraw from by number: ", accounts.Count);
-            var selectedAccount = accounts[accountIndex - 1];
+        //private void Deposit()
+        //{
+        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+        //    if (accounts.Count == 0)
+        //    {
+        //        Console.WriteLine("No accounts available.");
+        //        return;
+        //    }
+        //    DisplayAccountsWithIndex(accounts);
 
-            PrintSelectedAccountDetails(selectedAccount);
+        //    int accountIndex = HandleInput.HandleSelection("Select an account to deposit by number: ", accounts.Count);
+        //    var selectedAccount = accounts[accountIndex - 1];
 
-            decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
-            if (amount < 0.01m || amount > selectedAccount.Balance)
-            {
-                Console.WriteLine(amount > selectedAccount.Balance ? "Insufficient funds." : "Invalid amount.");
-                return;
-            }
+        //    PrintSelectedAccountDetails(selectedAccount);
 
-            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
+        //    decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
+        //    if (amount < 0.01m)
+        //    {
+        //        return;
+        //    }
 
-            _accountManager.Withdraw(selectedAccount, amount, comment);
-            Console.WriteLine($"Withdrawal of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+        //    string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
 
-            DisplayAccountsWithIndex(accounts);
-        }
+        //    _accountManager.Deposit(selectedAccount, amount, comment);
+        //    Console.WriteLine($"Deposit of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+
+        //    DisplayAccountsWithIndex(accounts);
+        //}
+
+        //private void Withdraw()
+        //{
+        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+        //    if (accounts.Count == 0)
+        //    {
+        //        Console.WriteLine("No accounts available.");
+        //        return;
+        //    }
+
+        //    DisplayAccountsWithIndex(accounts);
+        //    int accountIndex = HandleInput.HandleSelection("Select an account to withdraw from by number: ", accounts.Count);
+        //    var selectedAccount = accounts[accountIndex - 1];
+
+        //    PrintSelectedAccountDetails(selectedAccount);
+
+        //    decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
+        //    if (amount < 0.01m || amount > selectedAccount.Balance)
+        //    {
+        //        Console.WriteLine(amount > selectedAccount.Balance ? "Insufficient funds." : "Invalid amount.");
+        //        return;
+        //    }
+
+        //    string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
+
+        //    _accountManager.Withdraw(selectedAccount, amount, comment);
+        //    Console.WriteLine($"Withdrawal of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+
+        //    DisplayAccountsWithIndex(accounts);
+        //}
 
 
 
