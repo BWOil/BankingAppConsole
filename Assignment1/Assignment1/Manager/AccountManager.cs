@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Transactions;
 using Assignment1.Models;
 using Assignment1.Utilities;
 using Microsoft.Data.SqlClient;
@@ -10,10 +11,12 @@ namespace Assignment1.Manager
     {
 
         private readonly string _connectionString;
+        private readonly TransactionManager _transactionManager;
 
         public AccountManager(string connectionString)
         {
             _connectionString = connectionString;
+            _transactionManager = new TransactionManager(connectionString);
         }
 
         public List<Account> GetAccounts(int customerID)
@@ -67,6 +70,69 @@ namespace Assignment1.Manager
             return balance;
 
 
+        }
+
+        public void Deposit(Account account, decimal amount, string comment)
+        {
+            var transaction = new Models.Transaction
+            {
+                AccountNumber = account.AccountNumber,
+                Amount = amount,
+                Comment = comment,
+                TransactionType = "D", // "D" for Deposit
+                TransactionTimeUtc = DateTime.UtcNow
+            };
+            account.Transactions.Add(transaction);
+            account.Balance += amount;
+            UpdateAccount(account);
+            _transactionManager.InsertTransaction(transaction); // Correct call to insert transaction
+        }
+
+        public void Withdraw(Account account, decimal amount, string comment)
+        {
+            // Check for sufficient balance
+            if (account.Balance < amount)
+            {
+                throw new InvalidOperationException("Insufficient funds for withdrawal.");
+            }
+
+            var transaction = new Models.Transaction
+            {
+                AccountNumber = account.AccountNumber,
+                Amount = amount, // Keep it positive as per the database constraint
+                Comment = comment,
+                TransactionType = "W", // "W" for Withdraw
+                TransactionTimeUtc = DateTime.UtcNow
+            };
+
+            account.Transactions.Add(transaction);
+            account.Balance -= amount; // Subtract from balance
+            UpdateAccount(account);
+            _transactionManager.InsertTransaction(transaction);
+        }
+
+
+        public void UpdateAccount(Account account)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+            using var command = connection.CreateCommand();
+            command.CommandText =
+                "update Account set Balance = @Balance where AccountNumber = @AccountNumber";
+            Console.WriteLine(account.AccountNumber);
+            Console.WriteLine(account.Balance);
+            command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
+            command.Parameters.AddWithValue("Balance", account.Balance);
+            command.ExecuteNonQuery();
+            try
+            {
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"Rows affected: {rowsAffected}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating account: {ex.Message}");
+            }
         }
     }
 }
