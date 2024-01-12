@@ -122,9 +122,10 @@ namespace Assignment1
 
             int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
             var currentAccount = allAccounts[option - 1];
+            
             DisplayAccountAndTransationList(currentAccount);
 
-
+            Console.WriteLine("");
 
             //Console.WriteLine(currentAccountNumber);
             
@@ -135,17 +136,43 @@ namespace Assignment1
         private void DisplayAccountAndTransationList(Account account)
         {
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
-            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3, -20} | {4, -25} | {5}";
-            var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
-            Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-            Console.WriteLine(new string('-', 120));
-            foreach (var transaction in transactionList)
+            bool paginationOn = true;
+            int page = 1;
+            while (paginationOn)
             {
+                Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
+                const string Format = "{0,-5} | {1,-18} | {2,-15} | {3, -15} | {4, -20} | {5}";
                 
-                Console.WriteLine(Format, transaction.TransactionID, transaction.TransactionType, transaction.DestinationAccountNumber == null ? transaction.DestinationAccountNumber : "N/A", transaction.Amount, transaction.TransactionTimeUtc, transaction.Comment);
+                var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
+                Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
+                Console.WriteLine(new string('-', 120));
+                int listLength = transactionList.Count();
+                int totalPage = (int)Math.Ceiling(listLength / 4.0);
+                
+                int pageStart = page == 1 ? 0 : (page - 1) * 4;
+                int pageEnd = pageStart + 3  < listLength - 1 ? pageStart + 3 : listLength - 1;
+                //Console.WriteLine(pageEnd);
+                for (int i = pageStart; i <= pageEnd; i++)
+                {
+                    Console.WriteLine(Format, transactionList[i].TransactionID, transactionList[i].TransactionType, transactionList[i].DestinationAccountNumber == null ? transactionList[i].DestinationAccountNumber : "N/A", transactionList[i].Amount, transactionList[i].TransactionTimeUtc, transactionList[i].Comment);
+                }
+                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: n (next page) | p (previous page) | q (quit)");
+
+                string option = HandleInput.HandlePaginationInput("Enter an option: ", totalPage, page);
+                switch (option)
+                {
+                    case "n":
+                        page++;
+                        break;
+                    case "p":
+                        page--;
+                        break;
+                    case "q":
+                        return;
+                    default:
+                        throw new UnreachableException();
+                }
             }
-            Console.WriteLine();
         }
 
         //private void UpdateCurrentCustomer()

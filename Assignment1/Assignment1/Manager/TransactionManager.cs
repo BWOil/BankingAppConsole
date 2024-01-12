@@ -32,7 +32,7 @@ namespace Assignment1.Manager
             connection.Open();
 
             using var command = connection.CreateCommand();
-            command.CommandText = "select * from [Transaction] where AccountNumber = @accountNumber";
+            command.CommandText = "select * from [Transaction] where AccountNumber = @accountNumber order by TransactionTimeUtc DESC";
             command.Parameters.AddWithValue("accountNumber", accountNumber);
 
             return ReturnTransactionList(command);

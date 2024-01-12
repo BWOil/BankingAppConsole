@@ -61,5 +61,39 @@ namespace Assignment1.Utilities
             }
         }
 
+        public static string HandlePaginationInput(string prompt, int totalPages, int currentPage)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+
+
+                if (input == "n")
+                {
+                    int testPage = currentPage + 1;
+                    if (testPage <= totalPages)
+                        return input;
+                    else
+                        ApplyTextColour.RedText($"This is the last page.\n");
+                } else if (input == "p")
+                {
+                    int testPage = currentPage - 1;
+                    if (testPage > 0)
+                        return input;
+                    else
+                        ApplyTextColour.RedText($"This is the first page.\n");
+                } else if (input == "q")
+                {
+                    return input;
+                }
+
+                else
+                {
+                    ApplyTextColour.RedText($"Invalid input. Please try again\n");
+                }
+            }
+        }
+
     }
 }
