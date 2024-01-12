@@ -11,8 +11,8 @@
 ### Design Patterns
 
 - DTO - models
-- Facade - Managers
-- Menu option - Factory
+- Facade - Managers (Menu)
+- Dependency injection - each Manager (create interface)
 
 ### Class Library Justification
 

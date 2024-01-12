@@ -8,17 +8,19 @@ namespace Assignment1
 {
 	public class Menu
 	{
-        private readonly Customer _customer;
+        private readonly Customer _customer;  // to be edit for read only
         private CustomerManager _customerManager;
         private TransactionManager _transactionManager;
-        private readonly AccountManager _accountManager;
+        //private readonly AccountManager _accountManager;
 
-        public Menu(Customer customer, CustomerManager customerManager, TransactionManager transactionManager, AccountManager accountManager)
+        public Menu(Customer customer, CustomerManager customerManager, TransactionManager transactionManager
+            //AccountManager accountManager
+            )
 		{
             _customer = customer;
             _customerManager = customerManager;
             _transactionManager = transactionManager;
-            _accountManager = accountManager;
+            //_accountManager = accountManager;
 
         }
 
@@ -35,7 +37,7 @@ namespace Assignment1
                 {
                     case 1:
                         Console.WriteLine("Deposit Money\n");
-                        DisplayAccount();
+                        DisplayAccount("Account");
                         Console.Write("Select an account: ");
                         var depositInput = Console.ReadLine();
                         Console.WriteLine();
@@ -97,15 +99,43 @@ namespace Assignment1
 
         private void DisplayMyStatement()
         {
-            Console.WriteLine("My Statement\n");
+            //Console.WriteLine("My Statement\n");
+            // ----------- add the account menu
             var allAccounts = _customer.Accounts;
-            int option = handleSelection("Select an account: ", 2);
-            var currentAccount = allAccounts[option];
-            Console.WriteLine(currentAccount.AccountNumber);
-            var transactionList = _transactionManager.GetTransactionsByAccountNumber(currentAccount.AccountNumber);
-            Console.WriteLine(transactionList.Count);
+            DisplayAccount("My Statement");
+
+            int option = handleSelection("Select an account: ", allAccounts.Count);
+            var currentAccount = allAccounts[option - 1];
+            DisplayAccountAndTransationList(currentAccount);
+
+
+
+            //Console.WriteLine(currentAccountNumber);
+            
+            //Console.WriteLine(transactionList.Count);
 
         }
+
+        private void DisplayAccountAndTransationList(Account account)
+        {
+            string accountType = account.AccountType == "S" ? "Savings" : "Checking";
+            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
+            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3, -20} | {4, -25} | {5}";
+            var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
+            Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
+            Console.WriteLine(new string('-', 120));
+            foreach (var transaction in transactionList)
+            {
+                
+                Console.WriteLine(Format, transaction.TransactionID, transaction.TransactionType, transaction.DestinationAccountNumber == null ? transaction.DestinationAccountNumber : "N/A", transaction.Amount, transaction.TransactionTimeUtc, transaction.Comment);
+            }
+            Console.WriteLine();
+        }
+
+        //private void UpdateCurrentCustomer()
+        //{
+        //    _customer = _customerManager.GetCustromerByID(_customer.CustomerID);
+        //}
 
 
 
@@ -128,18 +158,18 @@ namespace Assignment1
             
         }
               
-        private void DisplayAccount()
+        private void DisplayAccount(string title)
         {
             // Assuming Format is "No | Account Type | Account Number | Balance"
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
 
-            Console.WriteLine("--- Accounts ---");
+            Console.WriteLine($"--- {title} ---\n");
             Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
             Console.WriteLine(new string('-', 60));
 
             // Assuming _accountManager.GetAccounts() returns a list of accounts
-            var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
-
+            //var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
+            var accounts = _customer.Accounts;
             int accountNo = 1;
             foreach (var account in accounts)
             {
