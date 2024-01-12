@@ -11,6 +11,7 @@ namespace Assignment1.Models
         public decimal Balance { get; set; }
         public List<Transaction> Transactions { get; set; }
 
+
     }
 
 

@@ -55,24 +55,22 @@ namespace Assignment1.Manager
 
         public void InsertTransaction(Transaction transaction)
         {
-            var transactionType = "D";
-
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
             using var command = connection.CreateCommand();
             command.CommandText =
-                "insert into [Transaction] (TransactionType, AccountNumber, Amount, Comment, TransactionTimeUtc) values (@TransactionType,@AccountNumber, @Amount, @Comment, @TransactionTimeUtc)";
+                "insert into [Transaction] (TransactionType, AccountNumber, Amount, Comment, TransactionTimeUtc) values (@TransactionType, @AccountNumber, @Amount, @Comment, @TransactionTimeUtc)";
 
-
-            command.Parameters.AddWithValue("TransactionType", transactionType);
-            command.Parameters.AddWithValue("AccountNumber", transaction.AccountNumber);
-            command.Parameters.AddWithValue("Amount", transaction.Amount);
-            command.Parameters.AddWithValue("Comment", transaction.Comment.GetObjectOrDbNull());
-            command.Parameters.AddWithValue("TransactionTimeUtc", transaction.TransactionTimeUtc);
+            command.Parameters.AddWithValue("@TransactionType", transaction.TransactionType); // Use the transaction type from the object
+            command.Parameters.AddWithValue("@AccountNumber", transaction.AccountNumber);
+            command.Parameters.AddWithValue("@Amount", transaction.Amount);
+            command.Parameters.AddWithValue("@Comment", transaction.Comment.GetObjectOrDbNull());
+            command.Parameters.AddWithValue("@TransactionTimeUtc", transaction.TransactionTimeUtc);
 
             command.ExecuteNonQuery();
         }
+
 
     }
 }
