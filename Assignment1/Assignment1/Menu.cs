@@ -97,7 +97,7 @@ namespace Assignment1
 
             string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
             AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
-            Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+            Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}.");
         }
 
         private void PrintMenu()
@@ -145,34 +145,71 @@ namespace Assignment1
             DisplayAccountAndTransationList(currentAccount); // Corrected method call
         }
 
+        //private void DisplayAccountAndTransationList(Account account)
+        //{
+        //    string accountType = account.AccountType == "S" ? "Savings" : "Checking";
+        //    Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
+        //    const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,10:N2} | {4,-25} | {5}";
+        //    var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
+        //    Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
+        //    Console.WriteLine(new string('-', 120));
+        //    foreach (var transaction in transactionList)
+        //    {
+        //        string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType); // Get the display value for transaction type
+        //        Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay, transaction.DestinationAccountNumber == null ? "N/A" : transaction.DestinationAccountNumber, transaction.Amount, transaction.TransactionTimeUtc, transaction.Comment);
+        //    }
+        //    Console.WriteLine();
+        //}
+
+        private string GetColoredAmount(decimal amount, string transactionType)
+        {
+            string formattedAmount = $"{amount:C2}"; // Include $ in the formatted amount
+
+            if (transactionType == "D")
+            {
+                // Green color for deposit
+                return $"\u001b[32m{formattedAmount}\u001b[0m"; // \u001b[32m sets green color, \u001b[0m resets the color
+            }
+            else
+            {
+                // Red color for withdraw or service charge
+                return $"\u001b[31m{formattedAmount}\u001b[0m"; // \u001b[31m sets red color, \u001b[0m resets the color
+            }
+        }
 
         private void DisplayAccountAndTransationList(Account account)
         {
-            //string accountType = account.AccountType == "S" ? "Savings" : "Checking";
-            //Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
-            //const string Format = "{0,-5} | {1,-20} | {2,-20} | {3, -20} | {4, -25} | {5}";
-            //var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
-            //Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-            //Console.WriteLine(new string('-', 120));
-            //foreach (var transaction in transactionList)
-            //{
-
-            //    Console.WriteLine(Format, transaction.TransactionID, transaction.TransactionType, transaction.DestinationAccountNumber == null ? transaction.DestinationAccountNumber : "N/A", transaction.Amount, transaction.TransactionTimeUtc, transaction.Comment);
-            //}
-            //Console.WriteLine();
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
             Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3, -20} | {4, -25} | {5}";
+            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
             var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
+
+            // Improved column headers with proper alignment
             Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
             Console.WriteLine(new string('-', 120));
+
             foreach (var transaction in transactionList)
             {
                 string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType); // Get the display value for transaction type
-                Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay, transaction.DestinationAccountNumber == null ? "N/A" : transaction.DestinationAccountNumber, transaction.Amount, transaction.TransactionTimeUtc, transaction.Comment);
+
+                // Format the amount with 2 decimal places and apply color
+                string amountFormatted = GetColoredAmount(transaction.Amount, transaction.TransactionType);
+
+                // Improved row format with proper alignment
+                string rowFormat = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
+
+                Console.WriteLine(rowFormat, transaction.TransactionID, transactionTypeDisplay,
+                    transaction.DestinationAccountNumber == null ? "N/A" : transaction.DestinationAccountNumber,
+                    amountFormatted, transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"),
+                    transaction.Comment);
             }
             Console.WriteLine();
         }
+
+
+
+
+
 
         private string GetTransactionTypeDisplay(string transactionType)
         {
