@@ -90,9 +90,10 @@ namespace Assignment1
 
             int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
             var currentAccount = allAccounts[option - 1];
-            DisplayAccountAndTransationList(currentAccount);
+            int page = 1;
+            DisplayAccountAndTransationList(currentAccount, page);
 
-
+            Console.WriteLine("");
 
             //Console.WriteLine(currentAccountNumber);
             
@@ -100,7 +101,7 @@ namespace Assignment1
 
         }
 
-        private void DisplayAccountAndTransationList(Account account)
+        private void DisplayAccountAndTransationList(Account account, int page)
         {
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
             Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
@@ -108,12 +109,14 @@ namespace Assignment1
             var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
             Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
             Console.WriteLine(new string('-', 120));
+            int totalPage = (int) Math.Ceiling(transactionList.Count / 4.0);
+
             foreach (var transaction in transactionList)
             {
                 
                 Console.WriteLine(Format, transaction.TransactionID, transaction.TransactionType, transaction.DestinationAccountNumber == null ? transaction.DestinationAccountNumber : "N/A", transaction.Amount, transaction.TransactionTimeUtc, transaction.Comment);
             }
-            Console.WriteLine();
+            Console.WriteLine($"Page {page} of {totalPage}");
         }
 
         //private void UpdateCurrentCustomer()
