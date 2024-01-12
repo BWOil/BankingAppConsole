@@ -144,45 +144,6 @@ namespace Assignment1
             Console.WriteLine();
         }
 
-        //private void Deposit()
-        //{
-        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-        //    if (accounts.Count == 0)
-        //    {
-        //        Console.WriteLine("No accounts available.");
-        //        return;
-        //    }
-        //    DisplayAccountsWithIndex(accounts);
-        //    Console.Write("Select an account to deposit by number: ");
-        //    if (!int.TryParse(Console.ReadLine(), out var accountIndex) || accountIndex < 1 || accountIndex > accounts.Count)
-        //    {
-        //        Console.WriteLine("Invalid selection.");
-        //        return;
-        //    }
-        //    var selectedAccount = accounts[accountIndex - 1];
-        //    // Display selected account details
-        //    // Display selected account details
-        //    Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
-        //        $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}"+
-        //        "Available Balance: ${ selectedAccount.Balance} \n");
-
-        //    Console.Write("Enter deposit amount: ");
-        //    if (!decimal.TryParse(Console.ReadLine(), out var amount) || amount <= 0)
-        //    DisplayAccountsWithIndex(accounts);
-
-        //    Console.Write("Enter comment (max length 30): ");
-        //    var comment = Console.ReadLine();
-        //    if (comment.Length > 30)
-        //    {
-        //        Console.WriteLine("Comment too long.");
-        //        return;
-        //    }
-
-        //    _accountManager.Deposit(selectedAccount, amount, comment);
-        //    Console.WriteLine($"Deposit of ${amount} successful. New balance is ${selectedAccount.Balance}.");
-
-        //    DisplayAccountsWithIndex(accounts);
-        //}
 
         private void Deposit()
         {
@@ -197,10 +158,7 @@ namespace Assignment1
             int accountIndex = HandleInput.HandleSelection("Select an account to deposit by number: ", accounts.Count);
             var selectedAccount = accounts[accountIndex - 1];
 
-            // Display selected account details
-            Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
-                $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}" +
-                "Available Balance: ${selectedAccount.Balance} \n");
+            PrintSelectedAccountDetails(selectedAccount);
 
             decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount: ", "Invalid amount. Please enter a positive number.");
             if (amount <= 0)
@@ -229,9 +187,7 @@ namespace Assignment1
             int accountIndex = HandleInput.HandleSelection("Select an account to withdraw from by number: ", accounts.Count);
             var selectedAccount = accounts[accountIndex - 1];
 
-            // Display selected account details
-            Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
-                $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}");
+            PrintSelectedAccountDetails(selectedAccount);
 
             decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount: ", "Invalid amount. Please enter a positive number.");
             if (amount <= 0 || amount > selectedAccount.Balance)
@@ -248,6 +204,13 @@ namespace Assignment1
             DisplayAccountsWithIndex(accounts);
         }
 
+
+        private void PrintSelectedAccountDetails(Account selectedAccount)
+        {
+            Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
+                              $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}" +
+                              "Available Balance: ${selectedAccount.Balance} \n");
+        }
 
         private void DisplayAccountsWithIndex(List<Account> accounts)
         {
