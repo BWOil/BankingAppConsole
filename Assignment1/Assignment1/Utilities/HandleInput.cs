@@ -20,18 +20,42 @@ namespace Assignment1.Utilities
             }
         }
 
+        //public static decimal HandleDecimalInput(string prompt, string errorMessage)
+        //{
+        //    while (true)
+        //    {
+        //        Console.Write(prompt);
+        //        if (decimal.TryParse(Console.ReadLine(), out var result) && result > 0)
+        //        {
+        //            return result;
+        //        }
+        //        ApplyTextColour.RedText(errorMessage + "\n");
+        //    }
+        //}
+
         public static decimal HandleDecimalInput(string prompt, string errorMessage)
         {
             while (true)
             {
                 Console.Write(prompt);
-                if (decimal.TryParse(Console.ReadLine(), out var result) && result > 0)
+                if (decimal.TryParse(Console.ReadLine(), out var result))
                 {
-                    return result;
+                    if (result >= 0.01m)
+                    {
+                        return result; // Valid input, return the result
+                    }
+                    else
+                    {
+                        ApplyTextColour.RedText("Amount must be at least $0.01.\n"); // Invalid input, show specific error
+                    }
                 }
-                ApplyTextColour.RedText(errorMessage + "\n");
+                else
+                {
+                    ApplyTextColour.RedText(errorMessage + "\n"); // Parsing error, show general error
+                }
             }
         }
+
 
         public static string HandleStringInput(string prompt, int maxLength)
         {

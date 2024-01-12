@@ -160,8 +160,8 @@ namespace Assignment1
 
             PrintSelectedAccountDetails(selectedAccount);
 
-            decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount: ", "Invalid amount. Please enter a positive number.");
-            if (amount <= 0)
+            decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
+            if (amount < 0.01m)
             {
                 return;
             }
@@ -189,8 +189,8 @@ namespace Assignment1
 
             PrintSelectedAccountDetails(selectedAccount);
 
-            decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount: ", "Invalid amount. Please enter a positive number.");
-            if (amount <= 0 || amount > selectedAccount.Balance)
+            decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
+            if (amount < 0.01m || amount > selectedAccount.Balance)
             {
                 Console.WriteLine(amount > selectedAccount.Balance ? "Insufficient funds." : "Invalid amount.");
                 return;
@@ -205,12 +205,16 @@ namespace Assignment1
         }
 
 
+
         private void PrintSelectedAccountDetails(Account selectedAccount)
         {
+            // Display selected account details
             Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
                               $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}" +
                               "Available Balance: ${selectedAccount.Balance} \n");
         }
+
+
 
         private void DisplayAccountsWithIndex(List<Account> accounts)
         {
