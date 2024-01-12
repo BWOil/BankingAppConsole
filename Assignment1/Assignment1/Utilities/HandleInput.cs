@@ -20,19 +20,6 @@ namespace Assignment1.Utilities
             }
         }
 
-        //public static decimal HandleDecimalInput(string prompt, string errorMessage)
-        //{
-        //    while (true)
-        //    {
-        //        Console.Write(prompt);
-        //        if (decimal.TryParse(Console.ReadLine(), out var result) && result > 0)
-        //        {
-        //            return result;
-        //        }
-        //        ApplyTextColour.RedText(errorMessage + "\n");
-        //    }
-        //}
-
         public static decimal HandleDecimalInput(string prompt, string errorMessage)
         {
             while (true)
@@ -59,9 +46,20 @@ namespace Assignment1.Utilities
 
         public static string HandleStringInput(string prompt, int maxLength)
         {
-            Console.Write(prompt);
-            string input = Console.ReadLine();
-            return input.Length <= maxLength ? input : input.Substring(0, maxLength);
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+                if (input.Length <= maxLength)
+                {
+                    return input; // Input is within the max length
+                }
+                else
+                {
+                    ApplyTextColour.RedText($"Input too long. Please enter a maximum of {maxLength} characters.\n");
+                }
+            }
         }
+
     }
 }
