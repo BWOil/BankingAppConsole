@@ -260,18 +260,21 @@ namespace Assignment1
             Console.WriteLine("--- Accounts ---");
             Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
             Console.WriteLine(new string('-', 60));
+
             int index = 1;
             foreach (var account in accounts)
             {
-                Console.WriteLine(Format, index, account.AccountType, account.AccountNumber, account.Balance);
+                string accountType = account.AccountType == "S" ? "Saving" : (account.AccountType == "C" ? "Checking" : "Unknown");
+                Console.WriteLine(Format, index, accountType, account.AccountNumber, account.Balance.ToString("F2"));
                 index++;
             }
             Console.WriteLine();
         }
 
+
         public void Logout()
         {
-            //needs to be fixed
+            ////needs to be fixed
             //Console.WriteLine("Logging out...");
             //// You can add any additional cleanup or session-ending logic here if needed
             //// Redirect back to the login screen
