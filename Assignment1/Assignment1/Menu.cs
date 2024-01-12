@@ -60,8 +60,9 @@ namespace Assignment1
                         //menuOn = false;
                         break;
                     case 6:
-                        Console.WriteLine("exit\n");
+                        ApplyTextColour.BlueText("exiting\n");
                         ApplyTextColour.BlueText("Good bye!\n");
+                        Environment.Exit(0);
                         break;
                     default:
                         throw new UnreachableException();
