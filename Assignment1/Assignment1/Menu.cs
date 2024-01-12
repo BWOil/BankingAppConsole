@@ -31,7 +31,7 @@ namespace Assignment1
             while(menuOn)
             {
                 PrintMenu();
-                int option = handleSelection("Enter an option: ", 6);
+                int option = HandleInput.HandleSelection("Enter an option: ", 6);
 
                 switch (option)
                 {
@@ -88,7 +88,7 @@ namespace Assignment1
             var allAccounts = _customer.Accounts;
             DisplayAccount("My Statement");
 
-            int option = handleSelection("Select an account: ", allAccounts.Count);
+            int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
             var currentAccount = allAccounts[option - 1];
             DisplayAccountAndTransationList(currentAccount);
 
@@ -123,25 +123,6 @@ namespace Assignment1
 
 
 
-        private int handleSelection(string question, int length)
-        {
-            bool optionInvalid = true;
-            while (optionInvalid)
-            {
-                Console.Write(question);
-                var input = Console.ReadLine();
-                Console.WriteLine();
-
-                if (int.TryParse(input, out var option) && option.IsInRange(1, length))
-                {
-                    return option;                   
-                }
-                ApplyTextColour.RedText("Invalid input.\n");
-            }
-            return 0;
-            
-        }
-              
         private void DisplayAccount(string title)
         {
             // Assuming Format is "No | Account Type | Account Number | Balance"
@@ -163,6 +144,46 @@ namespace Assignment1
             Console.WriteLine();
         }
 
+        //private void Deposit()
+        //{
+        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+        //    if (accounts.Count == 0)
+        //    {
+        //        Console.WriteLine("No accounts available.");
+        //        return;
+        //    }
+        //    DisplayAccountsWithIndex(accounts);
+        //    Console.Write("Select an account to deposit by number: ");
+        //    if (!int.TryParse(Console.ReadLine(), out var accountIndex) || accountIndex < 1 || accountIndex > accounts.Count)
+        //    {
+        //        Console.WriteLine("Invalid selection.");
+        //        return;
+        //    }
+        //    var selectedAccount = accounts[accountIndex - 1];
+        //    // Display selected account details
+        //    // Display selected account details
+        //    Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
+        //        $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}"+
+        //        "Available Balance: ${ selectedAccount.Balance} \n");
+
+        //    Console.Write("Enter deposit amount: ");
+        //    if (!decimal.TryParse(Console.ReadLine(), out var amount) || amount <= 0)
+        //    DisplayAccountsWithIndex(accounts);
+
+        //    Console.Write("Enter comment (max length 30): ");
+        //    var comment = Console.ReadLine();
+        //    if (comment.Length > 30)
+        //    {
+        //        Console.WriteLine("Comment too long.");
+        //        return;
+        //    }
+
+        //    _accountManager.Deposit(selectedAccount, amount, comment);
+        //    Console.WriteLine($"Deposit of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+
+        //    DisplayAccountsWithIndex(accounts);
+        //}
+
         private void Deposit()
         {
             var accounts = _accountManager.GetAccounts(_customer.CustomerID);
@@ -172,40 +193,30 @@ namespace Assignment1
                 return;
             }
             DisplayAccountsWithIndex(accounts);
-            Console.Write("Select an account to deposit by number: ");
-            if (!int.TryParse(Console.ReadLine(), out var accountIndex) || accountIndex < 1 || accountIndex > accounts.Count)
-            {
-                Console.WriteLine("Invalid selection.");
-                return;
-            }
+
+            int accountIndex = HandleInput.HandleSelection("Select an account to deposit by number: ", accounts.Count);
             var selectedAccount = accounts[accountIndex - 1];
-            // Display selected account details
+
             // Display selected account details
             Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
-                $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}"+
-                "Available Balance: ${ selectedAccount.Balance} \n");
+                $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}" +
+                "Available Balance: ${selectedAccount.Balance} \n");
 
-            Console.Write("Enter deposit amount: ");
-            if (!decimal.TryParse(Console.ReadLine(), out var amount) || amount <= 0)
-            DisplayAccountsWithIndex(accounts);
-
-            Console.Write("Enter comment (max length 30): ");
-            var comment = Console.ReadLine();
-            if (comment.Length > 30)
+            decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount: ", "Invalid amount. Please enter a positive number.");
+            if (amount <= 0)
             {
-                Console.WriteLine("Comment too long.");
                 return;
             }
 
-            _accountManager.Withdraw(selectedAccount, amount, comment);
+            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
+
+            _accountManager.Deposit(selectedAccount, amount, comment);
             Console.WriteLine($"Deposit of ${amount} successful. New balance is ${selectedAccount.Balance}.");
 
             DisplayAccountsWithIndex(accounts);
         }
 
-
-
-    private void Withdraw()
+        private void Withdraw()
         {
             var accounts = _accountManager.GetAccounts(_customer.CustomerID);
             if (accounts.Count == 0)
@@ -215,44 +226,28 @@ namespace Assignment1
             }
 
             DisplayAccountsWithIndex(accounts);
-            Console.Write("Select an account to withdraw from by number: ");
-            if (!int.TryParse(Console.ReadLine(), out var accountIndex) || accountIndex < 1 || accountIndex > accounts.Count)
-            {
-                Console.WriteLine("Invalid selection.");
-                return;
-            }
-
+            int accountIndex = HandleInput.HandleSelection("Select an account to withdraw from by number: ", accounts.Count);
             var selectedAccount = accounts[accountIndex - 1];
+
             // Display selected account details
             Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
                 $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}");
 
-            Console.Write("Enter withdrawal amount: ");
-            if (!decimal.TryParse(Console.ReadLine(), out var amount) || amount <= 0)
+            decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount: ", "Invalid amount. Please enter a positive number.");
+            if (amount <= 0 || amount > selectedAccount.Balance)
             {
-                Console.WriteLine("Invalid amount.");
+                Console.WriteLine(amount > selectedAccount.Balance ? "Insufficient funds." : "Invalid amount.");
                 return;
             }
 
-            if (amount > selectedAccount.Balance)
-            {
-                Console.WriteLine("Insufficient funds.");
-                return;
-            }
-
-            Console.Write("Enter comment (max length 30): ");
-            var comment = Console.ReadLine();
-            if (comment.Length > 30)
-            {
-                Console.WriteLine("Comment too long.");
-                return;
-            }
+            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
 
             _accountManager.Withdraw(selectedAccount, amount, comment);
             Console.WriteLine($"Withdrawal of ${amount} successful. New balance is ${selectedAccount.Balance}.");
 
             DisplayAccountsWithIndex(accounts);
         }
+
 
         private void DisplayAccountsWithIndex(List<Account> accounts)
         {
