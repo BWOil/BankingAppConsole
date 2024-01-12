@@ -63,7 +63,7 @@ namespace Assignment1.Manager
         {
             decimal balance = 0;
             var transactions = account.Transactions;
-            foreach( var transaction in transactions)
+            foreach (var transaction in transactions)
             {
                 balance += transaction.Amount;
             }
@@ -74,43 +74,47 @@ namespace Assignment1.Manager
 
         public void Deposit(Account account, decimal amount, string comment)
         {
-            var transaction = new Models.Transaction
-            {
-                AccountNumber = account.AccountNumber,
-                Amount = amount,
-                Comment = comment,
-                TransactionType = "D", // "D" for Deposit
-                TransactionTimeUtc = DateTime.UtcNow
-            };
-            account.Transactions.Add(transaction);
-            account.Balance += amount;
-            UpdateAccount(account);
-            _transactionManager.InsertTransaction(transaction); // Correct call to insert transaction
+            CreateTransaction(account, amount, "D", comment); // "D" for Deposit
         }
 
         public void Withdraw(Account account, decimal amount, string comment)
         {
-            // Check for sufficient balance
             if (account.Balance < amount)
             {
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
-
+            CreateTransaction(account, -amount, "W", comment); // "W" for Withdraw, amount is negative
+        }
+        private void CreateTransaction(Account account, decimal amount, string transactionType, string comment)
+        {
             var transaction = new Models.Transaction
             {
                 AccountNumber = account.AccountNumber,
-                Amount = amount, // Keep it positive as per the database constraint
+                Amount = Math.Abs(amount), // Ensure the amount is positive
                 Comment = comment,
-                TransactionType = "W", // "W" for Withdraw
+                TransactionType = transactionType,
                 TransactionTimeUtc = DateTime.UtcNow
             };
 
             account.Transactions.Add(transaction);
-            account.Balance -= amount; // Subtract from balance
+
+            // Adjust account balance based on transaction type
+            if (transactionType == "D") // Deposit
+            {
+                account.Balance += amount; // Add the amount for deposit
+            }
+            else if (transactionType == "W") // Withdraw
+            {
+                account.Balance -= amount; // Subtract the amount for withdrawal
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid transaction type.");
+            }
+
             UpdateAccount(account);
             _transactionManager.InsertTransaction(transaction);
         }
-
 
         public void UpdateAccount(Account account)
         {
