@@ -66,6 +66,44 @@ namespace Assignment1
             }
         }
 
+        //private void ProcessTransaction(TransactionType transactionType)
+        //{
+        //    var operation = transactionType.ToString();
+        //    Console.WriteLine($"{operation} Money\n");
+
+        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+        //    if (accounts.Count == 0)
+        //    {
+        //        Console.WriteLine("No accounts available.");
+        //        return;
+        //    }
+
+        //    DisplayAccountsWithIndex(accounts);
+        //    int accountIndex = HandleInput.HandleSelection("Select an account: ", accounts.Count);
+        //    var selectedAccount = accounts[accountIndex - 1];
+
+        //    string accountType = selectedAccount.AccountType == "S" ? "Savings" : "Checking";
+        //    decimal availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
+
+        //    Console.WriteLine($"{accountType} {selectedAccount.AccountNumber}, Balance: ${selectedAccount.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
+
+        //    decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
+        //                                                   "Invalid amount. Please enter a number greater than $0.01.");
+        //    if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > availableBalance))
+        //    {
+        //        ApplyTextColour.RedText(transactionType == TransactionType.Withdraw ? "Insufficient funds." : "Invalid amount.");
+        //        return;
+        //    }
+
+        //    string comment = HandleInput.HandleStringInput("Enter comment (n to quit, max length 30): ", 30);
+        //    AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
+
+        //    // Update the available balance after performing the transaction
+        //    availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
+
+        //    Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.\n");
+        //}
+
         private void ProcessTransaction(TransactionType transactionType)
         {
             var operation = transactionType.ToString();
@@ -95,7 +133,14 @@ namespace Assignment1
                 return;
             }
 
-            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
+            string comment = HandleInput.HandleStringInput("Enter comment (n to quit, max length 30): ", 30);
+
+            if (comment.ToLower() == "n")
+            {
+                // User typed "n" to quit, simply return to the main menu
+                return;
+            }
+
             AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
 
             // Update the available balance after performing the transaction
@@ -104,10 +149,11 @@ namespace Assignment1
             Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.\n");
         }
 
+
         private void PrintMenu()
         {
             Console.WriteLine(
-                $"--- {_customer.Name} ---\n" +
+                $"\n--- {_customer.Name} ---\n" +
                 "[1] Deposit\n" +
                 "[2] Withdraw\n" +
                 "[3] Transfer\n" +
@@ -161,29 +207,6 @@ namespace Assignment1
                 }
             }
         }
-
-        //private void DisplayTransactionsPage(Account account, List<Transaction> transactionList, int page)
-        //{
-        //    const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
-
-        //    // Display the header on each page
-        //    Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-        //    Console.WriteLine(new string('-', 120));
-
-        //    int startIndex = (page - 1) * 4;
-        //    int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
-
-        //    for (int i = startIndex; i <= endIndex; i++)
-        //    {
-        //        var transaction = transactionList[i];
-        //        string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType);
-        //        string amountFormatted = GetColoredAmount(transaction.Amount, transaction.TransactionType);
-
-        //        Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
-        //            transaction.DestinationAccountNumber, amountFormatted,
-        //            transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
-        //    }
-        //}
 
         private void DisplayTransactionsPage(Account account, List<Transaction> transactionList, int page)
         {
