@@ -56,11 +56,13 @@ namespace Assignment1
                         DisplayMyStatement();
                         break;
                     case 5:
-                        menuOn = false;
+                        Logout();
+                        //menuOn = false;
                         break;
                     case 6:
-                        Console.WriteLine("exit\n");
+                        ApplyTextColour.BlueText("exiting\n");
                         ApplyTextColour.BlueText("Good bye!\n");
+                        Environment.Exit(0);
                         break;
                     default:
                         throw new UnreachableException();
@@ -95,7 +97,7 @@ namespace Assignment1
 
             string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
             AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
-            Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+            Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}.");
         }
 
         private void PrintMenu()
@@ -113,68 +115,66 @@ namespace Assignment1
             """);
         }
 
-        private void DisplayMyStatement()
+        //private void DisplayMyStatement()
+        //{
+        //    //Console.WriteLine("My Statement\n");
+        //    // ----------- add the account menu
+        //    var allAccounts = _customer.Accounts;
+        //    DisplayAccount("My Statement");
+
+        //    int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
+        //    var currentAccount = allAccounts[option - 1];
+        //    DisplayAccountAndTransationList(currentAccount);
+
+
+
+        //    //Console.WriteLine(currentAccountNumber);
+
+        //    //Console.WriteLine(transactionList.Count);
+
+        //}
+
+        
+
+        private string GetColoredAmount(decimal amount, string transactionType)
         {
-            //Console.WriteLine("My Statement\n");
-            // ----------- add the account menu
-            var allAccounts = _customer.Accounts;
-            DisplayAccount("My Statement");
+            string formattedAmount = $"{amount:C2}"; // Include $ in the formatted amount
 
-            int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
-            var currentAccount = allAccounts[option - 1];
-            
-            DisplayAccountAndTransationList(currentAccount);
-
-            Console.WriteLine("");
-
-            //Console.WriteLine(currentAccountNumber);
-            
-            //Console.WriteLine(transactionList.Count);
-
-        }
-
-        private void DisplayAccountAndTransationList(Account account)
-        {
-            string accountType = account.AccountType == "S" ? "Savings" : "Checking";
-            bool paginationOn = true;
-            int page = 1;
-            while (paginationOn)
+            if (transactionType == "D")
             {
-                Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
-                const string Format = "{0,-5} | {1,-18} | {2,-15} | {3, -15} | {4, -20} | {5}";
-                
-                var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
-                Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-                Console.WriteLine(new string('-', 120));
-                int listLength = transactionList.Count();
-                int totalPage = (int)Math.Ceiling(listLength / 4.0);
-                
-                int pageStart = page == 1 ? 0 : (page - 1) * 4;
-                int pageEnd = pageStart + 3  < listLength - 1 ? pageStart + 3 : listLength - 1;
-                //Console.WriteLine(pageEnd);
-                for (int i = pageStart; i <= pageEnd; i++)
-                {
-                    Console.WriteLine(Format, transactionList[i].TransactionID, transactionList[i].TransactionType, transactionList[i].DestinationAccountNumber == null ? transactionList[i].DestinationAccountNumber : "N/A", transactionList[i].Amount, transactionList[i].TransactionTimeUtc, transactionList[i].Comment);
-                }
-                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: {(page == totalPage ? "" : "n (next page) | ")}{(page == 1 ? "" : "p (previous page) | ")}q (quit)");
-
-                string option = HandleInput.HandlePaginationInput("Enter an option: ", totalPage, page);
-                switch (option)
-                {
-                    case "n":
-                        page++;
-                        break;
-                    case "p":
-                        page--;
-                        break;
-                    case "q":
-                        return;
-                    default:
-                        throw new UnreachableException();
-                }
+                // Green color for deposit
+                return $"\u001b[32m{formattedAmount}\u001b[0m"; // \u001b[32m sets green color, \u001b[0m resets the color
+            }
+            else
+            {
+                // Red color for withdraw or service charge
+                return $"\u001b[31m{formattedAmount}\u001b[0m"; // \u001b[31m sets red color, \u001b[0m resets the color
             }
         }
 
+        
+
+
+
+
+
+
+        private string GetTransactionTypeDisplay(string transactionType)
+        {
+            switch (transactionType)
+            {
+                case "D":
+                    return "Deposit";
+                case "W":
+                    return "Withdraw";
+                case "T":
+                    return "Transfer";
+                case "S":
+                    return "ServiceCharge";
+                default:
+                    return "Unknown";
+            }
+        }
         //private void UpdateCurrentCustomer()
         //{
         //    _customer = _customerManager.GetCustromerByID(_customer.CustomerID);
@@ -182,26 +182,26 @@ namespace Assignment1
 
 
 
-        private void DisplayAccount(string title)
-        {
-            // Assuming Format is "No | Account Type | Account Number | Balance"
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
+        //private void DisplayAccount(string title)
+        //{
+        //    // Assuming Format is "No | Account Type | Account Number | Balance"
+        //    const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
 
-            Console.WriteLine($"--- {title} ---\n");
-            Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
-            Console.WriteLine(new string('-', 60));
+        //    Console.WriteLine($"--- {title} ---\n");
+        //    Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
+        //    Console.WriteLine(new string('-', 60));
 
-            // Assuming _accountManager.GetAccounts() returns a list of accounts
-            //var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
-            var accounts = _customer.Accounts;
-            int accountNo = 1;
-            foreach (var account in accounts)
-            {
-                Console.WriteLine(Format, accountNo, account.AccountType, account.AccountNumber, account.Balance);
-                accountNo++;
-            }
-            Console.WriteLine();
-        }
+        //    // Assuming _accountManager.GetAccounts() returns a list of accounts
+        //    //var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
+        //    var accounts = _customer.Accounts;
+        //    int accountNo = 1;
+        //    foreach (var account in accounts)
+        //    {
+        //        Console.WriteLine(Format, accountNo, account.AccountType, account.AccountNumber, account.Balance);
+        //        accountNo++;
+        //    }
+        //    Console.WriteLine();
+        //}
 
         public static string GetTransactionCode(TransactionType transactionType)
         {
@@ -214,66 +214,6 @@ namespace Assignment1
                 _ => throw new ArgumentOutOfRangeException(nameof(transactionType), transactionType, null)
             };
         }
-
-
-        //private void Deposit()
-        //{
-        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-        //    if (accounts.Count == 0)
-        //    {
-        //        Console.WriteLine("No accounts available.");
-        //        return;
-        //    }
-        //    DisplayAccountsWithIndex(accounts);
-
-        //    int accountIndex = HandleInput.HandleSelection("Select an account to deposit by number: ", accounts.Count);
-        //    var selectedAccount = accounts[accountIndex - 1];
-
-        //    PrintSelectedAccountDetails(selectedAccount);
-
-        //    decimal amount = HandleInput.HandleDecimalInput("Enter deposit amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
-        //    if (amount < 0.01m)
-        //    {
-        //        return;
-        //    }
-
-        //    string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
-
-        //    _accountManager.Deposit(selectedAccount, amount, comment);
-        //    Console.WriteLine($"Deposit of ${amount} successful. New balance is ${selectedAccount.Balance}.");
-
-        //    DisplayAccountsWithIndex(accounts);
-        //}
-
-        //private void Withdraw()
-        //{
-        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-        //    if (accounts.Count == 0)
-        //    {
-        //        Console.WriteLine("No accounts available.");
-        //        return;
-        //    }
-
-        //    DisplayAccountsWithIndex(accounts);
-        //    int accountIndex = HandleInput.HandleSelection("Select an account to withdraw from by number: ", accounts.Count);
-        //    var selectedAccount = accounts[accountIndex - 1];
-
-        //    PrintSelectedAccountDetails(selectedAccount);
-
-        //    decimal amount = HandleInput.HandleDecimalInput("Enter withdrawal amount (minimum $0.01): ", "Invalid amount. Please enter a number greater than $0.01.");
-        //    if (amount < 0.01m || amount > selectedAccount.Balance)
-        //    {
-        //        Console.WriteLine(amount > selectedAccount.Balance ? "Insufficient funds." : "Invalid amount.");
-        //        return;
-        //    }
-
-        //    string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
-
-        //    _accountManager.Withdraw(selectedAccount, amount, comment);
-        //    Console.WriteLine($"Withdrawal of ${amount} successful. New balance is ${selectedAccount.Balance}.");
-
-        //    DisplayAccountsWithIndex(accounts);
-        //}
 
 
 
@@ -307,19 +247,30 @@ namespace Assignment1
 
         public void Logout()
         {
-            ////needs to be fixed
-            //Console.WriteLine("Logging out...");
-            //// You can add any additional cleanup or session-ending logic here if needed
-            //// Redirect back to the login screen
-            //var loginCustomer = new LoginSystem(_customerManager).Run();
-            //if (loginCustomer != null)
-            //{
-            //    new Menu(loginCustomer, _customerManager, _accountManager).Run();
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Exiting application.");
-            //}
+            Console.WriteLine("Are you sure you want to log out? (Y/N)");
+            string input = HandleInput.HandleStringInput("", 1); // Using HandleStringInput for a single character
+
+            if (input.Equals("Y", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.Clear();
+                Console.WriteLine("Logging out...");
+
+                // Start the login process again
+                var loginCustomer = new LoginSystem(_customerManager).Run();
+                if (loginCustomer != null)
+                {
+                    new Menu(loginCustomer, _customerManager, _transactionManager, _accountManager).Run();
+                }
+                else
+                {
+                    Console.WriteLine("Exiting application.");
+                    Environment.Exit(0); // Exits the application
+                }
+            }
+            else
+            {
+                Console.WriteLine("Logout cancelled. Returning to main menu.");
+            }
         }
     }
 }
