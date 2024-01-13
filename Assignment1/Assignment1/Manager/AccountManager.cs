@@ -184,6 +184,7 @@ namespace Assignment1.Manager
                 "update Account set Balance = @Balance where AccountNumber = @AccountNumber";
             command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
             command.Parameters.AddWithValue("Balance", account.Balance);
+            Console.WriteLine($"new: {account.Balance}");
             command.ExecuteNonQuery();
 
         }

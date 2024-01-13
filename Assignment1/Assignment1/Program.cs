@@ -1,6 +1,5 @@
 ﻿using Assignment1;
-using Assignment1.Manager;
-using Assignment1.Services;
+
 using Microsoft.Extensions.Configuration;
 
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
