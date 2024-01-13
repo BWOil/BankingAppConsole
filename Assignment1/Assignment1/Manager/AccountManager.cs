@@ -80,8 +80,6 @@ namespace Assignment1.Manager
                 balance += transaction.Amount;
             }
             return balance;
-
-
         }
 
         public void Deposit(Account account, decimal amount, string comment)
@@ -91,12 +89,14 @@ namespace Assignment1.Manager
 
         public void Withdraw(Account account, decimal amount, string comment)
         {
-            if (account.Balance < amount)
+            if (account.Balance - amount < (account.AccountType == "S" ? 0 : 300))
             {
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
+
             CreateTransaction(account, -amount, "W", comment); // "W" for Withdraw, amount is negative
         }
+
         private void CreateTransaction(Account account, decimal amount, string transactionType, string comment)
         {
             var transaction = new Models.Transaction
@@ -135,8 +135,6 @@ namespace Assignment1.Manager
             using var command = connection.CreateCommand();
             command.CommandText =
                 "update Account set Balance = @Balance where AccountNumber = @AccountNumber";
-            Console.WriteLine(account.AccountNumber);
-            Console.WriteLine(account.Balance);
             command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
             command.Parameters.AddWithValue("Balance", account.Balance);
             command.ExecuteNonQuery();
