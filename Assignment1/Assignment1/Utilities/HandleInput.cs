@@ -35,17 +35,11 @@ namespace Assignment1.Utilities
         //            {
         //                if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount))
         //                {
-        //                    decimal checkAmount = transactionType == TransactionType.Withdraw ? 0.05m : 0.1m;
-        //                    if (result > selectedAccount.Balance + checkAmount)
-        //                        ApplyTextColour.RedText(takeMoneyCondition ? "Insufficient funds.\n" : "Invalid amount.\n");
-        //                    else
-        //                        return result;
+        //                    decimal checkAmount = transactionType == TransactionType.Withdraw ? (decimal) 0.05 : (decimal) 0.1;
+        //                    if (result > selectedAccount.Balance + ch)
+
         //                }
-        //                else
-        //                    if (result > selectedAccount.Balance)
-        //                    ApplyTextColour.RedText(takeMoneyCondition ? "Insufficient funds.\n" : "Invalid amount.\n");
-        //                else
-        //                    return result;
+        //                ApplyTextColour.RedText(takeMoneyCondition ? "Insufficient funds.\n" : "Invalid amount.\n");
         //            }     
         //            else if (result >= 0.01m)
         //                return result; // Valid input, return the result

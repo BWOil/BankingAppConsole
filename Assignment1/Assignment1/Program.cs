@@ -8,13 +8,9 @@ var connectionString = configuration.GetConnectionString(nameof(Assignment1));
 
 //DatabaseManager.CreateTables(connectionString);
 
-var accountManager = new AccountManager(connectionString);
-var customerManager = new CustomerManager(connectionString);
-var transactionManager = new TransactionManager(connectionString);
-var loginManager = new LoginManager(connectionString);
 
-CustomerWebService.GetAndSaveCustomer(accountManager, customerManager, loginManager, transactionManager);
+var facadeOperation = new FacadeOperation(connectionString);
 
-var loginCustomer = new LoginSystem(customerManager).Run();
-new Menu(loginCustomer, customerManager, transactionManager, accountManager).Run();
+facadeOperation.LoadingData();
+facadeOperation.RunProgram();
 
