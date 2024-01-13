@@ -29,31 +29,34 @@ namespace Assignment1.Services
             });
 
             // Insert into database.
+  
             foreach (var customer in customers)
             {
 
-                    // Insert customer
-                    customerManager.InsertCustomer(customer);
+                // Insert customer
+                customerManager.InsertCustomer(customer);
 
-                    // Insert login
-                    loginManager.InsertLogin(customer.Login, customer.CustomerID);
+                // Insert login
+                loginManager.InsertLogin(customer.Login, customer.CustomerID);
 
-                    // Insert Account
-                    foreach (var account in customer.Accounts)
+                // Insert Account
+                foreach (var account in customer.Accounts)
+                {
+                    account.CustomerID = customer.CustomerID;
+                    accountManager.InsertAccount(account);
+
+                    // Insert Transaction
+                    foreach (var transaction in account.Transactions)
                     {
-                        account.CustomerID = customer.CustomerID;
-                        accountManager.InsertAccount(account);
-
-                        // Insert Transaction
-                        foreach (var transaction in account.Transactions)
-                        {
-                            transaction.AccountNumber = account.AccountNumber;
-                            transactionManager.InsertTransaction(transaction);
-                        }
+                        transaction.AccountNumber = account.AccountNumber;
+                        transactionManager.InsertTransaction(transaction);
                     }
+                }
 
 
             }
+
+            
         }
 
 
