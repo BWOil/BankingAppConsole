@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Assignment1.Manager;
 using Assignment1.Models;
 using Assignment1.Utilities;
+using static Assignment1.Menu;
 
 namespace Assignment1
 {
@@ -49,8 +50,7 @@ namespace Assignment1
                         ProcessTransaction(TransactionType.Withdraw);
                         break;
                     case 3:
-                        Console.WriteLine("Transfer Money\n");
-                        // Add transfer functionality here if needed
+                        ProcessTransaction(TransactionType.Transfer);
                         break;
                     case 4:
                         DisplayMyStatement();
@@ -71,20 +71,18 @@ namespace Assignment1
         private void ProcessTransaction(TransactionType transactionType)
         {
             var operation = transactionType.ToString();
-            Console.WriteLine($"{operation} Money\n");
 
-            var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-            if (accounts.Count == 0)
-            {
-                Console.WriteLine("No accounts available.");
-                return;
-            }
-
-            DisplayAccountsWithIndex(accounts);
-            int accountIndex = HandleInput.HandleSelection("Select an account: ", accounts.Count);
-            var selectedAccount = accounts[accountIndex - 1];
+            var selectedAccount = DisplayAccountsWithIndex(operation);
+            
 
             AccountUtilities.PrintAccountDetails(selectedAccount);
+
+            if (transactionType == TransactionType.Transfer)
+            {
+                Account destinationAccountNumber = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager);
+                Console.WriteLine(destinationAccountNumber.Balance);
+            }
+
             decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
                                                            "Invalid amount. Please enter a number greater than $0.01.");
             if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > selectedAccount.Balance))
@@ -97,6 +95,8 @@ namespace Assignment1
             AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
             Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance}.");
         }
+
+
 
         private void PrintMenu()
         {
@@ -117,19 +117,16 @@ namespace Assignment1
         {
             //Console.WriteLine("My Statement\n");
             // ----------- add the account menu
-            var allAccounts = _customer.Accounts;
-            DisplayAccount("My Statement");
 
-            int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
-            var currentAccount = allAccounts[option - 1];
+            //DisplayAccount("My Statement");
+            var selectAccount = DisplayAccountsWithIndex("My Statement");
+
+            //int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
+            //var currentAccount = allAccounts[option - 1];
             
-            DisplayAccountAndTransationList(currentAccount);
+            DisplayAccountAndTransationList(selectAccount);
 
             Console.WriteLine("");
-
-            //Console.WriteLine(currentAccountNumber);
-            
-            //Console.WriteLine(transactionList.Count);
 
         }
 
@@ -138,11 +135,11 @@ namespace Assignment1
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
             bool paginationOn = true;
             int page = 1;
+            const string Format = "{0,-5} | {1,-18} | {2,-15} | {3, -15} | {4, -20} | {5}";
             while (paginationOn)
             {
                 Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
-                const string Format = "{0,-5} | {1,-18} | {2,-15} | {3, -15} | {4, -20} | {5}";
-                
+                               
                 var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
                 Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
                 Console.WriteLine(new string('-', 120));
@@ -151,7 +148,7 @@ namespace Assignment1
                 
                 int pageStart = page == 1 ? 0 : (page - 1) * 4;
                 int pageEnd = pageStart + 3  < listLength - 1 ? pageStart + 3 : listLength - 1;
-                //Console.WriteLine(pageEnd);
+
                 for (int i = pageStart; i <= pageEnd; i++)
                 {
                     Console.WriteLine(Format, transactionList[i].TransactionID, transactionList[i].TransactionType, transactionList[i].DestinationAccountNumber == null ? transactionList[i].DestinationAccountNumber : "N/A", transactionList[i].Amount, transactionList[i].TransactionTimeUtc, transactionList[i].Comment);
@@ -182,26 +179,26 @@ namespace Assignment1
 
 
 
-        private void DisplayAccount(string title)
-        {
-            // Assuming Format is "No | Account Type | Account Number | Balance"
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
+        //private void DisplayAccount(string title)
+        //{
+        //    // Assuming Format is "No | Account Type | Account Number | Balance"
+        //    const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
 
-            Console.WriteLine($"--- {title} ---\n");
-            Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
-            Console.WriteLine(new string('-', 60));
+        //    Console.WriteLine($"--- {title} ---\n");
+        //    Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
+        //    Console.WriteLine(new string('-', 60));
 
-            // Assuming _accountManager.GetAccounts() returns a list of accounts
-            //var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
-            var accounts = _customer.Accounts;
-            int accountNo = 1;
-            foreach (var account in accounts)
-            {
-                Console.WriteLine(Format, accountNo, account.AccountType, account.AccountNumber, account.Balance);
-                accountNo++;
-            }
-            Console.WriteLine();
-        }
+        //    // Assuming _accountManager.GetAccounts() returns a list of accounts
+        //    //var accounts = _accountManager.GetAccounts(_customer.CustomerID); // or however you obtain the customer's accounts
+        //    var accounts = _customer.Accounts;
+        //    int accountNo = 1;
+        //    foreach (var account in accounts)
+        //    {
+        //        Console.WriteLine(Format, accountNo, account.AccountType, account.AccountNumber, account.Balance);
+        //        accountNo++;
+        //    }
+        //    Console.WriteLine();
+        //}
 
         public static string GetTransactionCode(TransactionType transactionType)
         {
@@ -287,10 +284,19 @@ namespace Assignment1
 
 
 
-        private void DisplayAccountsWithIndex(List<Account> accounts)
+        private Account DisplayAccountsWithIndex(string title)
         {
+            Console.WriteLine($"--- {title} ---\n");
+
+            var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+            if (accounts.Count == 0)
+            {
+                Console.WriteLine("No accounts available.");
+                return null;
+            }
+
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
-            Console.WriteLine("--- Accounts ---");
+
             Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
             Console.WriteLine(new string('-', 60));
 
@@ -302,6 +308,11 @@ namespace Assignment1
                 index++;
             }
             Console.WriteLine();
+            // select an account
+            int accountIndex = HandleInput.HandleSelection("Select an account: ", accounts.Count);
+            return accounts[accountIndex - 1];
+
+            
         }
 
 

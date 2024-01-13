@@ -28,13 +28,42 @@ namespace Assignment1.Manager
             command.CommandText = "select * from Account where CustomerID = @customerID";
             command.Parameters.AddWithValue("customerID", customerID);
 
+            return ReturnList(command);
+
+            //var transactionManager = new TransactionManager(_connectionString);
+
+            //return command.GetDataTable().Select().Select(x => new Account
+            //{
+            //    AccountNumber = x.Field<int>("AccountNumber"),
+            //    AccountType = x.Field<string>("AccountType"),
+            //    CustomerID = customerID,
+            //    Balance = x.Field<decimal>("Balance"),
+            //    Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
+
+            //}).ToList();
+        }
+
+        public List<Account> GetAccountByAccountNumber(int accountNumber)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+
+            using var command = connection.CreateCommand();
+            command.CommandText = "select * from Account where AccountNumber = @accountNumber";
+            command.Parameters.AddWithValue("accountNumber", accountNumber);
+
+            return ReturnList(command);
+        }
+
+        private List<Account> ReturnList(SqlCommand command)
+        {
             var transactionManager = new TransactionManager(_connectionString);
 
             return command.GetDataTable().Select().Select(x => new Account
             {
                 AccountNumber = x.Field<int>("AccountNumber"),
                 AccountType = x.Field<string>("AccountType"),
-                CustomerID = customerID,
+                CustomerID = x.Field<int>("CustomerID"),
                 Balance = x.Field<decimal>("Balance"),
                 Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
 

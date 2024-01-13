@@ -1,4 +1,6 @@
 ﻿using System;
+using Assignment1.Manager;
+using Assignment1.Models;
 
 namespace Assignment1.Utilities
 {
@@ -60,6 +62,26 @@ namespace Assignment1.Utilities
                 }
             }
         }
+
+        public static Account HandleAccountNumberInput(string prompt, AccountManager accountManager)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out var accountNumber))
+                {
+                    var accountList = accountManager.GetAccountByAccountNumber(accountNumber);
+                    if (accountList.Count() != 0)
+                        return accountList[0]; // Input is within the max length
+                }
+                else
+                {
+                    ApplyTextColour.RedText($"Invalid account number input\n");
+                }
+            }
+        }
+
 
         public static string HandlePaginationInput(string prompt, int totalPages, int currentPage)
         {
