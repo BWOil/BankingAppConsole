@@ -124,12 +124,12 @@ namespace Assignment1.Manager
             {
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
-            CreateTransaction(account, -amount, "W", comment); // "W" for Withdraw, amount is negative
+            CreateTransaction(account, amount, "W", comment); // "W" for Withdraw, amount is negative
         }
 
         public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
         {
-            CreateTransaction(account, -amount, "T", comment);
+            CreateTransaction(account, amount, "T", comment);
             destinationAccount.Balance += amount;
             UpdateAccount(destinationAccount);
             //if (!AccountQualifiesForFreeServiceFee(account))
@@ -175,15 +175,15 @@ namespace Assignment1.Manager
             using var command = connection.CreateCommand();
             command.CommandText =
                 "update Account set Balance = @Balance where AccountNumber = @AccountNumber";
-            Console.WriteLine(account.AccountNumber);
-            Console.WriteLine(account.Balance);
+            //Console.WriteLine(account.AccountNumber);
+            //Console.WriteLine(account.Balance);
             command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
             command.Parameters.AddWithValue("Balance", account.Balance);
             command.ExecuteNonQuery();
             try
             {
                 int rowsAffected = command.ExecuteNonQuery();
-                Console.WriteLine($"Rows affected: {rowsAffected}");
+                //Console.WriteLine($"Rows affected: {rowsAffected}");
             }
             catch (Exception ex)
             {
