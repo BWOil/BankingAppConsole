@@ -18,16 +18,15 @@ namespace Assignment1
             _customerManager = customerManager;
         }
 
-		public Customer Run()
-		{
+        public Customer Run()
+        {
             var continueLogin = true;
-            var customerList = _customerManager.GetCustomers();
 
             while (continueLogin)
             {
+                var customerList = _customerManager.GetCustomers(); // Reload the customer list
                 Console.Write("Enter Login ID: ");
                 var loginID = Console.ReadLine();
-
 
                 // search for target customer
                 bool foundCustomer = false;
@@ -42,15 +41,15 @@ namespace Assignment1
                             return customer;
                         }
                         break;
-                    }                              
+                    }
                 }
                 if (!foundCustomer)
                     ApplyTextColour.RedText("Invalid Login ID. Please try again!\n");
-
             }
 
             return null;
         }
+
 
         private bool VerifyPassword(Customer customer)
         {

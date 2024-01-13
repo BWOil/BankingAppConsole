@@ -38,10 +38,8 @@ namespace Assignment1.Manager
         {
             using var connection = new SqlConnection(_connectionString);
 
-
             using var command = connection.CreateCommand();
             command.CommandText = "select * from Customer";
-
 
             return ReturnCustomerList(command);
 
