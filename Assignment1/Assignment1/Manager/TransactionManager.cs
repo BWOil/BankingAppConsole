@@ -62,7 +62,7 @@ namespace Assignment1.Manager
             command.CommandText =
                 "insert into [Transaction] (TransactionType, AccountNumber, DestinationAccountNumber, Amount, Comment, TransactionTimeUtc) values (@TransactionType, @AccountNumber, @DestinationAccountNumber, @Amount, @Comment, @TransactionTimeUtc)";
 
-            command.Parameters.AddWithValue("@TransactionType", transaction.TransactionType); // Use the transaction type from the object
+            command.Parameters.AddWithValue("@TransactionType", transaction.TransactionType == null ? "D" : transaction.TransactionType); // Use the transaction type from the object
             command.Parameters.AddWithValue("@AccountNumber", transaction.AccountNumber);
             command.Parameters.AddWithValue("@DestinationAccountNumber", transaction.DestinationAccountNumber.GetObjectOrDbNull());
             command.Parameters.AddWithValue("@Amount", transaction.Amount);
