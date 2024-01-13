@@ -125,6 +125,10 @@ namespace Assignment1.Manager
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
             CreateTransaction(account, amount, "W", comment); // "W" for Withdraw, amount is negative
+            if (!AccountQualifiesForFreeServiceFee(account))
+            {
+                CreateTransaction(account, (decimal)0.05, "S", "");
+            }
         }
 
         public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
