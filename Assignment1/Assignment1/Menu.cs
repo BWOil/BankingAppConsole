@@ -124,7 +124,7 @@ namespace Assignment1
                 {
                     Console.WriteLine(Format, transactionList[i].TransactionID, transactionList[i].TransactionType, transactionList[i].DestinationAccountNumber == null ? transactionList[i].DestinationAccountNumber : "N/A", transactionList[i].Amount, transactionList[i].TransactionTimeUtc, transactionList[i].Comment);
                 }
-                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: n (next page) | p (previous page) | q (quit)");
+                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: {(page == totalPage ? "" : "n (next page) | ")}{(page == 1 ? "" : "p (previous page) | ")}q (quit)");
 
                 string option = HandleInput.HandlePaginationInput("Enter an option: ", totalPage, page);
                 switch (option)
