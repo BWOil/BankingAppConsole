@@ -63,7 +63,7 @@ namespace Assignment1.Utilities
             }
         }
 
-        public static Account HandleAccountNumberInput(string prompt, AccountManager accountManager)
+        public static Account HandleAccountNumberInput(string prompt, AccountManager accountManager, int currentAccountNumber)
         {
             while (true)
             {
@@ -71,10 +71,16 @@ namespace Assignment1.Utilities
                 string input = Console.ReadLine();
                 if (input.Length == 4 && int.TryParse(input, out var accountNumber))
                 {
-                    var accountList = accountManager.GetAccountByAccountNumber(accountNumber);
-                    if (accountList.Count() != 0)
-                        return accountList[0]; // Input is within the max length
-                    ApplyTextColour.RedText($"Account number does not exist\n");
+                    if (accountNumber == currentAccountNumber)
+                        ApplyTextColour.RedText($"Cannot select the same account to transfer money\n");
+                    else
+                    {
+                        var accountList = accountManager.GetAccountByAccountNumber(accountNumber);
+                        if (accountList.Count() != 0)
+                            return accountList[0]; // Input is within the max length
+                        ApplyTextColour.RedText($"Account number does not exist\n");
+                    }
+                    
                 }
                 else
                 {

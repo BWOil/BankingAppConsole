@@ -79,7 +79,7 @@ namespace Assignment1
 
             if (transactionType == TransactionType.Transfer)
             {
-                Account destinationAccountNumber = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager);
+                Account destinationAccountNumber = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager, selectedAccount.AccountNumber);
                 AccountUtilities.PrintAccountDetails(destinationAccountNumber);
                 
             }
