@@ -104,8 +104,6 @@ namespace Assignment1
             Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.\n");
         }
 
-
-
         private void PrintMenu()
         {
             Console.WriteLine(
@@ -118,7 +116,6 @@ namespace Assignment1
                 "[6] Exit\n"
             );
         }
-
 
         private void DisplayMyStatement()
         {
@@ -137,12 +134,7 @@ namespace Assignment1
 
             Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
 
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
             var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
-
-            //Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
-            Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-            Console.WriteLine(new string('-', 120));
 
             int page = 1;
             while (true)
@@ -173,6 +165,11 @@ namespace Assignment1
         private void DisplayTransactionsPage(Account account, List<Transaction> transactionList, int page)
         {
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
+
+            // Display the header on each page
+            Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
+            Console.WriteLine(new string('-', 120));
+
             int startIndex = (page - 1) * 4;
             int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
 
@@ -186,7 +183,6 @@ namespace Assignment1
                     transaction.DestinationAccountNumber, amountFormatted,
                     transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
             }
-
         }
 
         private string GetColoredAmount(decimal amount, string transactionType)
@@ -219,7 +215,6 @@ namespace Assignment1
                     return "Unknown";
             }
         }
-
 
         private void DisplayAccountsWithIndex(List<Account> accounts)
         {
