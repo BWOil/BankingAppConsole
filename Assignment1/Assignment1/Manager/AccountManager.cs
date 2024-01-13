@@ -111,12 +111,26 @@ namespace Assignment1.Manager
             {
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
+
+            // Check if the withdrawal will result in a zero balance
+            if (account.Balance - amount < 0 && account.Balance - amount >= -0.01M)
+            {
+                // Allow withdrawal even if it results in a zero balance
+                account.Balance = 0;
+            }
+            else
+            {
+                account.Balance -= amount;
+            }
+
             CreateTransaction(account, amount, "W", comment, null); // "W" for Withdraw, amount is negative
+
             if (!AccountQualifiesForFreeServiceFee(account))
             {
                 CreateTransaction(account, (decimal)0.05, "S", "", null);
             }
         }
+
 
         public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
         {
