@@ -190,6 +190,7 @@ namespace Assignment1
                 ? "N/A" : transaction.DestinationAccountNumber.ToString();
 
 
+
                 Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
                     destination, amountFormatted,
                     transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
@@ -202,13 +203,9 @@ namespace Assignment1
             string formattedAmount = $"{amount:C2}";
 
             if (transactionType == "D")
-            {
                 return $"\u001b[32m{formattedAmount}\u001b[0m"; // Green color for deposit
-            }
             else
-            {
                 return $"\u001b[31m{formattedAmount}\u001b[0m"; // Red color for withdraw or service charge
-            }
         }
 
         private string GetTransactionTypeDisplay(string transactionType)

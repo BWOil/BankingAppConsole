@@ -30,17 +30,6 @@ namespace Assignment1.Manager
 
             return ReturnList(command);
 
-            //var transactionManager = new TransactionManager(_connectionString);
-
-            //return command.GetDataTable().Select().Select(x => new Account
-            //{
-            //    AccountNumber = x.Field<int>("AccountNumber"),
-            //    AccountType = x.Field<string>("AccountType"),
-            //    CustomerID = customerID,
-            //    Balance = x.Field<decimal>("Balance"),
-            //    Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
-
-            //}).ToList();
         }
 
         public List<Account> GetAccountByAccountNumber(int accountNumber)
