@@ -13,6 +13,7 @@
     <None Remove="Services\" />
     <None Remove="Utilities\" />
     <None Remove="Sql\" />
+    <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Manager\" />

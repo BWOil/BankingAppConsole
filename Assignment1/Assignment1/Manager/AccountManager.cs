@@ -28,13 +28,42 @@ namespace Assignment1.Manager
             command.CommandText = "select * from Account where CustomerID = @customerID";
             command.Parameters.AddWithValue("customerID", customerID);
 
+            return ReturnList(command);
+
+            //var transactionManager = new TransactionManager(_connectionString);
+
+            //return command.GetDataTable().Select().Select(x => new Account
+            //{
+            //    AccountNumber = x.Field<int>("AccountNumber"),
+            //    AccountType = x.Field<string>("AccountType"),
+            //    CustomerID = customerID,
+            //    Balance = x.Field<decimal>("Balance"),
+            //    Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
+
+            //}).ToList();
+        }
+
+        public List<Account> GetAccountByAccountNumber(int accountNumber)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+
+            using var command = connection.CreateCommand();
+            command.CommandText = "select * from Account where AccountNumber = @accountNumber";
+            command.Parameters.AddWithValue("accountNumber", accountNumber);
+
+            return ReturnList(command);
+        }
+
+        private List<Account> ReturnList(SqlCommand command)
+        {
             var transactionManager = new TransactionManager(_connectionString);
 
             return command.GetDataTable().Select().Select(x => new Account
             {
                 AccountNumber = x.Field<int>("AccountNumber"),
                 AccountType = x.Field<string>("AccountType"),
-                CustomerID = customerID,
+                CustomerID = x.Field<int>("CustomerID"),
                 Balance = x.Field<decimal>("Balance"),
                 Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
 
@@ -93,8 +122,22 @@ namespace Assignment1.Manager
             {
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
+            CreateTransaction(account, amount, "W", comment); // "W" for Withdraw, amount is negative
+            if (!AccountQualifiesForFreeServiceFee(account))
+            {
+                CreateTransaction(account, (decimal)0.05, "S", "");
+            }
+        }
 
-            CreateTransaction(account, -amount, "W", comment); // "W" for Withdraw, amount is negative
+        public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
+        {
+            CreateTransaction(account, amount, "T", comment);
+            destinationAccount.Balance += amount;
+            UpdateAccount(destinationAccount);
+            if (!AccountQualifiesForFreeServiceFee(account))
+            {
+                CreateTransaction(account, (decimal) 0.1 , "S", "");
+            }
         }
 
         private void CreateTransaction(Account account, decimal amount, string transactionType, string comment)
@@ -115,7 +158,7 @@ namespace Assignment1.Manager
             {
                 account.Balance += amount; // Add the amount for deposit
             }
-            else if (transactionType == "W") // Withdraw
+            else if (transactionType == "W" || transactionType == "T" || transactionType == "S") // Withdraw or Transfer
             {
                 account.Balance -= amount; // Subtract the amount for withdrawal
             }
@@ -138,7 +181,7 @@ namespace Assignment1.Manager
             command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
             command.Parameters.AddWithValue("Balance", account.Balance);
             command.ExecuteNonQuery();
-           
+
         }
     }
 }
