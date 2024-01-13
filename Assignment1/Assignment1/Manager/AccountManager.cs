@@ -30,17 +30,6 @@ namespace Assignment1.Manager
 
             return ReturnList(command);
 
-            //var transactionManager = new TransactionManager(_connectionString);
-
-            //return command.GetDataTable().Select().Select(x => new Account
-            //{
-            //    AccountNumber = x.Field<int>("AccountNumber"),
-            //    AccountType = x.Field<string>("AccountType"),
-            //    CustomerID = customerID,
-            //    Balance = x.Field<decimal>("Balance"),
-            //    Transactions = transactionManager.GetTransactionsByAccountNumber(x.Field<int>("AccountNumber"))
-
-            //}).ToList();
         }
 
         public List<Account> GetAccountByAccountNumber(int accountNumber)
@@ -122,12 +111,25 @@ namespace Assignment1.Manager
             {
                 throw new InvalidOperationException("Insufficient funds for withdrawal.");
             }
-            CreateTransaction(account, amount, "W", comment); // "W" for Withdraw, amount is negative
+
+            // Check if the withdrawal will result in a zero balance
+            if (account.Balance - amount < 0 && account.Balance - amount >= -0.01M)
+            {
+                // Allow withdrawal even if it results in a zero balance
+                account.Balance = 0;
+            }
+            else
+            {
+                account.Balance -= amount;
+            }
+
+            CreateTransaction(account, amount, "W", comment); // "W" for Withdraw
             if (!AccountQualifiesForFreeServiceFee(account))
             {
                 CreateTransaction(account, (decimal)0.05, "S", "");
             }
         }
+
 
         public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
         {

@@ -138,7 +138,7 @@ namespace Assignment1
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
             decimal availableBalance = account.Balance - (account.AccountType == "C" ? 300 : 0);
 
-            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
+            Console.WriteLine($"{accountType} {account.AccountNumber}, Account Balance: ${account.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
 
             var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
 
@@ -186,9 +186,8 @@ namespace Assignment1
                 string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType);
                 string amountFormatted = GetColoredAmount(transaction.Amount, transaction.TransactionType);
 
-                string destination = transaction.TransactionType == "D" || transaction.TransactionType == "W"|| transaction.TransactionType == "S"
+                string destination = transaction.TransactionType == "D" || transaction.TransactionType == "W" || transaction.TransactionType == "S"
                 ? "N/A" : transaction.DestinationAccountNumber.ToString();
-
 
                 Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
                     destination, amountFormatted,
