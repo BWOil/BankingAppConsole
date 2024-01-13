@@ -126,6 +126,17 @@ namespace Assignment1.Manager
             }
             CreateTransaction(account, -amount, "W", comment); // "W" for Withdraw, amount is negative
         }
+
+        public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
+        {
+            CreateTransaction(account, -amount, "T", comment);
+            destinationAccount.Balance += amount;
+            UpdateAccount(destinationAccount);
+            //if (!AccountQualifiesForFreeServiceFee(account))
+            //{
+            //    CreateTransaction(account, -amount, "T", comment);
+            //}
+        }
         private void CreateTransaction(Account account, decimal amount, string transactionType, string comment)
         {
             var transaction = new Models.Transaction
@@ -144,7 +155,7 @@ namespace Assignment1.Manager
             {
                 account.Balance += amount; // Add the amount for deposit
             }
-            else if (transactionType == "W") // Withdraw
+            else if (transactionType == "W" || transactionType == "T") // Withdraw or Transfer
             {
                 account.Balance -= amount; // Subtract the amount for withdrawal
             }

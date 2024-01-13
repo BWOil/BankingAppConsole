@@ -12,7 +12,7 @@ namespace Assignment1.Utilities
             Console.WriteLine($"Account Number: {account.AccountNumber}\nAccount Type: {accountType}\nBalance: ${account.Balance:F2}\n");
         }
 
-        public static void PerformTransaction(AccountManager accountManager, Account account, decimal amount, string comment, TransactionType transactionType)
+        public static void PerformTransaction(AccountManager accountManager, Account account, decimal amount, string comment, TransactionType transactionType, Account destinationAccount)
         {
             switch (transactionType)
             {
@@ -26,7 +26,10 @@ namespace Assignment1.Utilities
                     }
                     accountManager.Withdraw(account, amount, comment);
                     break;
-                // Add cases for Transfer and ServiceCharge if needed
+                case TransactionType.Transfer:
+                    accountManager.Transfer(account, amount, comment, destinationAccount);
+                    
+                    break;
                 default:
                     throw new InvalidOperationException("Invalid transaction type.");
             }

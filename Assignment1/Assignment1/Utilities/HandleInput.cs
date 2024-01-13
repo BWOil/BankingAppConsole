@@ -1,6 +1,7 @@
 ﻿using System;
 using Assignment1.Manager;
 using Assignment1.Models;
+using static Assignment1.Menu;
 
 namespace Assignment1.Utilities
 {
@@ -22,21 +23,20 @@ namespace Assignment1.Utilities
             }
         }
 
-        public static decimal HandleDecimalInput(string prompt, string errorMessage)
+        public static decimal HandleDecimalInput(string prompt, string errorMessage, Account selectedAccount, TransactionType transactionType)
         {
+            bool takeMoneyCondition = transactionType == TransactionType.Withdraw || transactionType == TransactionType.Transfer;
             while (true)
             {
                 Console.Write(prompt);
                 if (decimal.TryParse(Console.ReadLine(), out var result))
                 {
-                    if (result >= 0.01m)
-                    {
+                    if (takeMoneyCondition && result > selectedAccount.Balance)
+                        ApplyTextColour.RedText(takeMoneyCondition ? "Insufficient funds.\n" : "Invalid amount.\n");
+                    else if (result >= 0.01m)
                         return result; // Valid input, return the result
-                    }
                     else
-                    {
                         ApplyTextColour.RedText("Amount must be at least $0.01.\n"); // Invalid input, show specific error
-                    }
                 }
                 else
                 {

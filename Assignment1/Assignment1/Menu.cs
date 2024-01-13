@@ -73,29 +73,24 @@ namespace Assignment1
             var operation = transactionType.ToString();
 
             var selectedAccount = DisplayAccountsWithIndex(operation);
-            
+            Account destinationAccount = null;
 
             AccountUtilities.PrintAccountDetails(selectedAccount);
 
+
             if (transactionType == TransactionType.Transfer)
             {
-                Account destinationAccountNumber = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager, selectedAccount.AccountNumber);
-                AccountUtilities.PrintAccountDetails(destinationAccountNumber);
+                destinationAccount = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager, selectedAccount.AccountNumber);
+                AccountUtilities.PrintAccountDetails(destinationAccount);
                 
             }
-
+            
             decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
-                                                           "Invalid amount. Please enter a number greater than $0.01.");
-            bool takeMoneyCondition = transactionType == TransactionType.Withdraw || transactionType == TransactionType.Transfer;
-            if (amount < 0.01m || (takeMoneyCondition && amount > selectedAccount.Balance))
-            {
-                Console.WriteLine(takeMoneyCondition ? "Insufficient funds." : "Invalid amount.");
-                return;
-            }
-
+                                                           "Invalid amount. Please enter a number greater than $0.01.", selectedAccount, transactionType);           
+            
             string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
-            AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
-            Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance}.");
+            AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType, destinationAccount);
+            Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance:F2}.\n");
         }
 
 
