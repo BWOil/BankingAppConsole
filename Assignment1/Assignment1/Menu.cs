@@ -82,19 +82,29 @@ namespace Assignment1
             int accountIndex = HandleInput.HandleSelection("Select an account: ", accounts.Count);
             var selectedAccount = accounts[accountIndex - 1];
 
-            AccountUtilities.PrintAccountDetails(selectedAccount);
+            string accountType = selectedAccount.AccountType == "S" ? "Savings" : "Checking";
+            decimal availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
+
+            Console.WriteLine($"{accountType} {selectedAccount.AccountNumber}, Balance: ${selectedAccount.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
+
             decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
                                                            "Invalid amount. Please enter a number greater than $0.01.");
-            if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > selectedAccount.Balance))
+            if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > availableBalance))
             {
-                Console.WriteLine(transactionType == TransactionType.Withdraw ? "Insufficient funds." : "Invalid amount.");
+                ApplyTextColour.RedText(transactionType == TransactionType.Withdraw ? "Insufficient funds." : "Invalid amount.");
                 return;
             }
 
             string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
             AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
-            Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}.");
+
+            // Update the available balance after performing the transaction
+            availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
+
+            Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.");
         }
+
+
 
         private void PrintMenu()
         {
@@ -123,10 +133,14 @@ namespace Assignment1
         private void DisplayAccountAndTransactionList(Account account)
         {
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
+            decimal availableBalance = account.Balance - (account.AccountType == "C" ? 300 : 0);
+
+            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
+
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
             var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
 
-            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
+            //Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
             Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
             Console.WriteLine(new string('-', 120));
 
