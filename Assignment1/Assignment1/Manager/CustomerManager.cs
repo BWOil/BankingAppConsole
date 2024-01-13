@@ -67,7 +67,7 @@ namespace Assignment1.Manager
                 City = x.Field<string>("City"),
                 PostCode = x.Field<string>("PostCode"),
                 Accounts = accountManager.GetAccounts(x.Field<int>("CustomerID")),
-                Login = loginManager.GetLogin(x.Field<int>("CustomerID"))[0]
+                Login = loginManager.GetLoginByCustomerID(x.Field<int>("CustomerID"))[0]
 
             }).ToList();
         }

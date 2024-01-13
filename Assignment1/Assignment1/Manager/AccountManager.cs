@@ -41,6 +41,18 @@ namespace Assignment1.Manager
             }).ToList();
         }
 
+        public bool AccountQualifiesForFreeServiceFee(Account account)
+        {
+            int count = 0;
+            foreach(var transaction in account.Transactions)
+            {
+                string transactionType = transaction.TransactionType;
+                if (transactionType == "T" || transactionType == "W")
+                    count++;
+            }
+            return count < 2;
+        }
+
         public void InsertAccount(Account account)
         {
             var balance = CalculateBalance(account);
