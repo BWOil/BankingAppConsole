@@ -15,7 +15,7 @@ namespace Assignment1.Manager
 			_connectionString = connectionString;
 		}
 
-		public List<Login> GetLogin(int customerID)
+		public List<Login> GetLogin()
 		{
 			using var connection = new SqlConnection(_connectionString);
         
@@ -26,11 +26,31 @@ namespace Assignment1.Manager
             return command.GetDataTable().Select().Select(x => new Login
             {
                 LoginID = x.Field<string>("LoginID"),
-                CustomerID = customerID,
+                CustomerID = x.Field<int>("CustomerID"),
                 PasswordHash = x.Field<string>("PasswordHash")
                
             }).ToList();
         }
+
+        public List<Login> GetLoginByCustomerID(int customerID)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+
+            using var command = connection.CreateCommand();
+            command.CommandText = "select * from Login where CustomerID = @customerID";
+            command.Parameters.AddWithValue("customerID", customerID);
+
+            return command.GetDataTable().Select().Select(x => new Login
+            {
+                LoginID = x.Field<string>("LoginID"),
+                CustomerID = x.Field<int>("CustomerID"),
+                PasswordHash = x.Field<string>("PasswordHash")
+
+            }).ToList();
+        }
+
+
 
         public void InsertLogin(Login login, int customerID)
         {
