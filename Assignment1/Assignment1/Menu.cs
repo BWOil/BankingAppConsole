@@ -66,44 +66,6 @@ namespace Assignment1
             }
         }
 
-        //private void ProcessTransaction(TransactionType transactionType)
-        //{
-        //    var operation = transactionType.ToString();
-        //    Console.WriteLine($"{operation} Money\n");
-
-        //    var accounts = _accountManager.GetAccounts(_customer.CustomerID);
-        //    if (accounts.Count == 0)
-        //    {
-        //        Console.WriteLine("No accounts available.");
-        //        return;
-        //    }
-
-        //    DisplayAccountsWithIndex(accounts);
-        //    int accountIndex = HandleInput.HandleSelection("Select an account: ", accounts.Count);
-        //    var selectedAccount = accounts[accountIndex - 1];
-
-        //    string accountType = selectedAccount.AccountType == "S" ? "Savings" : "Checking";
-        //    decimal availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
-
-        //    Console.WriteLine($"{accountType} {selectedAccount.AccountNumber}, Balance: ${selectedAccount.Balance:F2}, Available Balance: ${availableBalance:F2}\n");
-
-        //    decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
-        //                                                   "Invalid amount. Please enter a number greater than $0.01.");
-        //    if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > availableBalance))
-        //    {
-        //        ApplyTextColour.RedText(transactionType == TransactionType.Withdraw ? "Insufficient funds." : "Invalid amount.");
-        //        return;
-        //    }
-
-        //    string comment = HandleInput.HandleStringInput("Enter comment (n to quit, max length 30): ", 30);
-        //    AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType);
-
-        //    // Update the available balance after performing the transaction
-        //    availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
-
-        //    Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.\n");
-        //}
-
         private void ProcessTransaction(TransactionType transactionType)
         {
             var operation = transactionType.ToString();
