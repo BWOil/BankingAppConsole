@@ -123,24 +123,56 @@ namespace Assignment1
         private void DisplayAccountAndTransactionList(Account account)
         {
             string accountType = account.AccountType == "S" ? "Savings" : "Checking";
-            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
             var transactionList = _transactionManager.GetTransactionsByAccountNumber(account.AccountNumber);
 
+            Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
             Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
             Console.WriteLine(new string('-', 120));
 
-            foreach (var transaction in transactionList)
+            int page = 1;
+            while (true)
             {
+                DisplayTransactionsPage(account, transactionList, page);
+
+                int totalPage = (int)Math.Ceiling(transactionList.Count / 4.0);
+
+                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: {(page == totalPage ? "" : "n (next page) | ")}{(page == 1 ? "" : "p (previous page) | ")}q (quit)");
+
+                string option = HandleInput.HandlePaginationInput("Enter an option: ", totalPage, page);
+                switch (option)
+                {
+                    case "n":
+                        page++;
+                        break;
+                    case "p":
+                        page--;
+                        break;
+                    case "q":
+                        return;
+                    default:
+                        throw new UnreachableException();
+                }
+            }
+        }
+
+        private void DisplayTransactionsPage(Account account, List<Transaction> transactionList, int page)
+        {
+            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
+            int startIndex = (page - 1) * 4;
+            int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
+
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                var transaction = transactionList[i];
                 string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType);
                 string amountFormatted = GetColoredAmount(transaction.Amount, transaction.TransactionType);
-                string rowFormat = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
 
-                Console.WriteLine(rowFormat, transaction.TransactionID, transactionTypeDisplay,
-                    transaction.DestinationAccountNumber == null ? "N/A" : transaction.DestinationAccountNumber,
-                    amountFormatted, transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"),
-                    transaction.Comment);
+                Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
+                    transaction.DestinationAccountNumber, amountFormatted,
+                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
             }
+
         }
 
         private string GetColoredAmount(decimal amount, string transactionType)
@@ -173,6 +205,7 @@ namespace Assignment1
                     return "Unknown";
             }
         }
+
 
         private void DisplayAccountsWithIndex(List<Account> accounts)
         {
