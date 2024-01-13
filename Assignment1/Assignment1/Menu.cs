@@ -66,6 +66,43 @@ namespace Assignment1
             }
         }
 
+        //private void ProcessTransaction(TransactionType transactionType)
+        //{
+        //    var operation = transactionType.ToString();
+
+        //    var selectedAccount = DisplayAccountsWithIndex(operation);
+        //    Account destinationAccount = null;
+
+        //    AccountUtilities.PrintAccountDetails(selectedAccount);
+
+        //    if (transactionType == TransactionType.Transfer)
+        //    {
+        //        destinationAccount = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager, selectedAccount.AccountNumber);
+        //        AccountUtilities.PrintAccountDetails(destinationAccount);
+        //    }
+
+        //    decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
+        //                                                   "Invalid amount. Please enter a number greater than $0.01.", selectedAccount, transactionType);
+
+        //    string comment = HandleInput.HandleStringInput("Enter comment (n to quit, max length 30): ", 30);
+
+        //    // Check if the customer typed "n" to quit
+
+
+
+        //    if (comment.ToLower() == "n")
+        //    {
+        //        Console.WriteLine("Transaction cancelled. Returning to the main menu.\n");
+        //        return;
+        //    }
+
+        //    AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType, destinationAccount);
+        //    //Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance:F2}.\n");
+        //    // Update the available balance after performing the transaction
+        //    availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
+        //    Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.\n")
+        //}
+
         private void ProcessTransaction(TransactionType transactionType)
         {
             var operation = transactionType.ToString();
@@ -75,22 +112,38 @@ namespace Assignment1
 
             AccountUtilities.PrintAccountDetails(selectedAccount);
 
-
             if (transactionType == TransactionType.Transfer)
             {
                 destinationAccount = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager, selectedAccount.AccountNumber);
                 AccountUtilities.PrintAccountDetails(destinationAccount);
-
             }
 
             decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
                                                            "Invalid amount. Please enter a number greater than $0.01.", selectedAccount, transactionType);
 
-            string comment = HandleInput.HandleStringInput("Enter comment (max length 30): ", 30);
-            AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType, destinationAccount);
-            Console.WriteLine($"{operation} of ${amount} successful. New balance is ${selectedAccount.Balance:F2}.\n");
-        }
+            string comment = HandleInput.HandleStringInput("Enter comment (n to quit, max length 30): ", 30);
 
+            // Check if the customer typed "n" to quit
+            if (comment.ToLower() == "n")
+            {
+                Console.WriteLine("Transaction cancelled. Returning to the main menu.\n");
+                return;
+            }
+
+            try
+            {
+                AccountUtilities.PerformTransaction(_accountManager, selectedAccount, amount, comment, transactionType, destinationAccount);
+
+                // Calculate available balance after performing the transaction
+                decimal availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
+
+                Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance:F2}.\n");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Transaction failed: {ex.Message}\n");
+            }
+        }
 
 
         private void PrintMenu()
