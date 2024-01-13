@@ -140,15 +140,7 @@ namespace Assignment1.Manager
             command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
             command.Parameters.AddWithValue("Balance", account.Balance);
             command.ExecuteNonQuery();
-            //try
-            //{
-            //    int rowsAffected = command.ExecuteNonQuery();
-            //    Console.WriteLine($"Rows affected: {rowsAffected}");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Error updating account: {ex.Message}");
-            //}
+           
         }
     }
 }
