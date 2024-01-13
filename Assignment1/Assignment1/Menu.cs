@@ -80,14 +80,16 @@ namespace Assignment1
             if (transactionType == TransactionType.Transfer)
             {
                 Account destinationAccountNumber = HandleInput.HandleAccountNumberInput("Enter destination account number: ", _accountManager);
-                Console.WriteLine(destinationAccountNumber.Balance);
+                AccountUtilities.PrintAccountDetails(destinationAccountNumber);
+                
             }
 
             decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
                                                            "Invalid amount. Please enter a number greater than $0.01.");
-            if (amount < 0.01m || (transactionType == TransactionType.Withdraw && amount > selectedAccount.Balance))
+            bool takeMoneyCondition = transactionType == TransactionType.Withdraw || transactionType == TransactionType.Transfer;
+            if (amount < 0.01m || (takeMoneyCondition && amount > selectedAccount.Balance))
             {
-                Console.WriteLine(transactionType == TransactionType.Withdraw ? "Insufficient funds." : "Invalid amount.");
+                Console.WriteLine(takeMoneyCondition ? "Insufficient funds." : "Invalid amount.");
                 return;
             }
 
@@ -115,14 +117,9 @@ namespace Assignment1
 
         private void DisplayMyStatement()
         {
-            //Console.WriteLine("My Statement\n");
-            // ----------- add the account menu
 
-            //DisplayAccount("My Statement");
             var selectAccount = DisplayAccountsWithIndex("My Statement");
 
-            //int option = HandleInput.HandleSelection("Select an account: ", allAccounts.Count);
-            //var currentAccount = allAccounts[option - 1];
             
             DisplayAccountAndTransationList(selectAccount);
 
@@ -274,13 +271,15 @@ namespace Assignment1
 
 
 
-        private void PrintSelectedAccountDetails(Account selectedAccount)
-        {
-            // Display selected account details
-            Console.WriteLine($"Selected Account: \n Account Number: {selectedAccount.AccountNumber} \n " +
-                              $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}" +
-                              "Available Balance: ${selectedAccount.Balance} \n");
-        }
+        //private void PrintSelectedAccountDetails(Account account)
+        //{
+        //    // Display selected account details
+        //    //Console.WriteLine($"Account Number: {selectedAccount.AccountNumber} \n " +
+        //    //                  $"Account Type: {selectedAccount.AccountType} \n Current Balance: ${selectedAccount.Balance}" +
+        //    //                  "Available Balance: ${selectedAccount.Balance} \n");
+        //    string accountType = account.AccountType == "S" ? "Savings" : "Checking";
+        //    Console.WriteLine($"{accountType} {account.AccountNumber}, Balance: ${account.Balance:F2}, Available Balance: ${account.Balance:F2}\n");
+        //}
 
 
 

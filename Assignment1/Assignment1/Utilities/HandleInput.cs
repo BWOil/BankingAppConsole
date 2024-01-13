@@ -69,11 +69,12 @@ namespace Assignment1.Utilities
             {
                 Console.Write(prompt);
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out var accountNumber))
+                if (input.Length == 4 && int.TryParse(input, out var accountNumber))
                 {
                     var accountList = accountManager.GetAccountByAccountNumber(accountNumber);
                     if (accountList.Count() != 0)
                         return accountList[0]; // Input is within the max length
+                    ApplyTextColour.RedText($"Account number does not exist\n");
                 }
                 else
                 {
