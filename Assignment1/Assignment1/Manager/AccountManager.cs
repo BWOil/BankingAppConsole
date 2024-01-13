@@ -135,8 +135,6 @@ namespace Assignment1.Manager
             using var command = connection.CreateCommand();
             command.CommandText =
                 "update Account set Balance = @Balance where AccountNumber = @AccountNumber";
-            Console.WriteLine(account.AccountNumber);
-            Console.WriteLine(account.Balance);
             command.Parameters.AddWithValue("AccountNumber", account.AccountNumber);
             command.Parameters.AddWithValue("Balance", account.Balance);
             command.ExecuteNonQuery();

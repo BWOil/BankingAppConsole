@@ -101,7 +101,7 @@ namespace Assignment1
             // Update the available balance after performing the transaction
             availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
 
-            Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.");
+            Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance}.\n");
         }
 
 
