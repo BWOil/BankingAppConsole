@@ -132,10 +132,10 @@ namespace Assignment1.Manager
             CreateTransaction(account, amount, "T", comment);
             destinationAccount.Balance += amount;
             UpdateAccount(destinationAccount);
-            //if (!AccountQualifiesForFreeServiceFee(account))
-            //{
-            //    CreateTransaction(account, -amount, "T", comment);
-            //}
+            if (!AccountQualifiesForFreeServiceFee(account))
+            {
+                CreateTransaction(account, (decimal) 0.1 , "S", "");
+            }
         }
         private void CreateTransaction(Account account, decimal amount, string transactionType, string comment)
         {
@@ -155,7 +155,7 @@ namespace Assignment1.Manager
             {
                 account.Balance += amount; // Add the amount for deposit
             }
-            else if (transactionType == "W" || transactionType == "T") // Withdraw or Transfer
+            else if (transactionType == "W" || transactionType == "T" || transactionType == "S") // Withdraw or Transfer
             {
                 account.Balance -= amount; // Subtract the amount for withdrawal
             }
