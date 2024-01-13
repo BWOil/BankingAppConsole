@@ -162,8 +162,32 @@ namespace Assignment1
             }
         }
 
+        //private void DisplayTransactionsPage(Account account, List<Transaction> transactionList, int page)
+        //{
+        //    const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
+
+        //    // Display the header on each page
+        //    Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
+        //    Console.WriteLine(new string('-', 120));
+
+        //    int startIndex = (page - 1) * 4;
+        //    int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
+
+        //    for (int i = startIndex; i <= endIndex; i++)
+        //    {
+        //        var transaction = transactionList[i];
+        //        string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType);
+        //        string amountFormatted = GetColoredAmount(transaction.Amount, transaction.TransactionType);
+
+        //        Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
+        //            transaction.DestinationAccountNumber, amountFormatted,
+        //            transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
+        //    }
+        //}
+
         private void DisplayTransactionsPage(Account account, List<Transaction> transactionList, int page)
         {
+            Console.WriteLine();
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
 
             // Display the header on each page
@@ -179,11 +203,17 @@ namespace Assignment1
                 string transactionTypeDisplay = GetTransactionTypeDisplay(transaction.TransactionType);
                 string amountFormatted = GetColoredAmount(transaction.Amount, transaction.TransactionType);
 
+                string destination = transaction.TransactionType == "D" || transaction.TransactionType == "W"
+                ? "N/A"
+                : transaction.DestinationAccountNumber.ToString();
+
+
                 Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
-                    transaction.DestinationAccountNumber, amountFormatted,
+                    destination, amountFormatted,
                     transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
             }
         }
+
 
         private string GetColoredAmount(decimal amount, string transactionType)
         {
