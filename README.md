@@ -85,6 +85,7 @@ The console banking application is designed to provide basic banking functionali
   - Reusability: Components and services can be reused across multiple managers.
 - **Implementation Details**:
 <p align="left">
+  The ⁠ LoginSystem ⁠ class achieves dependency injection through its constructor. The LoginSystem and Menu classes utilize constructor-based dependency injection for CustomerManager and other dependencies, enhancing flexibility and testability. This approach allows easy integration of different implementations and facilitates unit testing, aligning with the Dependency Inversion Principle for a more robust and modular design.
   <img src="design patterns/dependency-injection.png" alt="Image"/>
   <img src="design patterns/dependency-injection-1.png" alt="Image"/>
   <img src="design patterns/updated_facade.png" alt="Image"/>
@@ -104,6 +105,7 @@ The console banking application is designed to provide basic banking functionali
   - Improved User Experience: Applications feel more responsive and smooth to users.
 - **Implementation Details**:
 <p align="left">
+  In the program, the `async` keyword in `GetAndSaveCustomer` marks the method as asynchronous, making it return a `Task`. The `await` keyword is used with `client.GetStringAsync(Url)`, allowing the program to asynchronously wait for the HTTP request to complete before continuing, without blocking the execution thread.
   <img src="Async-await/img/Async-await-example.png" alt="Image"/>
   <img src="Async-await/img/calling GetAndSaveCustomer by using await1.png" alt="Image"/>
   <img src="Async-await/img/calling GetAndSaveCustomer by using await2.png" alt="Image"/>
