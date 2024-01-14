@@ -67,6 +67,7 @@
   <img src="trello-board/Screenshot 2024-01-11 at 12.07.20 pm.png" alt="Image" width="500"/>
   <img src="trello-board/Screenshot 2024-01-12 at 1.05.30 pm.png" alt="Image" width="500"/>
   <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-14 at 13.16.33 pm.png" alt="Image" width="500"/>
 </p>
 
 
