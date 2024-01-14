@@ -62,7 +62,15 @@
 - **Additional Comments**:
 
 ### Trello Board Screenshots
-(Information about project management tools and techniques used, like Trello. Include screenshots or links if appropriate.)
+<p align="left">
+  <img src="trello-board/Screenshot 2024-01-08 at 4.28.50 pm.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-08 at 6.47.00 pm.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-11 at 1.06.30 pm.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-11 at 12.07.20 pm.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-12 at 1.05.30 pm.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image" width="500"/>
+</p>
+
 
 ## Contact Information
 (Your contact information or ways to connect for queries and collaborations.)
