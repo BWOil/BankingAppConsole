@@ -102,6 +102,9 @@ The console banking application is designed to provide basic banking functionali
   - Scalability: Asynchronous code can handle multiple concurrent requests or operations efficiently.
   - Improved User Experience: Applications feel more responsive and smooth to users.
 - **Implementation Details**:
+<p align="left">
+  <img src="Async-await/img/Async-await-example.png" alt="Image"/>
+</p>
 - **Additional Comments**:
 
 ### 📋 Trello Board Screenshots
