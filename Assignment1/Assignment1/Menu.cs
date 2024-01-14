@@ -56,9 +56,8 @@ namespace Assignment1
                         Logout();
                         break;
                     case 6:
-                        ApplyTextColour.BlueText("Exiting\n");
-                        ApplyTextColour.BlueText("Goodbye!\n");
-                        Environment.Exit(0);
+                        exitProgram();
+                        
                         break;
                     default:
                         throw new UnreachableException();
@@ -81,8 +80,7 @@ namespace Assignment1
                 AccountUtilities.PrintAccountDetails(destinationAccount);
             }
 
-            decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ",
-                                                           "Invalid amount. Please enter a number greater than $0.01.", selectedAccount, transactionType);
+            decimal amount = HandleInput.HandleDecimalInput($"Enter {operation.ToLower()} amount (minimum $0.01): ", _accountManager, selectedAccount, transactionType);
 
             string comment = HandleInput.HandleStringInput("Enter comment (n to quit, max length 30): ", 30);
 
@@ -100,7 +98,7 @@ namespace Assignment1
                 // Calculate available balance after performing the transaction
                 decimal availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
 
-                Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance:F2}.\n");
+                Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance:F2}, Available Balance: ${availableBalance:F2}.\n");
             }
             catch (InvalidOperationException ex)
             {
@@ -277,6 +275,12 @@ namespace Assignment1
             {
                 Console.WriteLine("Logout cancelled. Returning to the main menu.");
             }
+        }
+
+        private void exitProgram()
+        {
+            ApplyTextColour.BlueText("Program Ending.\n");
+            Environment.Exit(0);
         }
     }
 }

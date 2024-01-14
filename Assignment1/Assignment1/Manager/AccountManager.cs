@@ -107,27 +107,12 @@ namespace Assignment1.Manager
 
         public void Withdraw(Account account, decimal amount, string comment)
         {
-            if (account.Balance - amount < (account.AccountType == "S" ? 0 : 300))
-            {
-                throw new InvalidOperationException("Insufficient funds for withdrawal.");
-            }
-
-            // Check if the withdrawal will result in a zero balance
-            if (account.Balance - amount < 0 && account.Balance - amount >= -0.01M)
-            {
-                // Allow withdrawal even if it results in a zero balance
-                account.Balance = 0;
-            }
-            else
-            {
-                account.Balance -= amount;
-            }
 
             CreateTransaction(account, amount, "W", comment, null); // "W" for Withdraw, amount is negative
 
             if (!AccountQualifiesForFreeServiceFee(account))
             {
-                CreateTransaction(account, (decimal)0.05, "S", "", null);
+                CreateTransaction(account, 0.05m, "S", "", null);
             }
         }
 
@@ -139,7 +124,7 @@ namespace Assignment1.Manager
             UpdateAccount(destinationAccount);
             if (!AccountQualifiesForFreeServiceFee(account))
             {
-                CreateTransaction(account, (decimal) 0.1 , "S", "", null);
+                CreateTransaction(account, 0.1m , "S", "", null);
             }
         }
 
@@ -165,12 +150,12 @@ namespace Assignment1.Manager
             else if (transactionType == "W" || transactionType == "T" || transactionType == "S") // Withdraw or Transfer
             {
                 account.Balance -= amount; // Subtract the amount for withdrawal
+                
             }
             else
             {
                 throw new InvalidOperationException("Invalid transaction type.");
             }
-
             UpdateAccount(account);
             _transactionManager.InsertTransaction(transaction);
         }
