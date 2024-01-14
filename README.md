@@ -86,7 +86,7 @@ The console banking application is designed to provide basic banking functionali
 <p align="left">
   <img src="design patterns/dependency-injection.png" alt="Image"/>
   <img src="design patterns/dependency-injection-1.png" alt="Image"/>
-  <img src="design patterns/dependency-injection-2.png" alt="Image"/>
+  <img src="design patterns/updated_facade.png" alt="Image"/>
 </p>
 - **Additional Comments**:
 
