@@ -97,7 +97,7 @@ The console banking application is designed to provide basic banking functionali
   - Improved User Experience: Applications feel more responsive and smooth to users.
 - **Implementation Details**:
 <p align="left">
-  In the program, the `async` keyword in `GetAndSaveCustomer` marks the method as asynchronous, making it return a `Task`. The `await` keyword is used with `client.GetStringAsync(Url)`, allowing the program to asynchronously wait for the HTTP request to complete before continuing, without blocking the execution thread.
+  In the program, the `async` keyword in `GetAndSaveCustomer` marks the method as asynchronous, making it return a `Task`. The `await` keyword is used with `client.GetString(Url)`, allowing the program to asynchronously wait for the HTTP request to complete before continuing, without blocking the execution thread.
   <img src="Async-await/img/Async-await-example.png" alt="Image"/>
   <img src="Async-await/img/calling GetAndSaveCustomer by using await1.png" alt="Image"/>
   <img src="Async-await/img/calling GetAndSaveCustomer by using await2.png" alt="Image"/>
