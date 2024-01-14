@@ -1,4 +1,8 @@
 # 🙋‍♀️ Authors: s3959666-s3961136-a1
+s3961136 Benjaporn Wongmayura
+s3959666 Xiaohan Qin
+[GitHub Repository for Assignment 1](https://github.com/rmit-wdt-summer-2024/s3959666-s3961136-a1)
+
 # 💸 MCBA (Most Common Bank of Australia)
 <p align="center">
   <img src="trello-board/MCBA_logo.png" alt="Image" width="500"/>
