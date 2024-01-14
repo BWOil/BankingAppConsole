@@ -30,21 +30,21 @@
 
 ## 📦 Design Patterns
 ### DTO Pattern in Models
-- **Summary**: (Brief explanation)
+- **Summary**: DTO (Data Transfer Object) is a pattern used to transfer data between parts of a software application. It encapsulates data into a single object, reducing the number of calls and simplifying data transfer, especially in network environments. DTOs are simple, serializable objects used mainly for data transport without business logic.
 - **Purpose**:
 - **Advantages**:
 - **Implementation Details**:
 - **Additional Comments**:
 
 ### Facade Pattern in Managers
-- **Summary**: (Brief explanation)
+- **Summary**: The Facade pattern simplifies interactions with a complex system by providing a single unified interface. This pattern hides the system's complexity and makes it more accessible and easier for clients to use.
 - **Purpose**:
 - **Advantages**:
 - **Implementation Details**:
 - **Additional Comments**:
 
 ### Dependency Injection in Managers
-- **Summary**: 
+- **Summary**: Dependency Injection is a technique in programming where objects receive their dependencies from an external source rather than creating them themselves. This promotes loosely coupled and easily testable code, as it separates object creation from object use.
 - **Purpose**:
 - **Advantages**:
 - **Implementation Details**:
