@@ -9,9 +9,8 @@
 5. [Design Patterns](#design-patterns)
 6. [Class Library Justification](#class-library-justification)
 7. [Asynchronous Programming](#asynchronous-programming)
-8. [Project Management](#project-management)
-9. [Acknowledgments](#acknowledgments)
-10. [Contact Information](#contact-information)
+8. [Trello Board Screenshots](#trello-board-screenshots)
+9. [Contact Information](#contact-information)
 
 ## 🔭 About the Project
 (Description of your project, its features, and its purpose.)
