@@ -118,7 +118,11 @@ The console banking application is designed to provide basic banking functionali
   <img src="trello-board/Screenshot 2024-01-11 at 12.07.20 pm.png" alt="Image"/>
   <img src="trello-board/Screenshot 2024-01-12 at 1.05.30 pm.png" alt="Image"/>
   <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-13 at 4.18.27 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-13 at 9.38.10 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-14 at 1.52.13 am.png" alt="Image"/>
   <img src="trello-board/Screenshot 2024-01-14 at 13.16.33 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-14 at 22.51.03pm.png" alt="Image"/>
 </p>
 
 
