@@ -53,7 +53,7 @@
 (Explanation of the class library used, if any.)
 
 ## Asynchronous Programming
-- **Summary**:
+- **Summary**: Async and await are used in programming to do tasks in the background. 'Async' tells the computer that a function can run while other things are happening. 'Await' is used inside these functions to wait for a task to finish without stopping everything else. 
 - **Purpose**:
 - **Advantages**:
 - **Design Impact**:
