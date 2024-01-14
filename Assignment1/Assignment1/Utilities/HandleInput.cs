@@ -1,6 +1,7 @@
 ﻿using System;
 using Assignment1.Manager;
 using Assignment1.Models;
+using TextLibrary;
 using static Assignment1.Menu;
 
 namespace Assignment1.Utilities
@@ -19,37 +20,9 @@ namespace Assignment1.Utilities
                 {
                     return option;
                 }
-                ApplyTextColour.RedText("Invalid input.\n");
+                NormalText.DisplayErrorMessage("Invalid input.\n");
             }
         }
-
-        //public static decimal HandleDecimalInput(string prompt, AccountManager accountManager, Account selectedAccount, TransactionType transactionType)
-        //{
-        //    bool takeMoneyCondition = transactionType == TransactionType.Withdraw || transactionType == TransactionType.Transfer;
-        //    while (true)
-        //    {
-        //        Console.Write(prompt);
-        //        if (decimal.TryParse(Console.ReadLine(), out var result))
-        //        {
-        //            if (takeMoneyCondition)
-        //            {
-        //                if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount))
-        //                {
-        //                    decimal checkAmount = transactionType == TransactionType.Withdraw ? (decimal) 0.05 : (decimal) 0.1;
-        //                    if (result > selectedAccount.Balance + ch)
-
-        //                }
-        //                ApplyTextColour.RedText(takeMoneyCondition ? "Insufficient funds.\n" : "Invalid amount.\n");
-        //            }     
-        //            else if (result >= 0.01m)
-        //                return result; // Valid input, return the result
-        //            else
-        //                ApplyTextColour.RedText("Amount must be at least $0.01.\n"); // Invalid input, show specific error
-        //        }
-        //        else
-        //            ApplyTextColour.RedText("Invalid amount. Please enter a number greater than $0.01.\n"); // Parsing error, show general error
-        //    }
-        //}
 
         public static decimal HandleDecimalInput(string prompt, AccountManager accountManager, Account selectedAccount, TransactionType transactionType)
         {
@@ -66,7 +39,7 @@ namespace Assignment1.Utilities
                 }
                 else
                 {
-                    DisplayErrorMessage("Invalid amount. Please enter a valid number.");
+                    NormalText.DisplayErrorMessage("Invalid amount. Please enter a valid number.");
                 }
             }
         }
@@ -82,36 +55,31 @@ namespace Assignment1.Utilities
 
                 if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount) && amount + feeAmount > balance )
                 {
-                    DisplayErrorMessage($"Insufficient funds because of service fee ${feeAmount:F2}");
+                    NormalText.DisplayErrorMessage($"Insufficient funds because of service fee ${feeAmount:F2}");
                     return false;
                 }
                 else if (amount > balance)
                 {
-                    DisplayErrorMessage("Insufficient funds.");
+                    NormalText.DisplayErrorMessage("Insufficient funds.");
                     return false;
                     // checking account 
                 } else if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount) && selectedAccount.AccountType == "C" && amount + feeAmount > balance - 300)
                 {
-                    DisplayErrorMessage($"Insufficient funds because the minimum balance of checking account is $300 and service fee charge ${feeAmount:F2}");
+                    NormalText.DisplayErrorMessage($"Insufficient funds because the minimum balance of checking account is $300 and service fee charge ${feeAmount:F2}");
                     return false;
                 } else if (selectedAccount.AccountType == "C" && amount > balance - 300)
                 {
-                    DisplayErrorMessage($"Insufficient funds because the minimum balance of checking account is $300");
+                    NormalText.DisplayErrorMessage($"Insufficient funds because the minimum balance of checking account is $300");
                     return false;
                 }
             }
             else if (amount < 0.01m)
             {
-                DisplayErrorMessage("Amount must be at least $0.01.");
+                NormalText.DisplayErrorMessage("Amount must be at least $0.01.");
                 return false;
             }
 
             return true;
-        }
-
-        private static void DisplayErrorMessage(string message)
-        {
-            ApplyTextColour.RedText($"{message}\n");
         }
 
 
@@ -128,7 +96,7 @@ namespace Assignment1.Utilities
                 }
                 else
                 {
-                    ApplyTextColour.RedText($"Input too long. Please enter a maximum of {maxLength} characters.\n");
+                    NormalText.DisplayErrorMessage($"Input too long. Please enter a maximum of {maxLength} characters.\n");
                 }
             }
         }
@@ -142,18 +110,18 @@ namespace Assignment1.Utilities
                 if (input.Length == 4 && int.TryParse(input, out var accountNumber))
                 {
                     if (accountNumber == currentAccountNumber)
-                        ApplyTextColour.RedText($"Cannot select the same account to transfer money\n");
+                        NormalText.DisplayErrorMessage($"Cannot select the same account to transfer money\n");
                     else
                     {
                         var accountList = accountManager.GetAccountByAccountNumber(accountNumber);
                         if (accountList.Count() != 0)
                             return accountList[0]; // Input is within the max length
-                        ApplyTextColour.RedText($"Account number does not exist\n");
+                        NormalText.DisplayErrorMessage($"Account number does not exist\n");
                     }            
                 }
                 else
                 {
-                    ApplyTextColour.RedText($"Invalid account number input\n");
+                    NormalText.DisplayErrorMessage($"Invalid account number input\n");
                 }
             }
         }
@@ -173,14 +141,14 @@ namespace Assignment1.Utilities
                     if (testPage <= totalPages)
                         return input;
                     else
-                        ApplyTextColour.RedText($"This is the last page.\n");
+                        NormalText.DisplayErrorMessage("This is the last page.\n");
                 } else if (input == "p")
                 {
                     int testPage = currentPage - 1;
                     if (testPage > 0)
                         return input;
                     else
-                        ApplyTextColour.RedText($"This is the first page.\n");
+                        NormalText.DisplayErrorMessage("This is the first page.\n");
                 } else if (input == "q")
                 {
                     return input;
@@ -188,7 +156,7 @@ namespace Assignment1.Utilities
 
                 else
                 {
-                    ApplyTextColour.RedText($"Invalid input. Please try again\n");
+                    NormalText.DisplayErrorMessage($"Invalid input. Please try again\n");
                 }
             }
         }

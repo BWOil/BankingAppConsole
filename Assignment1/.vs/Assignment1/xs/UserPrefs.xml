@@ -2,6 +2,7 @@
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+
   <MonoDevelop.Ide.ItemProperties.Assignment1 PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assignment1/Manager/DatabaseManager.cs">
     <Files>
@@ -14,24 +15,34 @@
       <File FileName="Assignment1/Manager/AccountManager.cs" Line="155" Column="17" NotebookId="1" />
       <File FileName="Assignment1/Utilities/AccountUtilities.cs" Line="39" Column="1" NotebookId="1" />
       <File FileName="Assignment1/Manager/DatabaseManager.cs" Line="17" Column="1" NotebookId="1" />
+
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Assignment1">
+
             <Node name="Assignment1">
               <Node name="Manager">
                 <Node name="DatabaseManager.cs" selected="True" />
               </Node>
               <Node name="Services" expanded="True" />
+
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+
+  <MultiItemStartupConfigurations />
+
+  <MonoDevelop.Ide.ItemProperties.TextLibrary FirstBuild="True" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.classLibrary FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.DataManage FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Assignment1 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+
 </Properties>

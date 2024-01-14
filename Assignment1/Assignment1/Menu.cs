@@ -4,6 +4,7 @@ using System.Linq;
 using Assignment1.Manager;
 using Assignment1.Models;
 using Assignment1.Utilities;
+using TextLibrary;
 using static Assignment1.Menu;
 
 namespace Assignment1
@@ -109,15 +110,10 @@ namespace Assignment1
 
         private void PrintMenu()
         {
-            Console.WriteLine(
-                $"\n--- {_customer.Name} ---\n" +
-                "[1] Deposit\n" +
-                "[2] Withdraw\n" +
-                "[3] Transfer\n" +
-                "[4] My Statement\n" +
-                "[5] Logout\n" +
-                "[6] Exit\n"
-            );
+            NormalText.TitleWithContent(
+                _customer.Name,
+                "[1] Deposit\n[2] Withdraw\n[3] Transfer\n[4] My Statement\n[5] Logout\n[6] Exit\n");
+
         }
 
         private void DisplayMyStatement()
@@ -147,7 +143,7 @@ namespace Assignment1
 
                 int totalPage = (int)Math.Ceiling(transactionList.Count / 4.0);
 
-                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: {(page == totalPage ? "" : "n (next page) | ")}{(page == 1 ? "" : "p (previous page) | ")}q (quit)");
+                Pagination.Bottom(page, totalPage);
 
                 string option = HandleInput.HandlePaginationInput("Enter an option: ", totalPage, page);
                 switch (option)
@@ -169,11 +165,13 @@ namespace Assignment1
         private void DisplayTransactionsPage(List<Transaction> transactionList, int page)
         {
             Console.WriteLine();
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
+      
+            int space = 25;
 
-            // Display the header on each page
-            Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-            Console.WriteLine(new string('-', 120));
+            //// Display the header on each page
+            Table.Record(new List<string> { "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment" }, space);
+   
+            Table.Divider(130);
 
             int startIndex = (page - 1) * 4;
             int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
@@ -187,9 +185,9 @@ namespace Assignment1
                 string destination = transaction.TransactionType == "D" || transaction.TransactionType == "W" || transaction.TransactionType == "S"
                 ? "N/A" : transaction.DestinationAccountNumber.ToString();
 
-                Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
-                    destination, amountFormatted,
-                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
+                Table.Record(new List<string> { transaction.TransactionID.ToString(), transactionTypeDisplay,
+                    destination.ToString(), amountFormatted,
+                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment }, space);
             }
         }
 
@@ -223,24 +221,24 @@ namespace Assignment1
 
         private Account DisplayAccountsWithIndex(string title)
         {
-            Console.WriteLine($"--- {title} ---\n");
+            NormalText.MenuTitle(title);
             var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+            int space = 20;
             if (accounts.Count == 0)
             {
                 Console.WriteLine("No accounts available.");
                 return null;
             }
 
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
-
-            Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
-            Console.WriteLine(new string('-', 60));
+            Table.Record(new List<string> { "No", "Account Type", "Account Number", "Balance" }, space);
+            Table.Divider(75);
 
             int index = 1;
             foreach (var account in accounts)
             {
                 string accountType = account.AccountType == "S" ? "Saving" : (account.AccountType == "C" ? "Checking" : "Unknown");
-                Console.WriteLine(Format, index, accountType, account.AccountNumber, account.Balance.ToString("F2"));
+
+                Table.Record(new List<string> { index.ToString(), accountType, account.AccountNumber.ToString(), account.Balance.ToString("F2") }, space);
                 index++;
             }
             Console.WriteLine();

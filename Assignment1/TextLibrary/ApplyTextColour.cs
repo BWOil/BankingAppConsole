@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Assignment1.Utilities
+namespace TextLibrary
 {
 	public static class ApplyTextColour
 	{
