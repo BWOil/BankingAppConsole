@@ -6,22 +6,14 @@
 
 ## 🔗 Table of Contents
 1. [About the Project](#about-the-project)
-2. [Demo](#demo)
-3. [Installation Guide](#installation-guide)
-4. [Technology Stack](#technology-stack)
-5. [Design Patterns](#design-patterns)
-6. [Class Library Justification](#class-library-justification)
-7. [Asynchronous Programming](#asynchronous-programming)
-8. [Trello Board Screenshots](#trello-board-screenshots)
+2. [Technology Stack](#technology-stack)
+3. [Design Patterns](#design-patterns)
+4. [Class Library Justification](#class-library-justification)
+5. [Asynchronous Programming](#asynchronous-programming)
+6. [Trello Board Screenshots](#trello-board-screenshots)
 
 ## 🔭 About the Project
 The console banking application is designed to provide basic banking functionality through a text-based console interface. It allows customers to perform various banking operations such as depositing, withdrawing, transferring funds, checking their account statements, and logging out.
-
-## Demo
-(If applicable, provide links or screenshots for a demo of the project.)
-
-## Installation Guide
-(Step-by-step instructions on how to install and run your project.)
 
 ## 🛠 Technology Stack
 - ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
