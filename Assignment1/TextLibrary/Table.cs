@@ -1,11 +1,9 @@
 ﻿using System;
 namespace TextLibrary
 {
-	public class Table
+	public static class Table
 	{
-		public Table()
-		{
-		}
+
 	}
 }
 

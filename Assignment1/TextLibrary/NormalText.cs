@@ -20,7 +20,10 @@ namespace TextLibrary
             ApplyTextColour.RedText($"{message}\n");
         }
 
-
+		public static void Currency(decimal number)
+		{
+			Console.WriteLine($"{number:F2}");
+		}
     }
 }
 
