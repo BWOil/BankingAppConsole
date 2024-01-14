@@ -1,5 +1,5 @@
-# Authors: s3959666-s3961136-a1
-# MCBA (Most Common Bank of Australia)
+# 🙋‍♀️ Authors: s3959666-s3961136-a1
+# 💸 MCBA (Most Common Bank of Australia)
 
 ## 🔗 Table of Contents
 1. [About the Project](#about-the-project)
@@ -10,7 +10,6 @@
 6. [Class Library Justification](#class-library-justification)
 7. [Asynchronous Programming](#asynchronous-programming)
 8. [Trello Board Screenshots](#trello-board-screenshots)
-9. [Contact Information](#contact-information)
 
 ## 🔭 About the Project
 (Description of your project, its features, and its purpose.)
@@ -49,10 +48,10 @@
 - **Implementation Details**:
 - **Additional Comments**:
 
-## Class Library Justification
+## 📓 Class Library Justification
 (Explanation of the class library used, if any.)
 
-## Asynchronous Programming
+## ⏱️ Asynchronous Programming
 - **Summary**: Async and await are used in programming to do tasks in the background. 'Async' tells the computer that a function can run while other things are happening. 'Await' is used inside these functions to wait for a task to finish without stopping everything else. 
 - **Purpose**:
 - **Advantages**:
@@ -60,7 +59,7 @@
 - **Implementation Details**:
 - **Additional Comments**:
 
-### Trello Board Screenshots
+### 📋 Trello Board Screenshots
 <p align="left">
   <img src="trello-board/Screenshot 2024-01-08 at 4.28.50 pm.png" alt="Image" width="500"/>
   <img src="trello-board/Screenshot 2024-01-08 at 6.47.00 pm.png" alt="Image" width="500"/>
@@ -70,7 +69,4 @@
   <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image" width="500"/>
 </p>
 
-
-## Contact Information
-(Your contact information or ways to connect for queries and collaborations.)
 
