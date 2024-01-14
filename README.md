@@ -2,14 +2,17 @@
 
 # Project Name: MCBA( Most Common Bank of Australia)
 
-# what it's about?
+# 🔭 what it's about?
 The console banking application is designed to provide basic banking functionality through a text-based console interface. It allows customers to perform various banking operations such as depositing, withdrawing, transferring funds, checking their account statements, and logging out.
 
-# built with
+# 🛠 Built with:
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
+![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
 
-# how to run
+# 📚 How to run?
 
-### Design Patterns
+### 📦 Design Patterns
 
 1.DTO - models
 Summary: (rewrite)
