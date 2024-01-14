@@ -2,7 +2,7 @@
 using SimpleHashing.Net;
 using Assignment1.Manager;
 using Assignment1.Models;
-using Assignment1.Utilities;
+using TextLibrary;
 using System.Security;
 using System.Runtime.InteropServices;
 

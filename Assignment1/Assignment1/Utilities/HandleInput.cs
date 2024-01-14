@@ -1,6 +1,7 @@
 ﻿using System;
 using Assignment1.Manager;
 using Assignment1.Models;
+using TextLibrary;
 using static Assignment1.Menu;
 
 namespace Assignment1.Utilities
@@ -22,34 +23,6 @@ namespace Assignment1.Utilities
                 ApplyTextColour.RedText("Invalid input.\n");
             }
         }
-
-        //public static decimal HandleDecimalInput(string prompt, AccountManager accountManager, Account selectedAccount, TransactionType transactionType)
-        //{
-        //    bool takeMoneyCondition = transactionType == TransactionType.Withdraw || transactionType == TransactionType.Transfer;
-        //    while (true)
-        //    {
-        //        Console.Write(prompt);
-        //        if (decimal.TryParse(Console.ReadLine(), out var result))
-        //        {
-        //            if (takeMoneyCondition)
-        //            {
-        //                if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount))
-        //                {
-        //                    decimal checkAmount = transactionType == TransactionType.Withdraw ? (decimal) 0.05 : (decimal) 0.1;
-        //                    if (result > selectedAccount.Balance + ch)
-
-        //                }
-        //                ApplyTextColour.RedText(takeMoneyCondition ? "Insufficient funds.\n" : "Invalid amount.\n");
-        //            }     
-        //            else if (result >= 0.01m)
-        //                return result; // Valid input, return the result
-        //            else
-        //                ApplyTextColour.RedText("Amount must be at least $0.01.\n"); // Invalid input, show specific error
-        //        }
-        //        else
-        //            ApplyTextColour.RedText("Invalid amount. Please enter a number greater than $0.01.\n"); // Parsing error, show general error
-        //    }
-        //}
 
         public static decimal HandleDecimalInput(string prompt, AccountManager accountManager, Account selectedAccount, TransactionType transactionType)
         {

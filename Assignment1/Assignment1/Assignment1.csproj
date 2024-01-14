@@ -37,4 +37,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextLibrary\TextLibrary.csproj" />
+  </ItemGroup>
 </Project>

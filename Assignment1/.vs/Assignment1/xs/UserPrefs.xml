@@ -1,22 +1,33 @@
 ﻿<Properties StartupConfiguration="{A1F7AED8-CFA3-4C14-B5B9-CE0D49AAB7DC}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assignment1/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UtilitiesLibrary/ApplyTextColour.cs">
     <Files>
-      <File FileName="Assignment1/FacadeOperation.cs" Line="5" Column="2" />
-      <File FileName="Assignment1/Program.cs" Line="1" Column="1" />
-      <File FileName="Assignment1/Manager/TransactionManager.cs" Line="73" Column="1" NotebookId="1" />
-      <File FileName="Assignment1/Menu.cs" Line="47" Column="1" NotebookId="1" />
-      <File FileName="Assignment1/Manager/AccountManager.cs" Line="155" Column="17" NotebookId="1" />
-      <File FileName="Assignment1/Utilities/AccountUtilities.cs" Line="39" Column="1" NotebookId="1" />
+      <File FileName="Assignment1/FacadeOperation.cs" Line="1" Column="17" />
+      <File FileName="Assignment1/Program.cs" Line="2" Column="7" />
+      <File FileName="Assignment1/Services/CustomerWebService.cs" Line="6" Column="31" />
+      <File FileName="Assignment1/LoginSystem.cs" Line="4" Column="23" />
+      <File FileName="UtilitiesLibrary/ApplyTextColour.cs" Line="9" Column="30" />
+      <File FileName="UtilitiesLibrary/HandleInput.cs" Line="1" Column="1" />
+      <File FileName="UtilitiesLibrary/MiscellaneousUtilities.cs" Line="4" Column="11" />
+      <File FileName="UtilitiesLibrary/UtilitiesLibrary.csproj" />
+      <File FileName="UtilitiesLibrary/Manager/TransactionManager.cs" Line="6" Column="1" />
+      <File FileName="UtilitiesLibrary/DTOs/Customer.cs" Line="3" Column="2" />
+      <File FileName="UtilitiesLibrary/DTOs/Login.cs" Line="10" Column="1" />
+      <File FileName="UtilitiesLibrary/DTOs/Transaction.cs" Line="14" Column="1" />
+      <File FileName="UtilitiesLibrary/Manager/AccountManager.cs" Line="4" Column="23" />
+      <File FileName="UtilitiesLibrary/Manager/CustomerManager.cs" Line="4" Column="24" />
+      <File FileName="UtilitiesLibrary/Manager/DatabaseManager.cs" Line="3" Column="21" />
+      <File FileName="UtilitiesLibrary/Manager/IManager.cs" Line="10" Column="1" />
+      <File FileName="UtilitiesLibrary/Manager/LoginManager.cs" Line="4" Column="24" />
+      <File FileName="Assignment1/appsettings.json" Line="1" Column="1" />
+      <File FileName="Assignment1/Menu.cs" Line="3" Column="7" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Assignment1">
-            <Node name="Assignment1">
-              <Node name="Manager" selected="True" />
-              <Node name="Models" expanded="True" />
-              <Node name="Services" expanded="True" />
+            <Node name="UtilitiesLibrary">
+              <Node name="AccountUtilities.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -28,9 +39,11 @@
   </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.classLibrary FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.TextLibrary FirstBuild="True" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.DataManage FirstBuild="True" />
   <MonoDevelop.Ide.ItemProperties.Assignment1 PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
