@@ -40,15 +40,23 @@ The console banking application is designed to provide basic banking functionali
 
 ### Facade Pattern in Managers
 - **Summary**: The Facade pattern simplifies interactions with a complex system by providing a single unified interface. This pattern hides the system's complexity and makes it more accessible and easier for clients to use.
-- **Purpose**:
+- **Purpose**: Simplify interactions with complex systems by offering a single, user-friendly interface.
 - **Advantages**:
+  - Complexity Concealment: Facade hides the intricate details of the system, shielding clients from its complexity.
+  - User-Friendly: It offers a user-friendly interface that simplifies interactions.
+  - Abstraction Layer: Acts as an abstraction layer, reducing the learning curve for clients.
+  - Improved Maintainability: Changes to the underlying system can be isolated within the facade, minimizing the impact on clients.
 - **Implementation Details**:
 - **Additional Comments**:
 
 ### Dependency Injection in Managers
 - **Summary**: Dependency Injection is a technique in programming where objects receive their dependencies from an external source rather than creating them themselves. This promotes loosely coupled and easily testable code, as it separates object creation from object use.
-- **Purpose**:
+- **Purpose**: Enhance code maintainability, testability, and flexibility
 - **Advantages**:
+  - Loose Coupling: DI decouples managers from dependencies, making the code modular and maintainable.
+  - Testability: Simplifies unit testing by enabling the use of mock objects or test implementations for dependencies.
+  - Flexibility: Managers can be configured with different dependencies at runtime, offering application behavior flexibility.
+  - Reusability: Components and services can be reused across multiple managers.
 - **Implementation Details**:
 - **Additional Comments**:
 
@@ -57,9 +65,12 @@ The console banking application is designed to provide basic banking functionali
 
 ## ⏱️ Asynchronous Programming
 - **Summary**: Async and await are used in programming to do tasks in the background. 'Async' tells the computer that a function can run while other things are happening. 'Await' is used inside these functions to wait for a task to finish without stopping everything else. 
-- **Purpose**:
+- **Purpose**: Enhances application responsiveness and scalability. It facilitates non-blocking execution of tasks like I/O operations and network requests, ensuring user interactions remain smooth.
 - **Advantages**:
-- **Design Impact**:
+  - Responsiveness: Asynchronous tasks prevent applications from freezing when executing time-consuming operations.
+  - Efficiency: Concurrent execution of tasks maximizes CPU and resource utilization.
+  - Scalability: Asynchronous code can handle multiple concurrent requests or operations efficiently.
+  - Improved User Experience: Applications feel more responsive and smooth to users.
 - **Implementation Details**:
 - **Additional Comments**:
 
