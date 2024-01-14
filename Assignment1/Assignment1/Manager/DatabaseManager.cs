@@ -14,7 +14,6 @@ namespace Assignment1.Manager
             using var command = connection.CreateCommand();
 
             command.CommandText = File.ReadAllText("Sql/CreateTables.sql");
-
             command.ExecuteNonQuery();
         }
     }

@@ -6,22 +6,14 @@
 
 ## 🔗 Table of Contents
 1. [About the Project](#about-the-project)
-2. [Demo](#demo)
-3. [Installation Guide](#installation-guide)
-4. [Technology Stack](#technology-stack)
-5. [Design Patterns](#design-patterns)
-6. [Class Library Justification](#class-library-justification)
-7. [Asynchronous Programming](#asynchronous-programming)
-8. [Trello Board Screenshots](#trello-board-screenshots)
+2. [Technology Stack](#technology-stack)
+3. [Design Patterns](#design-patterns)
+4. [Class Library Justification](#class-library-justification)
+5. [Asynchronous Programming](#asynchronous-programming)
+6. [Trello Board Screenshots](#trello-board-screenshots)
 
 ## 🔭 About the Project
 The console banking application is designed to provide basic banking functionality through a text-based console interface. It allows customers to perform various banking operations such as depositing, withdrawing, transferring funds, checking their account statements, and logging out.
-
-## Demo
-(If applicable, provide links or screenshots for a demo of the project.)
-
-## Installation Guide
-(Step-by-step instructions on how to install and run your project.)
 
 ## 🛠 Technology Stack
 - ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
@@ -41,13 +33,14 @@ The console banking application is designed to provide basic banking functionali
 - **Implementation Details**:
 <p align="left">
   <ul>
-    <li>Define DTO Classes: Create DTO classes (AccountDTO, CustomerDTO, LoginDTO, and TransactionDTO) which are structured for data transfer.
-      <br><img src="design patterns/DTO.png" alt="DTO Implementation Image"/>
+    <li>Define DTO Classes: Create DTO classes (Account, Customer, Login, and Transaction) which are structured for data transfer.
+      <br><img src="design patterns/DTO_Account.png"/>
+      <br><img src="design patterns/DTO_Customer.png"/>
+      <br><img src="design patterns/DTO_Login.png"/>
+      <br><img src="design patterns/DTO_Transaction.png"/>
     </li>
-    <li>Use DTOs in Service Layer: In CustomerWebService, we deserialize JSON data into DTOs and then mapping these DTOs to domain models (Customer, Account, Login, Transaction) before persisting them.
-    </li>
-    <li>Map CustomerDTO to Customer: convert from DTOs to domain models.
-      <br><img src="design patterns/updated_ImplementDTOs.png" alt="Updated DTO Implementation Image"/>
+    <li>Use DTOs in Service Layer: In CustomerWebService, we deserialize JSON data into DTOs and use domain models.
+      <br><img src="Async-await/img/Async-await-example.png"/>
     </li>
   </ul>
 </p>
@@ -69,7 +62,7 @@ The console banking application is designed to provide basic banking functionali
     <li>Apply Separation of Concerns: Managers like <code>AccountManager</code>, <code>CustomerManager</code>, <code>TransactionManager</code>, and <code>LoginManager</code> each handle specific tasks, aligning with the Single Responsibility Principle.</li>
     <li>Simplify Interface for Users: The <code>LoadingData</code> and <code>RunProgram</code> methods are clear entry points for client code, with <code>LoadingData</code> handling data initialization/loading before program execution.</li>
   </ul>
-  <img src="design patterns/facade.png" alt="Facade Pattern Implementation Image"/>
+  <img src="design patterns/updated_facade.png" alt="Facade Pattern Implementation Image"/>
 </p>
 
 - **Additional Comments**:
@@ -84,14 +77,17 @@ The console banking application is designed to provide basic banking functionali
   - Reusability: Components and services can be reused across multiple managers.
 - **Implementation Details**:
 <p align="left">
+  The ⁠ LoginSystem ⁠ class achieves dependency injection through its constructor. The LoginSystem and Menu classes utilize constructor-based dependency injection for CustomerManager and other dependencies, enhancing flexibility and testability. This approach allows easy integration of different implementations and facilitates unit testing, aligning with the Dependency Inversion Principle for a more robust and modular design.
   <img src="design patterns/dependency-injection.png" alt="Image"/>
   <img src="design patterns/dependency-injection-1.png" alt="Image"/>
-  <img src="design patterns/dependency-injection-2.png" alt="Image"/>
+  <img src="design patterns/updated_facade.png" alt="Image"/>
 </p>
 - **Additional Comments**:
 
 ## 📓 Class Library Justification
-(Explanation of the class library used, if any.)
+A text library has been developed for this bank console application to facilitate the application of colors to text and enhance the printing format of content. This versatile library is designed to be seamlessly implemented in any C# console application, saving developers valuable time that would otherwise be spent on designing string formats for the terminal.
+
+Additionally, the library includes functionality to construct tables for console applications in C#, streamlining the process of presenting tabular data in a visually appealing manner.
 
 ## ⏱️ Asynchronous Programming
 - **Summary**: Async and await are used in programming to do tasks in the background. 'Async' tells the computer that a function can run while other things are happening. 'Await' is used inside these functions to wait for a task to finish without stopping everything else. 
@@ -102,6 +98,12 @@ The console banking application is designed to provide basic banking functionali
   - Scalability: Asynchronous code can handle multiple concurrent requests or operations efficiently.
   - Improved User Experience: Applications feel more responsive and smooth to users.
 - **Implementation Details**:
+<p align="left">
+  In the program, the `async` keyword in `GetAndSaveCustomer` marks the method as asynchronous, making it return a `Task`. The `await` keyword is used with `client.GetString(Url)`, allowing the program to asynchronously wait for the HTTP request to complete before continuing, without blocking the execution thread.
+  <img src="Async-await/img/Async-await-example.png" alt="Image"/>
+  <img src="Async-await/img/calling GetAndSaveCustomer by using await1.png" alt="Image"/>
+  <img src="Async-await/img/calling GetAndSaveCustomer by using await2.png" alt="Image"/>
+</p>
 - **Additional Comments**:
 
 ### 📋 Trello Board Screenshots
@@ -112,7 +114,11 @@ The console banking application is designed to provide basic banking functionali
   <img src="trello-board/Screenshot 2024-01-11 at 12.07.20 pm.png" alt="Image"/>
   <img src="trello-board/Screenshot 2024-01-12 at 1.05.30 pm.png" alt="Image"/>
   <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-13 at 4.18.27 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-13 at 9.38.10 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-14 at 1.52.13 am.png" alt="Image"/>
   <img src="trello-board/Screenshot 2024-01-14 at 13.16.33 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-14 at 22.51.03pm.png" alt="Image"/>
 </p>
 
 

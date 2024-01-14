@@ -1,15 +1,24 @@
 ﻿using Assignment1;
-using Assignment1.Manager;
-
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
-var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-var connectionString = configuration.GetConnectionString(nameof(Assignment1));
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        var connectionString = configuration.GetConnectionString(nameof(Assignment1));
 
-//DatabaseManager.CreateTables(connectionString);
 
-var facadeOperation = new FacadeOperation(connectionString);
+        //DatabaseManager.CreateTables(connectionString); // Uncomment if needed
 
-facadeOperation.LoadingData();
-facadeOperation.RunProgram();
 
+        var facadeOperation = new FacadeOperation(connectionString);
+
+        // Await the asynchronous loading of data
+        await facadeOperation.LoadingDataAsync();
+
+        // Proceed to run the program
+        facadeOperation.RunProgram();
+    }
+}
