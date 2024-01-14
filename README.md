@@ -82,13 +82,13 @@ The console banking application is designed to provide basic banking functionali
 
 ### 📋 Trello Board Screenshots
 <p align="left">
-  <img src="trello-board/Screenshot 2024-01-08 at 4.28.50 pm.png" alt="Image" width="500"/>
-  <img src="trello-board/Screenshot 2024-01-08 at 6.47.00 pm.png" alt="Image" width="500"/>
-  <img src="trello-board/Screenshot 2024-01-11 at 1.06.30 pm.png" alt="Image" width="500"/>
-  <img src="trello-board/Screenshot 2024-01-11 at 12.07.20 pm.png" alt="Image" width="500"/>
-  <img src="trello-board/Screenshot 2024-01-12 at 1.05.30 pm.png" alt="Image" width="500"/>
-  <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image" width="500"/>
-  <img src="trello-board/Screenshot 2024-01-14 at 13.16.33 pm.png" alt="Image" width="500"/>
+  <img src="trello-board/Screenshot 2024-01-08 at 4.28.50 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-08 at 6.47.00 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-11 at 1.06.30 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-11 at 12.07.20 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-12 at 1.05.30 pm.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-13 at 1.20.07 am.png" alt="Image"/>
+  <img src="trello-board/Screenshot 2024-01-14 at 13.16.33 pm.png" alt="Image"/>
 </p>
 
 
