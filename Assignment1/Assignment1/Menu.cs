@@ -165,13 +165,13 @@ namespace Assignment1
         private void DisplayTransactionsPage(List<Transaction> transactionList, int page)
         {
             Console.WriteLine();
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
+      
+            int space = 25;
 
             //// Display the header on each page
-            //Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-            Table.Record(new List<string> { "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment" });
+            Table.Record(new List<string> { "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment" }, space);
    
-            Table.Divider(120);
+            Table.Divider(130);
 
             int startIndex = (page - 1) * 4;
             int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
@@ -187,7 +187,7 @@ namespace Assignment1
 
                 Table.Record(new List<string> { transaction.TransactionID.ToString(), transactionTypeDisplay,
                     destination.ToString(), amountFormatted,
-                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment });
+                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment }, space);
             }
         }
 
@@ -223,13 +223,14 @@ namespace Assignment1
         {
             NormalText.MenuTitle(title);
             var accounts = _accountManager.GetAccounts(_customer.CustomerID);
+            int space = 20;
             if (accounts.Count == 0)
             {
                 Console.WriteLine("No accounts available.");
                 return null;
             }
 
-            Table.Record(new List<string> { "No", "Account Type", "Account Number", "Balance" });
+            Table.Record(new List<string> { "No", "Account Type", "Account Number", "Balance" }, space);
             Table.Divider(75);
 
             int index = 1;
@@ -237,7 +238,7 @@ namespace Assignment1
             {
                 string accountType = account.AccountType == "S" ? "Saving" : (account.AccountType == "C" ? "Checking" : "Unknown");
 
-                Table.Record(new List<string> { index.ToString(), accountType, account.AccountNumber.ToString(), account.Balance.ToString("F2") });
+                Table.Record(new List<string> { index.ToString(), accountType, account.AccountNumber.ToString(), account.Balance.ToString("F2") }, space);
                 index++;
             }
             Console.WriteLine();
