@@ -98,7 +98,7 @@ namespace Assignment1
                 // Calculate available balance after performing the transaction
                 decimal availableBalance = selectedAccount.Balance - (selectedAccount.AccountType == "C" ? 300 : 0);
 
-                Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance}, Available Balance: ${availableBalance:F2}.\n");
+                Console.WriteLine($"{operation} of ${amount} successful. Account balance is ${selectedAccount.Balance:F2}, Available Balance: ${availableBalance:F2}.\n");
             }
             catch (InvalidOperationException ex)
             {
