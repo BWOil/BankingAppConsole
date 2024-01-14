@@ -47,9 +47,7 @@ The console banking application is designed to provide basic banking functionali
       <br><img src="design patterns/DTO_Login.png"/>
       <br><img src="design patterns/DTO_Transaction.png"/>
     </li>
-    <li>Use DTOs in Service Layer: In CustomerWebService, we deserialize JSON data into DTOs and then mapping these DTOs to domain models (Customer, Account, Login, Transaction) before persisting them.
-    </li>
-    <li>Map CustomerDTO to Customer: convert from DTOs to domain models.
+    <li>Use DTOs in Service Layer: In CustomerWebService, we deserialize JSON data into DTOs and use domain models.
     </li>
   </ul>
 </p>
