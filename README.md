@@ -40,9 +40,18 @@ The console banking application is designed to provide basic banking functionali
   - Serialization: DTOs are serializable, making them suitable for data exchange in various formats.
 - **Implementation Details**:
 <p align="left">
-  <img src="design patterns/DTO.png" alt="Image"/>
-  <img src="design patterns/updated_ImplementDTOs.png" alt="Image"/>
+  <ul>
+    <li>Define DTO Classes: Create DTO classes (AccountDTO, CustomerDTO, LoginDTO, and TransactionDTO) which are structured for data transfer.
+      <br><img src="design patterns/DTO.png" alt="DTO Implementation Image"/>
+    </li>
+    <li>Use DTOs in Service Layer: In CustomerWebService, we deserialize JSON data into DTOs and then mapping these DTOs to domain models (Customer, Account, Login, Transaction) before persisting them.
+    </li>
+    <li>Map CustomerDTO to Customer: convert from DTOs to domain models.
+      <br><img src="design patterns/updated_ImplementDTOs.png" alt="Updated DTO Implementation Image"/>
+    </li>
+  </ul>
 </p>
+
 - **Additional Comments**:
 
 ### Facade Pattern in Managers
