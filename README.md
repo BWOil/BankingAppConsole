@@ -50,6 +50,9 @@ The console banking application is designed to provide basic banking functionali
   - Abstraction Layer: Acts as an abstraction layer, reducing the learning curve for clients.
   - Improved Maintainability: Changes to the underlying system can be isolated within the facade, minimizing the impact on clients.
 - **Implementation Details**:
+<p align="left">
+  <img src="design patterns/facade.png" alt="Image"/>
+</p>
 - **Additional Comments**:
 
 ### Dependency Injection in Managers
