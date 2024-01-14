@@ -167,9 +167,11 @@ namespace Assignment1
             Console.WriteLine();
             const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-20} | {4,-25} | {5,-25}";
 
-            // Display the header on each page
-            Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
-            Console.WriteLine(new string('-', 120));
+            //// Display the header on each page
+            //Console.WriteLine(Format, "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment");
+            Table.Record(new List<string> { "ID", "Transaction Type", "Destination", "Amount", "Time", "Comment" });
+   
+            Table.Divider(120);
 
             int startIndex = (page - 1) * 4;
             int endIndex = Math.Min(startIndex + 3, transactionList.Count - 1);
@@ -183,9 +185,9 @@ namespace Assignment1
                 string destination = transaction.TransactionType == "D" || transaction.TransactionType == "W" || transaction.TransactionType == "S"
                 ? "N/A" : transaction.DestinationAccountNumber.ToString();
 
-                Console.WriteLine(Format, transaction.TransactionID, transactionTypeDisplay,
-                    destination, amountFormatted,
-                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment);
+                Table.Record(new List<string> { transaction.TransactionID.ToString(), transactionTypeDisplay,
+                    destination.ToString(), amountFormatted,
+                    transaction.TransactionTimeUtc.ToString("M/d/yyyy h:mm:ss tt"), transaction.Comment });
             }
         }
 
@@ -227,16 +229,15 @@ namespace Assignment1
                 return null;
             }
 
-            const string Format = "{0,-5} | {1,-20} | {2,-20} | {3,-10}";
-
-            Console.WriteLine(Format, "No", "Account Type", "Account Number", "Balance");
-            Console.WriteLine(new string('-', 60));
+            Table.Record(new List<string> { "No", "Account Type", "Account Number", "Balance" });
+            Table.Divider(75);
 
             int index = 1;
             foreach (var account in accounts)
             {
                 string accountType = account.AccountType == "S" ? "Saving" : (account.AccountType == "C" ? "Checking" : "Unknown");
-                Console.WriteLine(Format, index, accountType, account.AccountNumber, account.Balance.ToString("F2"));
+
+                Table.Record(new List<string> { index.ToString(), accountType, account.AccountNumber.ToString(), account.Balance.ToString("F2") });
                 index++;
             }
             Console.WriteLine();
