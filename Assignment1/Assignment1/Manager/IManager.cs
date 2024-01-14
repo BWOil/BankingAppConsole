@@ -1,11 +1,11 @@
 ﻿using System;
-namespace Assignment1.Manager.ItemsManager
+using Microsoft.Data.SqlClient;
+namespace Assignment1.Manager
 {
 	public interface IManager<T>
 	{
-        List<T> GetAll();
-        List<T> GetById(int id);
-        void Insert(T entity);
+        public List<T> GetAll();
+        public void Insert(T entity);
     }
 }
 

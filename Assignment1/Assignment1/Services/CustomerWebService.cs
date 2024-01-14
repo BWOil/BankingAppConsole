@@ -34,22 +34,23 @@ namespace Assignment1.Services
             {
 
                 // Insert customer
-                customerManager.InsertCustomer(customer);
+                customerManager.Insert(customer);
 
                 // Insert login
-                loginManager.InsertLogin(customer.Login, customer.CustomerID);
+                customer.Login.CustomerID = customer.CustomerID;
+                loginManager.Insert(customer.Login);
 
                 // Insert Account
                 foreach (var account in customer.Accounts)
                 {
                     account.CustomerID = customer.CustomerID;
-                    accountManager.InsertAccount(account);
+                    accountManager.Insert(account);
 
                     // Insert Transaction
                     foreach (var transaction in account.Transactions)
                     {
                         transaction.AccountNumber = account.AccountNumber;
-                        transactionManager.InsertTransaction(transaction);
+                        transactionManager.Insert(transaction);
                     }
                 }
 

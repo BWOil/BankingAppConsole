@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Assignment1.Manager
 {
-	public class LoginManager
+	public class LoginManager: IManager<Login>
 	{
 		private readonly string _connectionString;
 
@@ -15,7 +15,7 @@ namespace Assignment1.Manager
 			_connectionString  = connectionString;
 		}
 
-		public List<Login> GetLogin()
+		public List<Login> GetAll()
 		{
 			using var connection = new SqlConnection(_connectionString);
         
@@ -49,7 +49,7 @@ namespace Assignment1.Manager
             }).ToList();
         }
 
-        public void InsertLogin(Login login, int customerID)
+        public void Insert(Login login)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -58,7 +58,7 @@ namespace Assignment1.Manager
             command.CommandText =
                 "insert into Login (LoginID, CustomerID, PasswordHash) values (@LoginID, @CustomerID, @PasswordHash)";
             command.Parameters.AddWithValue("LoginID", login.LoginID);
-            command.Parameters.AddWithValue("CustomerID", customerID);
+            command.Parameters.AddWithValue("CustomerID", login.CustomerID);
             command.Parameters.AddWithValue("PasswordHash", login.PasswordHash);
 
             command.ExecuteNonQuery();

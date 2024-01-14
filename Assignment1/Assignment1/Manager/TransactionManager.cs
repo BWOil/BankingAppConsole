@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Assignment1.Manager
 {
-	public class TransactionManager
+	public class TransactionManager: IManager<Transaction>
 	{
         private readonly string _connectionString;
 
@@ -15,7 +15,7 @@ namespace Assignment1.Manager
             _connectionString = connectionString;
         }
 
-        public List<Transaction> GetTransactions ()
+        public List<Transaction> GetAll()
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -53,7 +53,7 @@ namespace Assignment1.Manager
             }).ToList();
         }
 
-        public void InsertTransaction(Transaction transaction)
+        public void Insert(Transaction transaction)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
