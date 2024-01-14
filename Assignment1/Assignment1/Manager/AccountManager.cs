@@ -102,7 +102,7 @@ namespace Assignment1.Manager
 
         public void Deposit(Account account, decimal amount, string comment)
         {
-            CreateTransaction(account, amount, "D", comment); // "D" for Deposit
+            CreateTransaction(account, amount, "D", comment, null); // "D" for Deposit
         }
 
         public void Withdraw(Account account, decimal amount, string comment)
@@ -123,31 +123,33 @@ namespace Assignment1.Manager
                 account.Balance -= amount;
             }
 
-            CreateTransaction(account, amount, "W", comment); // "W" for Withdraw
+            CreateTransaction(account, amount, "W", comment, null); // "W" for Withdraw, amount is negative
+
             if (!AccountQualifiesForFreeServiceFee(account))
             {
-                CreateTransaction(account, (decimal)0.05, "S", "");
+                CreateTransaction(account, (decimal)0.05, "S", "", null);
             }
         }
 
 
         public void Transfer(Account account, decimal amount, string comment, Account destinationAccount)
         {
-            CreateTransaction(account, amount, "T", comment);
+            CreateTransaction(account, amount, "T", comment, destinationAccount);
             destinationAccount.Balance += amount;
             UpdateAccount(destinationAccount);
             if (!AccountQualifiesForFreeServiceFee(account))
             {
-                CreateTransaction(account, (decimal) 0.1 , "S", "");
+                CreateTransaction(account, (decimal) 0.1 , "S", "", null);
             }
         }
 
-        private void CreateTransaction(Account account, decimal amount, string transactionType, string comment)
+        private void CreateTransaction(Account account, decimal amount, string transactionType, string comment, Account destinationAccount)
         {
             var transaction = new Models.Transaction
             {
                 AccountNumber = account.AccountNumber,
                 Amount = Math.Abs(amount), // Ensure the amount is positive
+                DestinationAccountNumber = destinationAccount != null ? destinationAccount.AccountNumber : null,
                 Comment = comment,
                 TransactionType = transactionType,
                 TransactionTimeUtc = DateTime.UtcNow
