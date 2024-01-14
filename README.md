@@ -10,9 +10,61 @@
 
 ### Design Patterns
 
-- DTO - models
+1.DTO - models
+Summary:
+
+Purpose:
+
+Adavantage:
+
+
+Where in the code: (*add picture)
+
+
+Additional comment:
+
+
+
+
 - Facade - Managers (Menu)
+Summary:
+
+Purpose:
+
+Adavantage:
+
+
+Where in the code: (*add picture)
+
+
+Additional comment:
+
+
+
+
+
+
+
+
 - Dependency injection - each Manager (create interface)
+Summary:
+
+Purpose:
+
+Adavantage:
+
+
+Where in the code: (*add picture)
+
+
+Additional comment:
+
+
+
+
+
+
+
 
 ### Class Library Justification
 
