@@ -14,7 +14,6 @@
     <None Remove="Utilities\" />
     <None Remove="Sql\" />
     <None Remove=".gitignore" />
-    <None Remove="Manager\ItemsManager\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Manager\" />
@@ -22,7 +21,6 @@
     <Folder Include="Services\" />
     <Folder Include="Utilities\" />
     <Folder Include="Sql\" />
-    <Folder Include="Manager\ItemsManager\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SimpleHashing.Net" Version="2.1.0" />
