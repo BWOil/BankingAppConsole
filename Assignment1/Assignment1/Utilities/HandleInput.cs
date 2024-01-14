@@ -75,18 +75,28 @@ namespace Assignment1.Utilities
         {
             bool takeMoneyCondition = transactionType == TransactionType.Withdraw || transactionType == TransactionType.Transfer;
 
-            if (takeMoneyCondition)
+            if (amount > 0.01m && takeMoneyCondition)
             {
                 decimal feeAmount = transactionType == TransactionType.Withdraw ? 0.05m : 0.1m;
+                decimal balance = selectedAccount.Balance;
 
-                if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount) && amount > selectedAccount.Balance + feeAmount)
+                if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount) && amount + feeAmount > balance )
+                {
+                    DisplayErrorMessage($"Insufficient funds because of service fee ${feeAmount:F2}");
+                    return false;
+                }
+                else if (amount > balance)
                 {
                     DisplayErrorMessage("Insufficient funds.");
                     return false;
-                }
-                else if (amount > selectedAccount.Balance)
+                    // checking account 
+                } else if (!accountManager.AccountQualifiesForFreeServiceFee(selectedAccount) && selectedAccount.AccountType == "C" && amount + feeAmount > balance - 300)
                 {
-                    DisplayErrorMessage("Insufficient funds.");
+                    DisplayErrorMessage($"Insufficient funds because the minimum balance of checking account is $300 and service fee charge ${feeAmount:F2}");
+                    return false;
+                } else if (selectedAccount.AccountType == "C" && amount > balance - 300)
+                {
+                    DisplayErrorMessage($"Insufficient funds because the minimum balance of checking account is $300");
                     return false;
                 }
             }
