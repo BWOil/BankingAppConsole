@@ -110,15 +110,10 @@ namespace Assignment1
 
         private void PrintMenu()
         {
-            Console.WriteLine(
-                $"\n--- {_customer.Name} ---\n" +
-                "[1] Deposit\n" +
-                "[2] Withdraw\n" +
-                "[3] Transfer\n" +
-                "[4] My Statement\n" +
-                "[5] Logout\n" +
-                "[6] Exit\n"
-            );
+            NormalText.TitleWithContent(
+                _customer.Name,
+                "[1] Deposit\n[2] Withdraw\n[3] Transfer\n[4] My Statement\n[5] Logout\n[6] Exit\n");
+
         }
 
         private void DisplayMyStatement()
@@ -148,7 +143,7 @@ namespace Assignment1
 
                 int totalPage = (int)Math.Ceiling(transactionList.Count / 4.0);
 
-                Console.WriteLine($"Page {page} of {totalPage}\n\nOptions: {(page == totalPage ? "" : "n (next page) | ")}{(page == 1 ? "" : "p (previous page) | ")}q (quit)");
+                Pagination.Bottom(page, totalPage);
 
                 string option = HandleInput.HandlePaginationInput("Enter an option: ", totalPage, page);
                 switch (option)
@@ -224,7 +219,7 @@ namespace Assignment1
 
         private Account DisplayAccountsWithIndex(string title)
         {
-            Console.WriteLine($"--- {title} ---\n");
+            NormalText.MenuTitle(title);
             var accounts = _accountManager.GetAccounts(_customer.CustomerID);
             if (accounts.Count == 0)
             {

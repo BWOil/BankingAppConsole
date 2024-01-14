@@ -44,7 +44,7 @@ namespace Assignment1
                     }
                 }
                 if (!foundCustomer)
-                    ApplyTextColour.RedText("Invalid Login ID. Please try again!\n");
+                    NormalText.DisplayErrorMessage("Invalid Login ID. Please try again!");
             }
 
             return null;
@@ -64,7 +64,7 @@ namespace Assignment1
                     {
                         return true;
                     }
-                    ApplyTextColour.RedText("Invalid password. Please try again!\n");
+                    NormalText.DisplayErrorMessage("Invalid password. Please try again!");
                 }
             }
             
