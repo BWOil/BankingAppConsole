@@ -85,7 +85,9 @@ The console banking application is designed to provide basic banking functionali
 - **Additional Comments**:
 
 ## 📓 Class Library Justification
-(Explanation of the class library used, if any.)
+A text library has been developed for this bank console application to facilitate the application of colors to text and enhance the printing format of content. This versatile library is designed to be seamlessly implemented in any C# console application, saving developers valuable time that would otherwise be spent on designing string formats for the terminal.
+
+Additionally, the library includes functionality to construct tables for console applications in C#, streamlining the process of presenting tabular data in a visually appealing manner.
 
 ## ⏱️ Asynchronous Programming
 - **Summary**: Async and await are used in programming to do tasks in the background. 'Async' tells the computer that a function can run while other things are happening. 'Await' is used inside these functions to wait for a task to finish without stopping everything else. 
