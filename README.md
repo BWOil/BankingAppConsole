@@ -83,6 +83,11 @@ The console banking application is designed to provide basic banking functionali
   - Flexibility: Managers can be configured with different dependencies at runtime, offering application behavior flexibility.
   - Reusability: Components and services can be reused across multiple managers.
 - **Implementation Details**:
+<p align="left">
+  <img src="design patterns/dependency-injection.png" alt="Image"/>
+  <img src="design patterns/dependency-injection-1.png" alt="Image"/>
+  <img src="design patterns/dependency-injection-2.png" alt="Image"/>
+</p>
 - **Additional Comments**:
 
 ## 📓 Class Library Justification
