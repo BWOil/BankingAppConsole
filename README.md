@@ -30,7 +30,7 @@ The console banking application is designed to provide basic banking functionali
 - ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
 
 ## 📦 Design Patterns
-### DTO Pattern in DTO Deserialization
+### DTO Pattern in DTO Deserialisation
 - **Summary**: DTO (Data Transfer Object) is a pattern used to transfer data between parts of a software application. It encapsulates data into a single object, reducing the number of calls and simplifying data transfer, especially in network environments. DTOs are simple, serializable objects used mainly for data transport without business logic.
 - **Purpose**: DTO is used to efficiently transfer data between different parts of a software application, serving as a container for data
 - **Advantages**:
