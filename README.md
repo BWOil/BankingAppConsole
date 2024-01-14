@@ -69,7 +69,7 @@ The console banking application is designed to provide basic banking functionali
     <li>Apply Separation of Concerns: Managers like <code>AccountManager</code>, <code>CustomerManager</code>, <code>TransactionManager</code>, and <code>LoginManager</code> each handle specific tasks, aligning with the Single Responsibility Principle.</li>
     <li>Simplify Interface for Users: The <code>LoadingData</code> and <code>RunProgram</code> methods are clear entry points for client code, with <code>LoadingData</code> handling data initialization/loading before program execution.</li>
   </ul>
-  <img src="design patterns/facade.png" alt="Facade Pattern Implementation Image"/>
+  <img src="design patterns/updated_facade.png" alt="Facade Pattern Implementation Image"/>
 </p>
 
 - **Additional Comments**:
