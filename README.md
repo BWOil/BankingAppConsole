@@ -12,7 +12,7 @@
 8. [Trello Board Screenshots](#trello-board-screenshots)
 
 ## 🔭 About the Project
-(Description of your project, its features, and its purpose.)
+The console banking application is designed to provide basic banking functionality through a text-based console interface. It allows customers to perform various banking operations such as depositing, withdrawing, transferring funds, checking their account statements, and logging out.
 
 ## Demo
 (If applicable, provide links or screenshots for a demo of the project.)
