@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Assignment1.Manager
 {
-    public class AccountManager
+    public class AccountManager: IManager<Account>
     {
 
         private readonly string _connectionString;
@@ -17,6 +17,18 @@ namespace Assignment1.Manager
         {
             _connectionString = connectionString;
             _transactionManager = new TransactionManager(connectionString);
+        }
+
+        public List<Account> GetAll()
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+
+            using var command = connection.CreateCommand();
+            command.CommandText = "select * from Account";
+
+            return ReturnList(command);
+
         }
 
         public List<Account> GetAccounts(int customerID)
@@ -71,7 +83,7 @@ namespace Assignment1.Manager
             return count < 2;
         }
 
-        public void InsertAccount(Account account)
+        public void Insert(Account account)
         {
             var balance = CalculateBalance(account);
 
@@ -157,7 +169,7 @@ namespace Assignment1.Manager
                 throw new InvalidOperationException("Invalid transaction type.");
             }
             UpdateAccount(account);
-            _transactionManager.InsertTransaction(transaction);
+            _transactionManager.Insert(transaction);
         }
 
         public void UpdateAccount(Account account)

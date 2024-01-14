@@ -24,7 +24,7 @@ namespace Assignment1
 
             while (continueLogin)
             {
-                var customerList = _customerManager.GetCustomers(); // Reload the customer list
+                var customerList = _customerManager.GetAll(); // Reload the customer list
                 Console.Write("Enter Login ID: ");
                 var loginID = Console.ReadLine();
 

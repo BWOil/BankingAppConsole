@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Assignment1.Manager
 {
 
-    public class CustomerManager
+    public class CustomerManager: IManager<Customer>
     {
         private readonly string _connectionString;
 
@@ -34,7 +34,7 @@ namespace Assignment1.Manager
             return count > 0;
         }
 
-        public List<Customer> GetCustomers()
+        public List<Customer> GetAll()
         {
             using var connection = new SqlConnection(_connectionString);
 
@@ -72,7 +72,7 @@ namespace Assignment1.Manager
             }).ToList();
         }
 
-        public void InsertCustomer(Customer customer)
+        public void Insert(Customer customer)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
