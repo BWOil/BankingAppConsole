@@ -2,17 +2,16 @@
 using Newtonsoft.Json;
 using Assignment1.Models;
 using Assignment1.Manager;
+using System.Threading.Tasks;
 
 namespace Assignment1.Services
 {
-
-
     public class CustomerWebService
     {
-        public static void GetAndSaveCustomer(
-        AccountManager accountManager, CustomerManager customerManager, LoginManager loginManager, TransactionManager transactionManager)
+        public static async Task GetAndSaveCustomer(
+            AccountManager accountManager, CustomerManager customerManager, LoginManager loginManager, TransactionManager transactionManager)
         {
-            // Check if any people already exist and if they do stop.
+            // Check if any people already exist and if they do, stop.
             if (customerManager.AnyExistingCustomer())
                 return;
 
@@ -20,7 +19,7 @@ namespace Assignment1.Services
 
             // Contact webservice.
             using var client = new HttpClient();
-            var json = client.GetStringAsync(Url).Result;
+            var json = await client.GetStringAsync(Url);
 
             // Convert JSON into objects.
             var customers = JsonConvert.DeserializeObject<List<Customer>>(json, new JsonSerializerSettings
@@ -29,10 +28,8 @@ namespace Assignment1.Services
             });
 
             // Insert into database.
-
             foreach (var customer in customers)
             {
-
                 // Insert customer
                 customerManager.Insert(customer);
 
@@ -53,18 +50,7 @@ namespace Assignment1.Services
                         transactionManager.Insert(transaction);
                     }
                 }
-
-
             }
-
-
         }
-
-
-
-
     }
-
-
-
 }
