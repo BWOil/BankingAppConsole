@@ -8,7 +8,6 @@ var connectionString = configuration.GetConnectionString(nameof(Assignment1));
 
 //DatabaseManager.CreateTables(connectionString);
 
-
 var facadeOperation = new FacadeOperation(connectionString);
 
 facadeOperation.LoadingData();
