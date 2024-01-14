@@ -1,8 +1,9 @@
-# s3959666-s3961136-a1
+# Authors: s3959666-s3961136-a1
 
-# projectname
+# Project Name: MCBA( Most Common Bank of Australia)
 
-# what it's about
+# what it's about?
+The console banking application is designed to provide basic banking functionality through a text-based console interface. It allows customers to perform various banking operations such as depositing, withdrawing, transferring funds, checking their account statements, and logging out.
 
 # built with
 
@@ -29,8 +30,9 @@ Additional comment:
 
 
 
-- Facade - Managers (Menu)
-Summary:
+2.Facade - Managers (Menu)
+Summary: 
+The Facade pattern simplifies interactions with a complex system by providing a single unified interface. This pattern hides the system's complexity and makes it more accessible and easier for clients to use.
 
 Purpose:
 
@@ -49,7 +51,7 @@ Additional comment:
 
 
 
-- Dependency injection - each Manager (create interface)
+3.Dependency injection - each Manager (create interface)
 Summary:
 
 Purpose:
@@ -64,6 +66,19 @@ Additional comment:
 
 
 
+4.Factory - 
+Summary: 
+The Factory Pattern is a design method where a superclass offers a way to create objects, but subclasses decide the specific types to create. This is useful when object types are only known at runtime, helping to organize and centralize object creation for more flexible and modular code.
+
+Purpose:
+
+Adavantage:
+
+
+Where in the code: (*add picture)
+
+
+Additional comment:
 
 
 
