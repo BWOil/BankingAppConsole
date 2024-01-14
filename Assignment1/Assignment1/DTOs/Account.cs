@@ -10,8 +10,6 @@ namespace Assignment1.Models
         public int CustomerID { get; set; }
         public decimal Balance { get; set; }
         public List<Transaction> Transactions { get; set; }
-
     }
-
 
 }

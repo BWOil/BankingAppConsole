@@ -9,20 +9,18 @@
 
   <ItemGroup>
     <None Remove="Manager\" />
-    <None Remove="Models\" />
     <None Remove="Services\" />
     <None Remove="Utilities\" />
     <None Remove="Sql\" />
     <None Remove=".gitignore" />
-    <None Remove="DTO\" />
+    <None Remove="DTOs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Manager\" />
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Utilities\" />
     <Folder Include="Sql\" />
-    <Folder Include="DTO\" />
+    <Folder Include="DTOs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SimpleHashing.Net" Version="2.1.0" />
