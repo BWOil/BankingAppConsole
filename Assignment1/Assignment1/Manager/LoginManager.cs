@@ -12,7 +12,7 @@ namespace Assignment1.Manager
 
 		public LoginManager(string connectionString)
 		{
-			_connectionString = connectionString;
+			_connectionString  = connectionString;
 		}
 
 		public List<Login> GetLogin()
