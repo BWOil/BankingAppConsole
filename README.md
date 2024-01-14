@@ -1,5 +1,8 @@
 # 🙋‍♀️ Authors: s3959666-s3961136-a1
 # 💸 MCBA (Most Common Bank of Australia)
+<p align="center">
+  <img src="trello-board/MCBA_logo.png" alt="Image" width="500"/>
+</p>
 
 ## 🔗 Table of Contents
 1. [About the Project](#about-the-project)
