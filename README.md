@@ -41,7 +41,7 @@ The console banking application is designed to provide basic banking functionali
 - **Implementation Details**:
 <p align="left">
   <img src="design patterns/DTO.png" alt="Image"/>
-  <img src="design patterns/ImplementDTOs.png" alt="Image"/>
+  <img src="design patterns/updated_ImplementDTOs.png" alt="Image"/>
 </p>
 - **Additional Comments**:
 
