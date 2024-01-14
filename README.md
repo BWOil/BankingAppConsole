@@ -104,6 +104,8 @@ The console banking application is designed to provide basic banking functionali
 - **Implementation Details**:
 <p align="left">
   <img src="Async-await/img/Async-await-example.png" alt="Image"/>
+  <img src="Async-await/img/calling GetAndSaveCustomer by using await1.png" alt="Image"/>
+  <img src="Async-await/img/calling GetAndSaveCustomer by using await2.png" alt="Image"/>
 </p>
 - **Additional Comments**:
 
